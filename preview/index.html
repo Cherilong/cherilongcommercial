@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!-- =========================================================
+     LOCAL / GITHUB PAGES PREVIEW of the BoldTrail homepage.
+     Loads boldtrail/custom-body-code.html into this page so you can see the
+     homepage without BoldTrail. Needs a web server (fetch is blocked on file://):
+       python3 -m http.server 8000   then open http://localhost:8000/preview/
+     ========================================================= -->
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Homepage Preview | Cheri Long Commercial</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/clc.css">
+  <style>body{margin:0;background:#FFFFFF}</style>
+</head>
+<body>
+<script>
+  fetch('../boldtrail/custom-body-code.html', { cache: 'no-store' })
+    .then(function (r) { return r.text(); })
+    .then(function (html) {
+      var start = html.indexOf('<div class="clc" id="clc-home">');
+      var end = html.indexOf('<!-- /#clc-home -->');
+      document.body.insertAdjacentHTML('beforeend', html.slice(start, end));
+      var s = document.createElement('script');
+      s.src = '../assets/js/clc.js?nocache=' + Date.now();
+      document.body.appendChild(s);
+    });
+</script>
+</body>
+</html>

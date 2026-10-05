@@ -1,0 +1,235 @@
+/* Cheri Long Commercial — shared styles (BoldTrail + subdomain pages)
+   VERSION 1001 — bump ?v= everywhere this file is referenced when you change it.
+
+   Layout: utility bar (socials + phone) → flat one-row nav + CTA → dark hero with credentials →
+   4-col services → filterable listings → Meet Cheri & team → gated checklists → newsletter → dark footer.
+   Everything is scoped under .clc so it can't clash with BoldTrail's theme. */
+.clc{
+  --clc-black:#000000;
+  --clc-red:#EA002A;
+  --clc-red-dk:#C20023;      /* hover only */
+  --clc-white:#FFFFFF;
+  --clc-warm:#6B6660;
+  --clc-taupe:#A89E92;
+  --clc-stone:#D6D1C8;
+  --clc-light:#EFEFEF;
+  --clc-display:'Raleway', 'Helvetica Neue', Arial, sans-serif;
+  --clc-body:'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --clc-wrap:1200px;
+  color-scheme:light;
+  background:var(--clc-white);color:var(--clc-black);
+  font:400 18px/1.6 var(--clc-body);   /* 18px base: easier reading for every age */
+  -webkit-font-smoothing:antialiased;
+}
+.clc *,.clc *::before,.clc *::after{box-sizing:border-box}
+.clc a{color:inherit;text-decoration:none}
+.clc a:focus-visible,.clc button:focus-visible,.clc input:focus-visible,.clc select:focus-visible{outline:3px solid var(--clc-red);outline-offset:3px}
+.clc .clc-wrap{max-width:var(--clc-wrap);margin-inline:auto;padding-inline:24px}
+.clc h1,.clc h2,.clc h3{font-family:var(--clc-display);margin:0;text-wrap:balance;line-height:1.15}
+.clc .clc-eyebrow{font:700 .78rem var(--clc-display);letter-spacing:.18em;text-transform:uppercase;color:var(--clc-red);margin:0 0 12px}
+.clc .clc-section{padding-block:88px}
+.clc .clc-section h2{font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:700}
+.clc .clc-lede{color:var(--clc-warm);max-width:60ch;margin:16px 0 0;font-size:1.08rem}
+
+/* Buttons */
+.clc .clc-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 28px;border-radius:4px;border:2px solid transparent;
+  font:700 .95rem var(--clc-display);letter-spacing:.06em;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.clc .clc-btn-red{background:var(--clc-red);color:var(--clc-white)}
+.clc .clc-btn-red:hover{background:var(--clc-red-dk)}
+.clc .clc-btn-ghost{border-color:var(--clc-white);color:var(--clc-white);background:transparent}
+.clc .clc-btn-ghost:hover{background:var(--clc-white);color:var(--clc-black)}
+.clc .clc-btn-dark{background:var(--clc-black);color:var(--clc-white)}
+.clc .clc-btn-dark:hover{background:var(--clc-warm)}
+
+/* ---- Utility bar ---- */
+.clc .clc-util{background:var(--clc-black);color:var(--clc-white);font-size:.95rem}
+.clc .clc-util .clc-wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-block:10px}
+.clc .clc-social{display:flex;gap:6px}
+.clc .clc-social a{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;transition:background .2s}
+.clc .clc-social a:hover{background:var(--clc-red)}
+.clc .clc-social svg{width:20px;height:20px;fill:currentColor}
+.clc .clc-util-right{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.clc .clc-util-right a:hover{color:var(--clc-stone)}
+.clc .clc-tel{font-variant-numeric:tabular-nums;font-weight:500}
+
+/* ---- Main header: flat nav, no dropdowns ---- */
+.clc .clc-head{background:var(--clc-white);border-bottom:1px solid var(--clc-stone)}
+#clc-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9000}
+/* Row 1: brand + call to action. Row 2: the six menu items in one full-width row. */
+.clc .clc-head-top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:18px}
+.clc .clc-brand{display:flex;flex-direction:column;line-height:1.1;flex:none}
+.clc .clc-brand b{font:800 1.45rem var(--clc-display);letter-spacing:.01em}
+.clc .clc-brand span{font:600 .72rem var(--clc-display);letter-spacing:.2em;text-transform:uppercase;color:var(--clc-warm);margin-top:4px}
+.clc .clc-brand i{color:var(--clc-red);font-style:normal}
+.clc .clc-head-top .clc-btn{min-height:48px;flex:none}
+.clc .clc-nav{border-top:1px solid var(--clc-stone)}
+.clc .clc-nav ul{list-style:none;margin:0;padding:0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:2px}
+.clc .clc-nav ul a{display:block;padding:14px 4px 11px;font:600 1.02rem var(--clc-display);border-bottom:3px solid transparent}
+.clc .clc-nav ul a:hover{color:var(--clc-red)}
+.clc .clc-nav ul a[aria-current]{border-bottom-color:var(--clc-red)}
+
+/* ---- Hero ---- */
+.clc .clc-hero{position:relative;background:var(--clc-black);color:var(--clc-white);overflow:hidden}
+.clc .clc-hero-photo{position:absolute;inset:0;
+  background:linear-gradient(90deg,rgb(0 0 0 / .92) 0%,rgb(0 0 0 / .7) 50%,rgb(0 0 0 / .35) 100%),
+             linear-gradient(160deg,#3a3633 0%,#6B6660 55%,#A89E92 100%);}
+/* Swap in Cheri's hero photo:
+   background: linear-gradient(90deg,rgb(0 0 0 / .92),rgb(0 0 0 / .35)), url("https://…/hero.jpg") center/cover; */
+.clc .clc-skyline{position:absolute;right:0;bottom:0;width:70%;height:65%;opacity:.5}
+.clc .clc-hero .clc-wrap{position:relative;padding-block:clamp(72px,10vw,128px) 0}
+.clc .clc-hero h1{font-size:clamp(2.3rem,5.4vw,4rem);font-weight:800;max-width:17ch;letter-spacing:-.01em}
+.clc .clc-hero h1 em{font-style:normal;color:var(--clc-red)}
+.clc .clc-hero p.clc-sub{font-size:clamp(1.08rem,1.6vw,1.25rem);max-width:52ch;margin:22px 0 34px;color:var(--clc-stone)}
+.clc .clc-hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.clc .clc-creds{position:relative;margin-top:clamp(56px,8vw,96px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid rgb(255 255 255 / .2)}
+.clc .clc-cred{padding:26px 22px 30px 0}
+.clc .clc-cred + .clc-cred{padding-left:22px;border-left:1px solid rgb(255 255 255 / .2)}
+.clc .clc-cred b{display:block;font:800 2.2rem/1 var(--clc-display);color:var(--clc-white);margin-bottom:8px;font-variant-numeric:tabular-nums}
+.clc .clc-cred span{color:var(--clc-stone);font-size:.98rem}
+
+/* ---- Services (light) ---- */
+.clc .clc-services{background:var(--clc-light)}
+.clc .clc-svc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:44px}
+.clc .clc-svc{background:var(--clc-white);border-top:4px solid var(--clc-red);padding:30px 26px 32px;display:flex;flex-direction:column;gap:12px}
+.clc .clc-svc svg{width:38px;height:38px;stroke:var(--clc-black);fill:none;stroke-width:1.6}
+.clc .clc-svc h3{font-size:1.25rem;font-weight:700}
+.clc .clc-svc p{margin:0;color:var(--clc-warm);font-size:1rem}
+.clc .clc-svc a{margin-top:auto;font:700 .92rem var(--clc-display);color:var(--clc-red)}
+.clc .clc-svc a:hover{text-decoration:underline}
+
+/* ---- Listings ---- */
+.clc .clc-list-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.clc .clc-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
+.clc .clc-tab{min-height:48px;padding:0 20px;border:2px solid var(--clc-stone);background:var(--clc-white);border-radius:40px;font:600 .98rem var(--clc-display);cursor:pointer;color:var(--clc-black)}
+.clc .clc-tab:hover{border-color:var(--clc-black)}
+.clc .clc-tab[aria-pressed="true"]{background:var(--clc-black);border-color:var(--clc-black);color:var(--clc-white)}
+.clc .clc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:32px}
+.clc .clc-card{border:1px solid var(--clc-stone);background:var(--clc-white);display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+.clc .clc-card:hover{box-shadow:0 10px 30px rgb(0 0 0 / .1);transform:translateY(-2px)}
+.clc .clc-ph{aspect-ratio:16/10;max-width:100%;position:relative;background:linear-gradient(135deg,var(--clc-stone),var(--clc-taupe));display:grid;place-items:center;color:var(--clc-white);font:600 .8rem var(--clc-display);letter-spacing:.14em;text-transform:uppercase}
+.clc .clc-badge{position:absolute;top:14px;left:14px;padding:6px 12px;font:700 .75rem var(--clc-display);letter-spacing:.12em;text-transform:uppercase;background:var(--clc-white);color:var(--clc-black)}
+.clc .clc-badge.lease{background:var(--clc-black);color:var(--clc-white)}
+.clc .clc-badge.sold{background:var(--clc-red);color:var(--clc-white)}
+.clc .clc-card-body{padding:22px 22px 24px;display:flex;flex-direction:column;gap:6px;flex:1}
+.clc .clc-type{font:700 .75rem var(--clc-display);letter-spacing:.14em;text-transform:uppercase;color:var(--clc-warm)}
+.clc .clc-card h3{font-size:1.2rem;font-weight:700}
+.clc .clc-addr{color:var(--clc-warm);font-size:.98rem;margin:0}
+.clc .clc-facts{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--clc-light);margin-top:auto;padding-top:14px;font-variant-numeric:tabular-nums}
+.clc .clc-facts b{font-family:var(--clc-display);font-size:1.12rem}
+.clc .clc-empty{grid-column:1/-1;padding:40px;text-align:center;color:var(--clc-warm);border:1px dashed var(--clc-stone)}
+.clc .clc-note{margin-top:22px;font-size:.88rem;color:var(--clc-warm)}
+
+/* ---- Meet Cheri & team ---- */
+.clc .clc-team{background:var(--clc-light)}
+.clc .clc-bio{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;align-items:center}
+.clc .clc-portrait{aspect-ratio:4/5;max-width:100%;background:linear-gradient(170deg,var(--clc-taupe),var(--clc-warm));display:grid;place-items:end start;padding:22px;color:var(--clc-white);font:600 .8rem var(--clc-display);letter-spacing:.14em;text-transform:uppercase}
+.clc .clc-bio-text{min-width:0}
+.clc .clc-bio-text p{margin:18px 0 0;max-width:60ch}
+.clc .clc-role{font:600 1rem var(--clc-display);color:var(--clc-warm);margin-top:8px}
+.clc .clc-bio .clc-social{margin-top:26px}
+.clc .clc-bio .clc-social a{background:var(--clc-black);color:var(--clc-white);width:48px;height:48px}
+.clc .clc-bio .clc-social a:hover{background:var(--clc-red)}
+.clc .clc-team-h{margin-top:72px;font-size:1.5rem;font-weight:700}
+.clc .clc-team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:24px}
+.clc .clc-person{background:var(--clc-white);padding:24px;display:flex;gap:18px;align-items:center}
+.clc .clc-avatar{width:72px;height:72px;border-radius:50%;flex:none;background:var(--clc-stone);display:grid;place-items:center;font:700 1.2rem var(--clc-display);color:var(--clc-warm)}
+.clc .clc-person div{min-width:0}
+.clc .clc-person b{display:block;font:700 1.1rem var(--clc-display)}
+.clc .clc-person span{display:block;color:var(--clc-warm);font-size:.95rem}
+.clc .clc-person small{display:block;margin-top:6px;font-size:.88rem;color:var(--clc-black)}
+
+/* ---- Lead magnet (dark) ---- */
+.clc .clc-magnet{background:var(--clc-black);color:var(--clc-white)}
+.clc .clc-magnet h2{max-width:24ch}
+.clc .clc-magnet .clc-lede{color:var(--clc-stone)}
+.clc .clc-mag-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;margin-top:44px;align-items:start}
+.clc .clc-guides{display:grid;gap:16px}
+.clc .clc-guide{display:flex;gap:18px;align-items:center;text-align:left;width:100%;padding:22px;border:2px solid rgb(255 255 255 / .25);background:transparent;color:var(--clc-white);cursor:pointer;font:inherit;transition:border-color .2s,background .2s}
+.clc .clc-guide:hover{border-color:var(--clc-white)}
+.clc .clc-guide[aria-pressed="true"]{border-color:var(--clc-red);background:rgb(234 0 42 / .12)}
+.clc .clc-pdf{width:54px;height:68px;flex:none;background:var(--clc-white);color:var(--clc-red);display:grid;place-items:center;font:800 .8rem var(--clc-display);clip-path:polygon(0 0,72% 0,100% 22%,100% 100%,0 100%)}
+.clc .clc-guide b{display:block;font:700 1.1rem var(--clc-display)}
+.clc .clc-guide span{display:block;color:var(--clc-stone);font-size:.95rem;margin-top:4px}
+.clc .clc-form{background:var(--clc-white);color:var(--clc-black);padding:32px;display:grid;gap:18px}
+.clc .clc-form h3{font-size:1.3rem}
+.clc .clc-field{display:grid;gap:6px}
+.clc .clc-field label{font:600 .95rem var(--clc-display)}
+.clc .clc-field input,.clc .clc-field select{min-height:52px;padding:0 14px;border:2px solid var(--clc-stone);border-radius:4px;font:inherit;background:var(--clc-white);color:var(--clc-black);width:100%}
+.clc .clc-field input:focus,.clc .clc-field select:focus{border-color:var(--clc-black)}
+.clc .clc-check{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;color:var(--clc-warm)}
+.clc .clc-check input{width:20px;height:20px;margin-top:2px;accent-color:var(--clc-red);flex:none}
+.clc .clc-msg{min-height:1.4em;font-weight:500;color:var(--clc-black)}
+
+/* ---- Newsletter strip ---- */
+.clc .clc-news{background:var(--clc-red);color:var(--clc-white);padding-block:56px}
+.clc .clc-news .clc-wrap{display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap}
+.clc .clc-news h2{font-size:clamp(1.5rem,2.6vw,2rem);font-weight:700}
+.clc .clc-news p{margin:8px 0 0}
+.clc .clc-news form{display:flex;gap:12px;flex:1;max-width:520px;min-width:min(100%,320px)}
+.clc .clc-news input{flex:1;min-width:0;min-height:52px;padding:0 16px;border:0;border-radius:4px;font:inherit}
+.clc .clc-news-msg{flex-basis:100%;min-height:1.4em}
+
+/* ---- Footer (dark) ---- */
+.clc .clc-foot{background:var(--clc-black);color:var(--clc-stone);padding-block:72px 40px;font-size:.98rem}
+.clc .clc-foot-grid{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr));gap:40px}
+.clc .clc-foot .clc-brand b{color:var(--clc-white)}
+.clc .clc-foot .clc-brand span{color:var(--clc-taupe)}
+.clc .clc-foot h4{font:700 .8rem var(--clc-display);letter-spacing:.16em;text-transform:uppercase;color:var(--clc-white);margin:0 0 14px}
+.clc .clc-foot p{margin:0 0 6px}
+.clc .clc-foot a:hover{color:var(--clc-white)}
+.clc .clc-foot .clc-social{margin-top:20px;color:var(--clc-white)}
+.clc .clc-legal{margin-top:56px;padding-top:28px;border-top:1px solid rgb(255 255 255 / .15);font-size:.82rem;color:var(--clc-taupe);display:grid;gap:10px}
+.clc .clc-legal p{margin:0;max-width:110ch}
+.clc .clc-legal nav{display:flex;gap:20px;flex-wrap:wrap}
+.clc .clc-legal nav a{text-decoration:underline}
+
+/* ---- Responsive ---- */
+@media (max-width:1080px){
+  .clc .clc-nav ul{justify-content:flex-start;gap:2px 22px}
+  .clc .clc-svc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .clc .clc-grid,.clc .clc-team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .clc .clc-foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:760px){
+  .clc{font-size:17px}
+  #clc-header{position:static}
+  /* Nav stays fully visible on phones (no hamburger): two-column grid of big tap targets */
+  .clc .clc-head-top{flex-direction:column;align-items:stretch;gap:14px}
+  .clc .clc-nav{border-top:0;padding-bottom:12px}
+  .clc .clc-nav ul{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+  .clc .clc-nav ul a{background:var(--clc-light);padding:12px 14px}
+  .clc .clc-creds{grid-template-columns:1fr 1fr}
+  .clc .clc-cred:nth-child(3){padding-left:0;border-left:0}
+  .clc .clc-cred:nth-child(n+3){border-top:1px solid rgb(255 255 255 / .2)}
+  .clc .clc-svc-grid,.clc .clc-grid,.clc .clc-team-grid,.clc .clc-bio,.clc .clc-mag-grid,.clc .clc-foot-grid{grid-template-columns:1fr}
+  .clc .clc-bio{gap:32px}
+  .clc .clc-portrait{max-width:360px}
+  .clc .clc-news form{flex-direction:column;min-width:100%}
+  .clc .clc-section{padding-block:64px}
+}
+@media (prefers-reduced-motion:reduce){.clc *{transition:none!important}}
+
+/* ---- Hide BoldTrail's native header once ours is in (same selectors as RLS header.css v1016) ---- */
+body.has-clc-header #header,
+body.has-clc-header div#header,
+body.has-clc-header .site-header,
+body.has-clc-header .kv-header,
+body.has-clc-header #quick-search,
+body.has-clc-header #fixed-header-spacer,
+body.has-clc-header .page-wrapper > #header{display:none !important;visibility:hidden !important;height:0 !important}
+body.has-clc-header .header-spacer,
+body.has-clc-header .sticky-spacer,
+body.has-clc-header .kv-sticky-spacer{height:0 !important;min-height:0 !important;padding:0 !important;margin:0 !important}
+/* Homepage only: hide BoldTrail's empty search shell. Add any other default homepage blocks here. */
+body.clc-is-home #horizontal-search{display:none !important}
+
+/* ---- Subdomain page pieces ---- */
+.clc .clc-hero--page .clc-wrap{padding-block:clamp(56px,8vw,96px)}
+.clc .clc-hero--page h1{font-size:clamp(2rem,4.4vw,3.2rem)}
+.clc .clc-hero--page p.clc-sub{margin-bottom:0}
+.clc .clc-prose{max-width:68ch}
+.clc .clc-prose h2{margin:48px 0 14px;font-size:clamp(1.5rem,2.6vw,2rem)}
+.clc .clc-prose h2:first-child{margin-top:0}
+.clc .clc-prose p,.clc .clc-prose li{color:#2b2927}
+.clc .clc-prose ul{padding-left:1.2em}
+.clc .clc-cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px}

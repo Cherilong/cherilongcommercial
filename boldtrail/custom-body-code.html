@@ -1,0 +1,207 @@
+<!-- =========================================================
+     Cheri Long Commercial — BoldTrail > Custom Body Code
+     Paste this whole file into the Custom Body Code field.
+
+     - #clc-home holds the homepage sections. clc.js keeps it on the
+       homepage only and moves it directly under the header.
+     - The header and the contact/legal section are NOT here; clc.js builds them.
+     - BoldTrail strips <script> from page HTML blocks, but this field keeps it.
+     ========================================================= -->
+
+<div class="clc" id="clc-home">
+
+  <!-- ===== HERO ===== -->
+  <section class="clc-hero">
+    <div class="clc-hero-photo" aria-hidden="true"></div>
+    <svg class="clc-skyline" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="#000000" d="M0 300V190h60v-40h40v60h50V120h70v90h40v-60h60V80h30V40h20v40h30v130h50v-70h80v70h40V100h90v110h40v-50h60v50h40V60h50v-30h20v30h40v150h50v-80h70v80h40v-40h60v90z"/>
+    </svg>
+    <div class="clc-wrap">
+      <p class="clc-eyebrow">Calgary Commercial Real Estate</p>
+      <h1>Trusted advice in Commercial, Industrial, Retail <em>&amp;</em> Land.</h1>
+      <p class="clc-sub">Buying, selling, leasing or building, one experienced team handles every type of commercial property in Calgary and area.</p>
+      <div class="clc-hero-ctas">
+        <a class="clc-btn clc-btn-red" href="#clc-contact">Talk to Our Team</a>
+        <a class="clc-btn clc-btn-ghost" href="#clc-listings">Browse Listings</a>
+      </div>
+      <div class="clc-creds">
+        <div class="clc-cred"><b>30+</b><span>years in commercial real estate</span></div>
+        <div class="clc-cred"><b>YYC</b><span>Calgarian for most of her life</span></div>
+        <div class="clc-cred"><b>Referral</b><span>most business comes from past clients</span></div>
+        <div class="clc-cred"><b>4</b><span>sectors: commercial, industrial, retail, land</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION B: CORE SERVICES (4-column, light) ===== -->
+  <section class="clc-section clc-services" id="clc-services">
+    <div class="clc-wrap">
+      <p class="clc-eyebrow">Services</p>
+      <h2>Every side of a commercial deal</h2>
+      <div class="clc-svc-grid">
+        <article class="clc-svc">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 36V16l10-6v8l10-6v8l10-6v22z"/><path d="M10 28h4M18 28h4M26 28h4"/></svg>
+          <h3>Commercial &amp; Industrial Sales / Buying</h3>
+          <p>Pricing, marketing and negotiation for owners, plus search and due diligence for buyers and investors.</p>
+          <a href="#clc-contact">Discuss a sale or purchase →</a>
+        </article>
+        <article class="clc-svc">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="6" width="28" height="30"/><path d="M12 12h6M22 12h6M12 19h6M22 19h6M12 26h6M22 26h6"/></svg>
+          <h3>Commercial Leasing</h3>
+          <p>Landlord and tenant representation: finding space, filling vacancies and negotiating lease terms.</p>
+          <a href="#clc-contact">Talk about leasing →</a>
+        </article>
+        <article class="clc-svc">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 32l10-14 8 9 6-6 8 11z"/><circle cx="29" cy="11" r="4"/></svg>
+          <h3>Land &amp; Development Sites</h3>
+          <p>Acquisition and disposition of raw land and development parcels across Calgary and surrounding areas.</p>
+          <a href="#clc-contact">Ask about land →</a>
+        </article>
+        <article class="clc-svc">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="13" width="30" height="21" rx="2"/><path d="M15 13V8h10v5M5 22h30"/></svg>
+          <h3>Business Brokerage &amp; Private Advisory</h3>
+          <p>Confidential sale of operating businesses and private advice on property and portfolio decisions.</p>
+          <a href="#clc-contact">Start a confidential conversation →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION: ACTIVE LISTINGS (filterable) =====
+       Sample cards below. Replace with your feed (BoldTrail IDX or a Google Sheet). -->
+  <section class="clc-section" id="clc-listings">
+    <div class="clc-wrap">
+      <div class="clc-list-head">
+        <div>
+          <p class="clc-eyebrow">Listings</p>
+          <h2>Active properties</h2>
+        </div>
+        <a class="clc-btn clc-btn-dark" href="#">View all listings</a>
+      </div>
+      <div class="clc-tabs" role="group" aria-label="Filter listings">
+        <button class="clc-tab" data-f="all" aria-pressed="true">All</button>
+        <button class="clc-tab" data-f="buy" aria-pressed="false">Buy</button>
+        <button class="clc-tab" data-f="lease" aria-pressed="false">Lease</button>
+        <button class="clc-tab" data-f="industrial" aria-pressed="false">Commercial / Industrial</button>
+        <button class="clc-tab" data-f="retail" aria-pressed="false">Retail</button>
+        <button class="clc-tab" data-f="land" aria-pressed="false">Land</button>
+        <button class="clc-tab" data-f="business" aria-pressed="false">Businesses</button>
+      </div>
+      <div class="clc-grid" id="clc-grid">
+        <article class="clc-card" data-tags="buy industrial">
+          <div class="clc-ph">Photo<span class="clc-badge">For Sale</span></div>
+          <div class="clc-card-body"><span class="clc-type">Industrial</span><h3>Freestanding Warehouse with Yard</h3><p class="clc-addr">Foothills Industrial, Calgary</p>
+            <div class="clc-facts"><span><b>$4,250,000</b></span><span>18,400 sq ft</span></div></div>
+        </article>
+        <article class="clc-card" data-tags="lease retail">
+          <div class="clc-ph">Photo<span class="clc-badge lease">For Lease</span></div>
+          <div class="clc-card-body"><span class="clc-type">Retail</span><h3>End-Cap Retail Bay</h3><p class="clc-addr">Seton, Calgary</p>
+            <div class="clc-facts"><span><b>$32.00</b> /sq ft/yr</span><span>2,150 sq ft</span></div></div>
+        </article>
+        <article class="clc-card" data-tags="buy land">
+          <div class="clc-ph">Photo<span class="clc-badge">For Sale</span></div>
+          <div class="clc-card-body"><span class="clc-type">Land</span><h3>Development Parcel, I-G Zoned</h3><p class="clc-addr">Balzac, Rocky View County</p>
+            <div class="clc-facts"><span><b>$1,890,000</b></span><span>4.2 acres</span></div></div>
+        </article>
+        <article class="clc-card" data-tags="lease industrial">
+          <div class="clc-ph">Photo<span class="clc-badge lease">For Lease</span></div>
+          <div class="clc-card-body"><span class="clc-type">Industrial</span><h3>Bay with Dock &amp; Drive-In Doors</h3><p class="clc-addr">Northeast Calgary</p>
+            <div class="clc-facts"><span><b>$14.50</b> /sq ft/yr</span><span>6,000 sq ft</span></div></div>
+        </article>
+        <article class="clc-card" data-tags="buy business">
+          <div class="clc-ph">Photo<span class="clc-badge">For Sale</span></div>
+          <div class="clc-card-body"><span class="clc-type">Business</span><h3>Established Café, Turnkey</h3><p class="clc-addr">Inner City, Calgary</p>
+            <div class="clc-facts"><span><b>$275,000</b></span><span>Confidential</span></div></div>
+        </article>
+        <article class="clc-card" data-tags="buy retail sold">
+          <div class="clc-ph">Photo<span class="clc-badge sold">Sold</span></div>
+          <div class="clc-card-body"><span class="clc-type">Retail</span><h3>Strip Centre, Fully Leased</h3><p class="clc-addr">Okotoks</p>
+            <div class="clc-facts"><span><b>Sold</b></span><span>11,800 sq ft</span></div></div>
+        </article>
+        <p class="clc-empty" id="clc-empty" hidden>No listings in this category right now. <a href="#clc-contact"><u>Tell us what you're looking for</u></a> and we'll watch for it.</p>
+      </div>
+      <p class="clc-note">Example listings for layout only.</p>
+    </div>
+  </section>
+
+  <!-- ===== SECTION: MEET CHERI & THE TEAM ===== -->
+  <section class="clc-section clc-team" id="clc-team">
+    <div class="clc-wrap">
+      <div class="clc-bio">
+        <div class="clc-portrait">Portrait of Cheri</div>
+        <div class="clc-bio-text">
+          <p class="clc-eyebrow">Meet Cheri</p>
+          <h2>Cheri Long</h2>
+          <div class="clc-role">Associate Broker, Royal LePage® Commercial</div>
+          <p>Cheri has spent more than 30 years in Calgary commercial real estate, and most of her life in the city itself. That history shows up in the details: she knows which areas are growing, which buildings have stories, and who to call.</p>
+          <p>Most of her business comes from referrals. Clients come back, and send their colleagues, because she puts their goals first and tells them plainly what a property is worth and what a deal will take.</p>
+          <div class="clc-social" aria-label="Cheri on social media">
+            <a href="#" aria-label="Facebook"><svg><use href="#clc-fb"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg><use href="#clc-ig"/></svg></a>
+            <a href="#" aria-label="LinkedIn"><svg><use href="#clc-li"/></svg></a>
+            <a href="#" aria-label="YouTube (coming soon)"><svg><use href="#clc-yt"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="clc-team-h">Your team</h3>
+      <div class="clc-team-grid">
+        <div class="clc-person"><div class="clc-avatar">AB</div><div><b>Agent Name</b><span>Commercial Agent</span><small>Site visits &amp; showings</small></div></div>
+        <div class="clc-person"><div class="clc-avatar">CD</div><div><b>Agent Name</b><span>Commercial Agent</span><small>Leasing &amp; tenant rep</small></div></div>
+        <div class="clc-person"><div class="clc-avatar">V</div><div><b>Vic</b><span>Administration</span><small>Contracts, scheduling &amp; general inquiries</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION: LEAD MAGNET (gated downloads) ===== -->
+  <section class="clc-section clc-magnet" id="clc-guides">
+    <div class="clc-wrap">
+      <p class="clc-eyebrow">Free resources</p>
+      <h2>Planning your next commercial move?</h2>
+      <p class="clc-lede">Buying an investment property, leasing your first space, or getting a building ready to sell or lease? Download our free industry checklists.</p>
+      <div class="clc-mag-grid">
+        <div class="clc-guides" role="group" aria-label="Choose a checklist">
+          <button class="clc-guide" data-g="Commercial Seller & Landlord Readiness Checklist" aria-pressed="true">
+            <span class="clc-pdf">PDF</span>
+            <span><b>Commercial Seller &amp; Landlord Readiness Checklist</b><span>What to prepare before you list a property for sale or lease.</span></span>
+          </button>
+          <button class="clc-guide" data-g="Commercial Buyer & Tenant Due Diligence Guide" aria-pressed="false">
+            <span class="clc-pdf">PDF</span>
+            <span><b>Commercial Buyer &amp; Tenant Due Diligence Guide</b><span>Questions to ask and documents to request before you commit.</span></span>
+          </button>
+        </div>
+        <form class="clc-form" id="clc-mag-form" novalidate>
+          <h3>Send me the checklist</h3>
+          <input type="hidden" id="clc-guide" name="guide" value="Commercial Seller & Landlord Readiness Checklist">
+          <div class="clc-field"><label for="clc-fname">First name</label><input id="clc-fname" name="first_name" autocomplete="given-name" required></div>
+          <div class="clc-field"><label for="clc-memail">Email address</label><input id="clc-memail" name="email" type="email" autocomplete="email" required></div>
+          <div class="clc-field"><label for="clc-intent">I am looking to</label>
+            <select id="clc-intent" name="intent" required><option value="">Choose one</option><option>Buy</option><option>Sell</option><option>Lease</option></select></div>
+          <label class="clc-check"><input type="checkbox" id="clc-optin" name="newsletter"> Also send me Cheri's market newsletter. You can unsubscribe anytime.</label>
+          <button class="clc-btn clc-btn-red" type="submit">Email me the PDF</button>
+          <div class="clc-msg" id="clc-mag-msg" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NEWSLETTER STRIP ===== -->
+  <section class="clc-news" id="clc-newsletter">
+    <div class="clc-wrap">
+      <div>
+        <h2>Calgary commercial market updates</h2>
+        <p>New listings, lease rates and market news, a few times a year.</p>
+      </div>
+      <form id="clc-news-form" novalidate>
+        <label for="clc-nemail" hidden>Email address</label>
+        <input id="clc-nemail" type="email" placeholder="Your email address" autocomplete="email" required>
+        <button class="clc-btn clc-btn-dark" type="submit">Subscribe</button>
+        <div class="clc-news-msg" id="clc-news-msg" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+  <!-- Contact & legal section is added here automatically by clc.js -->
+
+</div><!-- /#clc-home -->
+
+<script src="https://{{SUBDOMAIN}}/assets/js/clc.js?v=1001"></script>
