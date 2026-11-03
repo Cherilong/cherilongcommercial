@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<!-- Subdomain root. Sends visitors to Cheri's main BoldTrail site. -->
+<!-- info.cherilongcommercial.com root: sends visitors straight to Cheri's main BoldTrail site.
+     Custom pages live under /pages/<page-name>/ and are not affected. -->
 <html lang="en-CA">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cheri Long Commercial</title>
   <meta name="robots" content="noindex">
-  <meta http-equiv="refresh" content="0; url=https://{{BOLDTRAIL_DOMAIN}}/">
-  <link rel="canonical" href="https://{{BOLDTRAIL_DOMAIN}}/">
+  <link rel="canonical" href="https://cherilongcommercial.com/">
+  <meta http-equiv="refresh" content="0; url=https://cherilongcommercial.com/">
+  <script>location.replace('https://cherilongcommercial.com/' + location.hash);</script>
 </head>
 <body>
-  <p><a href="https://{{BOLDTRAIL_DOMAIN}}/">Continue to Cheri Long Commercial</a></p>
+  <p><a href="https://cherilongcommercial.com/">Continue to Cheri Long Commercial</a></p>
 </body>
 </html>
