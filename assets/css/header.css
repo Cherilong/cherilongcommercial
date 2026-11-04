@@ -1,0 +1,114 @@
+/* =========================================================
+   Cheri Long Commercial - Custom Header
+   v1002 - No style changes (version kept in step with header.js).
+   v1001 - Utility bar (socials, newsletter, phone) + white header:
+           row 1 brand + "Talk to Our Team", row 2 flat menu
+           (no dropdowns; stays visible on phones, no hamburger).
+           Sits in the page flow (not fixed), so BoldTrail needs
+           no body padding. Hides BoldTrail's native header only
+           after ours injects (body.has-clc-header).
+   Loaded by BoldTrail > Custom Header Code and by subdomain pages.
+   ========================================================= */
+:root {
+  --clc-black:   #000000;
+  --clc-red:     #EA002A;
+  --clc-red-dk:  #C20023;   /* hover only */
+  --clc-white:   #FFFFFF;
+  --clc-warm:    #6B6660;
+  --clc-taupe:   #A89E92;
+  --clc-stone:   #D6D1C8;
+  --clc-light:   #EFEFEF;
+  --clc-display: 'Raleway', 'Helvetica Neue', Arial, sans-serif;
+  --clc-body:    'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --clc-wrap:    1200px;
+}
+
+/* ─────────────────────────────────────────────────────────
+   1) Hide BoldTrail's native header ONLY after ours injects
+   ───────────────────────────────────────────────────────── */
+body.has-clc-header #header,
+body.has-clc-header div#header,
+body.has-clc-header .site-header,
+body.has-clc-header .kv-header,
+body.has-clc-header #quick-search,
+body.has-clc-header #fixed-header-spacer,
+body.has-clc-header .page-wrapper > #header {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+}
+body.has-clc-header .header-spacer,
+body.has-clc-header .sticky-spacer,
+body.has-clc-header .kv-sticky-spacer {
+  height: 0 !important; min-height: 0 !important; padding: 0 !important; margin: 0 !important;
+}
+
+/* ─────────────────────────────────────────────────────────
+   2) Base (scoped to our header blocks)
+   ───────────────────────────────────────────────────────── */
+#clc-topbar, #clc-header {
+  font: 400 18px/1.5 var(--clc-body);
+  color: var(--clc-black);
+  -webkit-font-smoothing: antialiased;
+}
+#clc-topbar *, #clc-header * { box-sizing: border-box; }
+#clc-topbar a, #clc-header a { color: inherit !important; text-decoration: none !important; }
+#clc-topbar a:focus-visible, #clc-header a:focus-visible { outline: 3px solid var(--clc-red); outline-offset: 3px; }
+#clc-topbar .clc-wrap, #clc-header .clc-wrap { max-width: var(--clc-wrap); margin: 0 auto; padding: 0 24px; }
+
+/* ─────────────────────────────────────────────────────────
+   3) Utility bar
+   ───────────────────────────────────────────────────────── */
+#clc-topbar { background: var(--clc-black); color: var(--clc-white); font-size: 15px; }
+#clc-topbar .clc-wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding-top: 8px; padding-bottom: 8px; }
+.clc-social { display: flex; gap: 6px; }
+.clc-social a { width: 40px; height: 40px; display: grid !important; place-items: center; border-radius: 50%; transition: background .2s; color: var(--clc-white) !important; }
+.clc-social a:hover { background: var(--clc-red); }
+.clc-social svg { width: 20px; height: 20px; fill: currentColor; }
+#clc-topbar .clc-util-right { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+#clc-topbar .clc-util-right a:hover { color: var(--clc-stone) !important; }
+#clc-topbar .clc-call { white-space: nowrap; }
+.clc-tel { font-variant-numeric: tabular-nums; font-weight: 500; user-select: all; }
+
+/* ─────────────────────────────────────────────────────────
+   4) Header
+   ───────────────────────────────────────────────────────── */
+#clc-header { position: sticky; top: 0; z-index: 9000; background: var(--clc-white); border-bottom: 1px solid var(--clc-stone); }
+#clc-header .clc-head-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 18px; padding-bottom: 18px; }
+.clc-brand { display: flex; flex-direction: column; line-height: 1.1; flex: none; }
+.clc-brand b { font: 800 1.45rem var(--clc-display); letter-spacing: .01em; }
+.clc-brand span { font: 600 .72rem var(--clc-display); letter-spacing: .2em; text-transform: uppercase; color: var(--clc-warm); margin-top: 4px; }
+.clc-brand i { color: var(--clc-red); font-style: normal; }
+.clc-brand img { display: block; height: 56px; width: auto; max-width: 100%; }
+
+/* Skip link: hidden until a keyboard user tabs to it */
+.clc-skip {
+  position: absolute; left: 16px; top: -60px; z-index: 10001;
+  background: var(--clc-black); color: var(--clc-white) !important; padding: 12px 18px;
+  font: 600 16px var(--clc-body); border-radius: 0 0 4px 4px; text-decoration: none !important;
+}
+.clc-skip:focus { top: 0; outline: 3px solid var(--clc-red); }
+#clc-header .clc-btn {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 28px; border-radius: 4px;
+  font: 700 .95rem var(--clc-display); letter-spacing: .06em; background: var(--clc-red); color: var(--clc-white) !important; flex: none; transition: background .2s;
+}
+#clc-header .clc-btn:hover { background: var(--clc-red-dk); }
+#clc-header .clc-nav { border-top: 1px solid var(--clc-stone); }
+#clc-header .clc-nav ul { list-style: none; margin: 0; padding: 0; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2px; }
+#clc-header .clc-nav ul a { display: block; padding: 14px 4px 11px; font: 600 1.02rem var(--clc-display); border-bottom: 3px solid transparent; }
+#clc-header .clc-nav ul a:hover { color: var(--clc-red) !important; }
+#clc-header .clc-nav ul a[aria-current] { border-bottom-color: var(--clc-red); }
+
+@media (max-width: 1080px) {
+  #clc-header .clc-nav ul { justify-content: flex-start; gap: 2px 22px; }
+}
+@media (max-width: 760px) {
+  #clc-header { position: static; }
+  .clc-brand img { height: 46px; }
+  #clc-header .clc-head-top { flex-direction: column; align-items: stretch; gap: 14px; }
+  #clc-header .clc-nav { border-top: 0; padding-bottom: 12px; }
+  /* Menu stays fully visible on phones: two columns of big tap targets */
+  #clc-header .clc-nav ul { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  #clc-header .clc-nav ul a { background: var(--clc-light); padding: 12px 14px; }
+}
+@media (prefers-reduced-motion: reduce) { #clc-topbar *, #clc-header * { transition: none !important; } }
