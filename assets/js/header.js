@@ -22,10 +22,10 @@ console.log('CLC HEADER JS LOADED v1012');
   const S = window.CLC_SITE || {};
   const MAIN = S.mainSite || 'https://www.cherilongcommercial.com';
   const SUB = S.subSite || 'https://info.cherilongcommercial.com';
-  const LISTINGS_URL = S.listingsUrl || MAIN + '/';
+  const LISTINGS_URL = S.listingsUrl || MAIN + '/index.php?advanced=1&rtype=map&display=Calgary&pak=city%3Ag30_c3nfkdtg&types%5B%5D=4&types%5B%5D=5&types%5B%5D=3&types%5B%5D=12&sortby=listings.listingdate+DESC#rslt';
   const PAGES = S.pages || { services: SUB + '/services/', about: SUB + '/about/', contact: SUB + '/contact/' };
   const PHONE = S.phone || '403-860-9419';
-  const SOCIAL = S.social || {};
+  const SOCIAL = S.social || { instagram: 'https://www.instagram.com/cherilongcommercial/', facebook: 'https://www.facebook.com/CheriLongCommercialBroker', linkedin: 'https://www.linkedin.com/in/cheri-long-8646439/' };
   const ASSIST = S.assistant || { name: 'Victoria Stitt', title: 'Assistant', email: 'cladmin@royallepage.ca' };
   const OFFICE = S.office || { brokerage: 'Royal LePage\u00ae Solutions', unit: 'Unit 205', street: '264 Midpark Way SE', city: 'Calgary', province: 'AB', postal: 'T2X 1J6' };
   const isPh = S.isPlaceholder || function (v) { return !v || /^\s*\[.*\]\s*$/.test(String(v)); };
@@ -212,6 +212,7 @@ console.log('CLC HEADER JS LOADED v1012');
      the MLS\u00ae/CREA/DDF\u00ae disclaimers, trademark notices and "Powered by BoldTrail". */
   function buildFooter(onBoldTrail) {
     if (document.getElementById('listings-map')) return;   // full-screen map search pages have no room for a footer
+    if (document.getElementById('clc-contact')) return;    // older homepage code still has its own footer section
     let slot = document.getElementById('clc-site-footer');
     if (!slot && onBoldTrail) {
       const anchor = document.getElementById('custom-footer-wrapper') || document.getElementById('footer');
