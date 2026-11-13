@@ -1,5 +1,8 @@
 /* =========================================================
    Cheri Long Commercial - Header Injection & Behavior
+   v1003 - Real phone + social links. YouTube removed (no channel yet).
+           SHOW_FORMS = false hides "Resources & Guides" and
+           "Newsletter sign-up" until the lead forms are wired up.
    v1002 - "Listings" opens the map of all commercial listings in Calgary
            (LISTINGS_URL) instead of the homepage carousel.
    v1001 - Builds the utility bar + flat-nav header at the top
@@ -9,25 +12,28 @@
            the page; FOUC guard lives in Custom Header Code).
    Bump ?v= in BOTH BoldTrail Custom Code fields when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1002');
+console.log('CLC HEADER JS LOADED v1003');
 (function () {
-  const VERSION = '1002';
+  const VERSION = '1003';
 
   /* ─── CONFIG ─── */
   const BOLDTRAIL_BASE = 'https://cherilongcommercial.com';   // used only off BoldTrail (subdomain pages)
   // "Listings" menu link: all commercial listings in Calgary. Keep the same as
   // ALL_LISTINGS_URL in the Custom Body Code.
   const LISTINGS_URL = '/index.php?advanced=1&rtype=map&display=Calgary&types%5B%5D=5&types%5B%5D=3&types%5B%5D=4&types%5B%5D=12#rslt';
-  const PHONE = '403-000-0000';                                 // TODO: Cheri's cell
+  const PHONE = '403-860-9419';                                 // Cheri's cell
   // Logo image (white background version). Leave '' to show the text name instead.
   // e.g. 'https://raw.githubusercontent.com/Cherilong/cherilongcommercial/main/assets/images/logo.png'
   const LOGO_URL = '';
   const SOCIAL = {
-    instagram: '#',   // TODO
-    facebook:  '#',   // TODO
-    linkedin:  '#',   // TODO
-    youtube:   '#'    // placeholder until her channel is live
+    instagram: 'https://www.instagram.com/cherilongcommercial/',
+    facebook:  'https://www.facebook.com/CheriLongCommercialBroker',
+    linkedin:  'https://www.linkedin.com/in/cheri-long-8646439/',
+    youtube:   ''     // add her channel link here when it exists; '' hides the icon
   };
+  // false = hide "Resources & Guides" and "Newsletter sign-up" until the lead forms are live.
+  // Keep the same as SHOW_FORMS in the Custom Body Code.
+  const SHOW_FORMS = false;
 
   const SPRITE =
     '<svg width="0" height="0" style="position:absolute" aria-hidden="true">' +
@@ -42,7 +48,7 @@ console.log('CLC HEADER JS LOADED v1002');
       '<a href="' + SOCIAL.instagram + '" aria-label="Instagram" target="_blank" rel="noopener"><svg><use href="#clc-ig"/></svg></a>' +
       '<a href="' + SOCIAL.facebook + '" aria-label="Facebook" target="_blank" rel="noopener"><svg><use href="#clc-fb"/></svg></a>' +
       '<a href="' + SOCIAL.linkedin + '" aria-label="LinkedIn" target="_blank" rel="noopener"><svg><use href="#clc-li"/></svg></a>' +
-      '<a href="' + SOCIAL.youtube + '" aria-label="YouTube (coming soon)" target="_blank" rel="noopener"><svg><use href="#clc-yt"/></svg></a>' +
+      (SOCIAL.youtube ? '<a href="' + SOCIAL.youtube + '" aria-label="YouTube" target="_blank" rel="noopener"><svg><use href="#clc-yt"/></svg></a>' : '') +
       '</div>';
   }
 
@@ -52,7 +58,7 @@ console.log('CLC HEADER JS LOADED v1002');
       <div class="clc-wrap">
         ${social()}
         <div class="clc-util-right">
-          <a data-sec="clc-newsletter" href="#">Newsletter sign-up</a>
+          ${SHOW_FORMS ? '<a data-sec="clc-newsletter" href="#">Newsletter sign-up</a>' : ''}
           <a class="clc-call" href="tel:${PHONE.replace(/[^0-9+]/g, '')}">Call Cheri <span class="clc-tel">${PHONE}</span></a>
         </div>
       </div>`;
@@ -73,7 +79,7 @@ console.log('CLC HEADER JS LOADED v1002');
         <li><a data-listings href="#">Listings</a></li>
         <li><a data-sec="clc-services" href="#">Services</a></li>
         <li><a data-sec="clc-team" href="#">About Cheri &amp; Team</a></li>
-        <li><a data-sec="clc-guides" href="#">Resources &amp; Guides</a></li>
+        ${SHOW_FORMS ? '<li><a data-sec="clc-guides" href="#">Resources &amp; Guides</a></li>' : ''}
         <li><a data-sec="clc-contact" href="#">Contact</a></li>
       </ul></div></nav>`;
   }

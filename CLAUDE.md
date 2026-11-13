@@ -3,6 +3,13 @@
 Custom code and pages for **Cheri Long Commercial** (Cheri Long, Associate Broker, Royal LePage® Commercial, Calgary).
 Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 
+> **Current live setup (Nov 2026, v1003):** the header is built by `assets/js/header.js` + `assets/css/header.css`
+> (same pattern as the Royal LePage Solutions site). `boldtrail/custom-header-code.html` and
+> `boldtrail/custom-body-code.html` hold the homepage. `assets/js/clc.js`, `assets/css/clc.css` and `preview/` are an
+> earlier draft and are NOT loaded anywhere. Sections below that mention clc.js describe that draft.
+> Main domain: cherilongcommercial.com. Subdomain: info.cherilongcommercial.com.
+> `SHOW_FORMS` (in header.js AND the Body Code) is false until the lead forms are wired up.
+
 Two parts work together:
 
 1. **BoldTrail site** (`{{BOLDTRAIL_DOMAIN}}`): the main site, IDX listings and lead capture. We change it only through
@@ -61,7 +68,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 1. Edit the file(s) and commit to `main`. GitHub Pages ignores `?v=`, so the commit is what updates the file.
 2. If `clc.css` or `clc.js` changed, bump the version: `VERSION` in the file header, then every `?v=` in
    `boldtrail/custom-header-code.html`, `boldtrail/custom-body-code.html` and every `pages/*/index.html`.
-   Keep all of them on the same number. Current: **1001**.
+   Keep all of them on the same number. Current: **1003**.
 3. Tell Kyle which BoldTrail field(s) to re-paste. Always give the complete file, never a partial diff.
 4. Check the live BoldTrail homepage, one BoldTrail inner page (e.g. a search page) and one subdomain page.
 
@@ -103,13 +110,14 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 
 ## Open items
 
-- [ ] Real content: phones, Vic's email, office address, team names, bio, photos, Royal LePage Commercial logo
+- [x] Real content: Cheri's cell 403-860-9419, Victoria Stitt (Assistant) cladmin@royallepage.ca, office Unit 205, 264 Midpark Way SE, socials
+- [ ] Royal LePage Commercial logo, hero photo, Cheri's direct line (if any)
 - [ ] Listings: confirm whether BoldTrail's feed includes her commercial listings; if not, use a published
       Google Sheet (CSV) for active + sold listings
 - [ ] `LEAD_ENDPOINT`: Cloudflare Worker that stores the lead and emails the checklist PDF (Resend), same pattern as
       Royal LePage Solutions' bluebird-lead-proxy. Restrict allowed origins to her two domains.
 - [ ] Write the two checklist PDFs: Seller & Landlord Readiness, Buyer & Tenant Due Diligence
-- [ ] Privacy Policy and Terms pages (subdomain)
+- [ ] Own Privacy Policy page (legal links currently point to royallepage.ca privacy policy + notices)
 - [ ] YouTube channel link when live
-- [ ] Domain: "Cheri Long Commercial" (first choice) or "Cheri Long Commercial Real Estate"
+- [x] Domain: cherilongcommercial.com
 - [ ] Broker sign-off before launch

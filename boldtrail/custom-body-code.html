@@ -1,178 +1,815 @@
-<!-- =========================================================
-     Cheri Long Commercial — BoldTrail > Custom Body Code
-     Paste this whole file into the Custom Body Code field.
+<!-- ============================================================
+     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1003)
+     Same structure as the Royal LePage Solutions homepage code.
+     Paste into: Web & IDX → Website Settings → Custom Body Code
+     ============================================================ -->
 
-     - #clc-home holds the homepage sections. clc.js keeps it on the
-       homepage only and moves it directly under the header.
-     - The header and the contact/legal section are NOT here; clc.js builds them.
-     - BoldTrail strips <script> from page HTML blocks, but this field keeps it.
-     ========================================================= -->
+<!-- ==========================================================
+     1) FILTER SCROLLABILITY + MODAL FIX (site-wide, from the brokerage site)
+     ========================================================== -->
+<style>
+.advanced-search-fields,
+div[class*="advanced-search"],
+div[class*="filters-container"],
+.filters-panel,
+.search-filters-panel,
+.filter.filter-gray,
+div.filter-gray {
+  max-height: 75vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+.modal-body.advanced-search,
+div[class*="modal-body"] .advanced-search-fields { max-height: 75vh !important; overflow-y: auto !important; }
 
-<div class="clc" id="clc-home">
+/* MODAL FIX (Oct 2026): modals scroll instead of clipping, so the
+   CREA Terms of Use "Accept" button is reachable on mobile.
+   dvh = the visible screen height on iOS Safari; vh is the fallback. */
+div[role="dialog"], .modal-dialog {
+  max-height: calc(100vh - 40px) !important;
+  max-height: calc(100dvh - 40px) !important;
+}
+.modal-content {
+  max-height: calc(100vh - 40px) !important;
+  max-height: calc(100dvh - 40px) !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+/* Keep modals above the injected header */
+.modal { z-index: 100000 !important; }
+.modal-backdrop { z-index: 99999 !important; }
 
-  <!-- ===== HERO ===== -->
-  <section class="clc-hero">
-    <div class="clc-hero-photo" aria-hidden="true"></div>
-    <svg class="clc-skyline" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true">
-      <path fill="#000000" d="M0 300V190h60v-40h40v60h50V120h70v90h40v-60h60V80h30V40h20v40h30v130h50v-70h80v70h40V100h90v110h40v-50h60v50h40V60h50v-30h20v30h40v150h50v-80h70v80h40v-40h60v90z"/>
-    </svg>
-    <div class="clc-wrap">
-      <p class="clc-eyebrow">Calgary Commercial Real Estate</p>
-      <h1>Trusted advice in Commercial, Industrial, Retail <em>&amp;</em> Land.</h1>
-      <p class="clc-sub">Buying, selling, leasing or building, one experienced team handles every type of commercial property in Calgary and area.</p>
-      <div class="clc-hero-ctas">
-        <a class="clc-btn clc-btn-red" href="#clc-contact">Talk to Our Team</a>
-        <a class="clc-btn clc-btn-ghost" href="#clc-listings">Browse Listings</a>
-      </div>
-      <div class="clc-creds">
-        <div class="clc-cred"><b>30+</b><span>years in commercial real estate</span></div>
-        <div class="clc-cred"><b>YYC</b><span>Calgarian for most of her life</span></div>
-        <div class="clc-cred"><b>Referral</b><span>most business comes from past clients</span></div>
-        <div class="clc-cred"><b>4</b><span>sectors: commercial, industrial, retail, land</span></div>
-      </div>
+.form-modal-container, div[class*="form-modal"] { max-height: 80vh !important; overflow-y: auto !important; }
+.container-fluid.form-modal-container { max-height: 80vh !important; overflow-y: auto !important; }
+form.advanced-search-form, form[class*="search-form"], form#listing_search_form { max-height: none !important; }
+.advanced-search-fields::-webkit-scrollbar,
+div[class*="advanced-search"]::-webkit-scrollbar,
+.modal-body::-webkit-scrollbar,
+.form-modal-container::-webkit-scrollbar,
+.filter-gray::-webkit-scrollbar { width: 8px; }
+.advanced-search-fields::-webkit-scrollbar-track,
+div[class*="advanced-search"]::-webkit-scrollbar-track,
+.modal-body::-webkit-scrollbar-track,
+.form-modal-container::-webkit-scrollbar-track,
+.filter-gray::-webkit-scrollbar-track { background: #f1f1f1; }
+.advanced-search-fields::-webkit-scrollbar-thumb,
+div[class*="advanced-search"]::-webkit-scrollbar-thumb,
+.modal-body::-webkit-scrollbar-thumb,
+.form-modal-container::-webkit-scrollbar-thumb,
+.filter-gray::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+.advanced-search-fields::-webkit-scrollbar-thumb:hover,
+div[class*="advanced-search"]::-webkit-scrollbar-thumb:hover,
+.modal-body::-webkit-scrollbar-thumb:hover,
+.form-modal-container::-webkit-scrollbar-thumb:hover,
+.filter-gray::-webkit-scrollbar-thumb:hover { background: #555; }
+.advanced-search-fields[style*="max-height"],
+div[class*="advanced-search"][style*="max-height"],
+.form-modal-container[style*="max-height"] { max-height: 75vh !important; }
+</style>
+
+<!-- ==========================================================
+     2) FONT LOADING (approved RLP digital fonts)
+     ========================================================== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<!-- ==========================================================
+     2b) CLC SITE HEADER (built + injected by header.js)
+     Loaded from GitHub Pages at info.cherilongcommercial.com.
+     ========================================================== -->
+<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1003"></script>
+
+<!-- ==========================================================
+     3) HOMEPAGE LAYOUT - SCOPED TO HOMEPAGE
+     ========================================================== -->
+<style>
+/* ============================================
+   CHERI LONG COMMERCIAL — BRAND TOKENS
+   Royal LePage palette: Black / Red / White + taupe, stone, greys
+   NO blue, yellow, or gold per RLP brand guidelines
+   ============================================ */
+:root {
+  --clc-black:   #000000;
+  --clc-red:     #EA002A;
+  --clc-red-dk:  #C20023;   /* hover only */
+  --clc-white:   #FFFFFF;
+  --clc-warm:    #6B6660;
+  --clc-taupe:   #A89E92;
+  --clc-stone:   #D6D1C8;
+  --clc-light:   #EFEFEF;
+  --clc-display: 'Raleway', 'Helvetica Neue', Arial, sans-serif;
+  --clc-body:    'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --clc-wrap:    1200px;
+  --clc-gutter:  24px;
+  /* Hero photo: replace none with url('https://raw.githubusercontent.com/Cherilong/cherilongcommercial/main/assets/images/hero.jpg') */
+  --clc-hero-image: none;
+}
+
+/* ============================================
+   HIDE BOLDTRAIL DEFAULT HOMEPAGE SECTIONS
+   ============================================ */
+body.page-home .listings.container > section:not(#horizontal-search),
+body.page-home .listings.container > .container-fluid { display: none !important; }
+body.page-home #categories,
+body.page-home #about,
+body.page-home #latest-blogs,
+body.page-home section.p-t-3,
+body.page-home section.p-b-2,
+body.page-home .p-t-3.p-b-3 { display: none !important; }
+body.page-home .cover-title-inner,
+body.page-home .agent-cover-image,
+body.page-home .cover .cover-title-inner,
+body.page-home .cover-title,
+body.page-home .cover-title .container { display: none !important; }
+body.page-home .information-bar { display: none !important; }
+body.page-home .listings.container > .listing-box-wrapper,
+body.page-home .listings.container > .page-header { display: none !important; }
+body.page-home { overflow-x: hidden !important; background-color: #FFFFFF !important; }
+body.page-home .page-wrapper,
+body.page-home .main-wrapper,
+body.page-home div.main,
+body.page-home .main { padding-top: 0 !important; margin-top: 0 !important; }
+body.page-home .cover-image,
+body.page-home .cover-overlay,
+body.page-home div[class*="cover-image"],
+body.page-home div[data-opacity],
+body.page-home .cover-center.agent > div[style*="background-image"],
+body.page-home .cover .cover-center.agent.video {
+  background-image: none !important;
+  display: none !important;
+  visibility: hidden !important;
+}
+/* BoldTrail's empty search shell */
+body.page-home #horizontal-search { display: none !important; }
+
+/* ============================================
+   PAGE SCAFFOLD — full-width breakout from BoldTrail's container
+   ============================================ */
+body.page-home .listings.container {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding: 0 !important;
+}
+body.page-home #clc-custom-homepage {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: calc(-50vw + 50%) !important;
+  padding: 0 !important;
+  display: block !important;
+  font: 400 18px/1.6 var(--clc-body) !important;   /* 18px base: easier reading for every age */
+  color: var(--clc-black) !important;
+  -webkit-font-smoothing: antialiased;
+}
+body:not(.page-home) #clc-custom-homepage { display: none !important; }
+
+body.page-home #clc-custom-homepage *,
+body.page-home .cover .clc-hero-inner * { box-sizing: border-box; }
+body.page-home #clc-custom-homepage h1,
+body.page-home #clc-custom-homepage h2,
+body.page-home #clc-custom-homepage h3,
+body.page-home #clc-custom-homepage h4,
+body.page-home .clc-hero-inner h1 {
+  font-family: var(--clc-display) !important;
+  margin: 0 !important;
+  line-height: 1.15 !important;
+  text-wrap: balance;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  color: inherit !important;
+}
+body.page-home #clc-custom-homepage p { margin: 0; }
+body.page-home #clc-custom-homepage a,
+body.page-home .clc-hero-inner a { text-decoration: none !important; }
+body.page-home #clc-custom-homepage a:focus-visible,
+body.page-home #clc-custom-homepage button:focus-visible,
+body.page-home #clc-custom-homepage input:focus-visible,
+body.page-home #clc-custom-homepage select:focus-visible,
+body.page-home .clc-hero-inner a:focus-visible { outline: 3px solid var(--clc-red) !important; outline-offset: 3px; }
+
+.clc-wrap { max-width: var(--clc-wrap); margin: 0 auto; padding: 0 var(--clc-gutter); }
+.clc-section { padding: clamp(64px, 9vw, 104px) 0; }
+.clc-section h2 { font-size: clamp(30px, 3.6vw, 44px) !important; font-weight: 700 !important; }
+.clc-eyebrow {
+  display: block;
+  font: 700 13px var(--clc-display);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--clc-red);
+  margin: 0 0 12px !important;
+}
+.clc-lede { color: var(--clc-warm); max-width: 60ch; margin-top: 16px !important; font-size: 19px; }
+.clc-section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
+
+/* Buttons */
+.clc-btn {
+  display: inline-flex !important; align-items: center; justify-content: center; gap: 8px;
+  min-height: 52px; padding: 0 28px !important; border-radius: 4px; border: 2px solid transparent;
+  font: 700 16px var(--clc-display) !important; letter-spacing: .05em; cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.clc-btn-red  { background: var(--clc-red) !important;  color: var(--clc-white) !important; }
+.clc-btn-red:hover  { background: var(--clc-red-dk) !important; }
+.clc-btn-ghost { border-color: var(--clc-white) !important; color: var(--clc-white) !important; background: transparent !important; }
+.clc-btn-ghost:hover { background: var(--clc-white) !important; color: var(--clc-black) !important; }
+.clc-btn-dark { background: var(--clc-black) !important; color: var(--clc-white) !important; }
+.clc-btn-dark:hover { background: var(--clc-warm) !important; }
+
+/* ============================================
+   HERO — BoldTrail's .cover restyled
+   ============================================ */
+body.page-home .cover,
+body.page-home .cover-pull-top {
+  min-height: clamp(600px, 86vh, 860px) !important;
+  height: auto !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(-50vw + 50%) !important;
+  margin-right: calc(-50vw + 50%) !important;
+  position: relative !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  color: var(--clc-white) !important;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.72) 50%, rgba(0,0,0,.35) 100%),
+    var(--clc-hero-image) center/cover no-repeat,
+    linear-gradient(160deg, #3a3633 0%, #6B6660 55%, #A89E92 100%) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+}
+body.page-home .clc-hero-inner {
+  box-sizing: border-box;
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: var(--clc-wrap);
+  margin: 0 auto;
+  padding: clamp(72px, 10vw, 128px) var(--clc-gutter) 0;
+  font: 400 18px/1.6 var(--clc-body);
+  color: var(--clc-white);
+}
+body.page-home .clc-hero-inner h1 {
+  font-size: clamp(38px, 5.4vw, 64px) !important;
+  font-weight: 800 !important;
+  max-width: 17ch;
+  letter-spacing: -.01em !important;
+  color: var(--clc-white) !important;
+}
+body.page-home .clc-hero-inner h1 em { font-style: normal; color: var(--clc-red); }
+body.page-home .clc-hero-inner .clc-sub {
+  font-size: clamp(18px, 1.6vw, 21px);
+  max-width: 52ch;
+  margin: 22px 0 34px !important;
+  color: var(--clc-stone) !important;
+}
+body.page-home .clc-hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+body.page-home .clc-creds {
+  margin-top: clamp(56px, 8vw, 96px);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid rgba(255,255,255,.2);
+}
+body.page-home .clc-cred { padding: 26px 22px 30px 0; }
+body.page-home .clc-cred + .clc-cred { padding-left: 22px; border-left: 1px solid rgba(255,255,255,.2); }
+body.page-home .clc-cred b { display: block; font: 800 34px/1 var(--clc-display); color: var(--clc-white); margin-bottom: 8px; }
+body.page-home .clc-cred span { color: var(--clc-stone); font-size: 16px; }
+
+/* ============================================
+   SERVICES — 4 columns, light background
+   ============================================ */
+.clc-services { background: var(--clc-light); }
+.clc-svc-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-top: 44px; }
+.clc-svc { background: var(--clc-white); border-top: 4px solid var(--clc-red); padding: 30px 26px 32px; display: flex; flex-direction: column; gap: 12px; }
+.clc-svc svg { width: 38px; height: 38px; stroke: var(--clc-black); fill: none; stroke-width: 1.6; }
+.clc-svc h3 { font-size: 21px !important; font-weight: 700 !important; }
+.clc-svc p { color: var(--clc-warm); font-size: 17px; }
+.clc-svc a { margin-top: auto; font: 700 15px var(--clc-display); color: var(--clc-red) !important; }
+.clc-svc a:hover { text-decoration: underline !important; }
+
+/* ============================================
+   LISTINGS — BoldTrail's carousel moved in and restyled
+   ============================================ */
+.clc-listings { background: var(--clc-white); overflow: hidden; }
+.clc-filter-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px; }
+.clc-filter-tabs a {
+  display: inline-flex; align-items: center; min-height: 48px; padding: 0 20px;
+  border: 2px solid var(--clc-stone); border-radius: 40px;
+  font: 600 16px var(--clc-display); color: var(--clc-black) !important;
+}
+.clc-filter-tabs a:hover { border-color: var(--clc-black); }
+.clc-filter-tabs a.is-all { background: var(--clc-black); border-color: var(--clc-black); color: var(--clc-white) !important; }
+.clc-listings-empty { padding: 48px 24px; text-align: center; border: 1px dashed var(--clc-stone); color: var(--clc-warm); }
+.clc-listings-empty a { color: var(--clc-red) !important; font-weight: 700; }
+
+body.page-home #clc-featured-carousel {
+  max-width: var(--clc-wrap);
+  margin: 0 auto 2rem !important;
+  padding: 0 56px !important;
+  position: relative;
+  background: transparent;
+}
+body.page-home #clc-featured-carousel .listing-box-wrapper {
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+body.page-home #clc-featured-carousel .listing-carousel-wrapper {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+body.page-home #clc-featured-carousel .listing-box {
+  background: var(--clc-white) !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,.08) !important;
+  transition: transform .5s ease, box-shadow .5s ease !important;
+  margin: 0 12px !important;
+  cursor: pointer !important;
+  min-height: 360px !important;
+  height: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+body.page-home #clc-featured-carousel .listing-box:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,.12) !important;
+}
+
+body.page-home #clc-featured-carousel .listing-box-image {
+  height: 230px !important;
+  position: relative !important;
+  background-size: cover !important;
+  background-position: center !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+}
+body.page-home #clc-featured-carousel .listing-box-image-label {
+  position: absolute !important;
+  top: 14px !important;
+  left: 14px !important;
+  background: var(--clc-red) !important;
+  color: var(--clc-white) !important;
+  padding: 5px 10px !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: .22em !important;
+  border-radius: 0 !important;
+  font-family: var(--clc-display) !important;
+}
+
+body.page-home #clc-featured-carousel .listing-box-image-links {
+  display: none !important;
+}
+
+body.page-home #clc-featured-carousel .listing-box-title {
+  padding: 18px 22px 12px !important;
+  flex-shrink: 0 !important;
+}
+body.page-home #clc-featured-carousel .listing-box-title h2 {
+  font-family: var(--clc-display) !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  letter-spacing: .04em !important;
+  text-transform: uppercase !important;
+  color: var(--clc-black) !important;
+  margin: 0 0 4px 0 !important;
+  line-height: 1.2 !important;
+}
+body.page-home #clc-featured-carousel .listing-box-title h2 a {
+  color: var(--clc-black) !important;
+  text-decoration: none !important;
+}
+body.page-home #clc-featured-carousel .clc-card-address {
+  font-size: .78rem !important;
+  color: var(--clc-warm) !important;
+  font-weight: 400 !important;
+  margin: 0 0 8px 0 !important;
+  line-height: 1.3 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+body.page-home #clc-featured-carousel .listing-box-title h3 {
+  font-family: var(--clc-display) !important;
+  font-size: 22px !important;
+  font-weight: 300 !important;
+  color: var(--clc-red) !important;
+  margin: 0 !important;
+  line-height: 1.1 !important;
+  letter-spacing: -.01em !important;
+}
+
+body.page-home #clc-featured-carousel .listing-box-content {
+  padding: 0 22px 22px !important;
+  text-decoration: none !important;
+  color: inherit !important;
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  overflow: hidden !important;
+}
+body.page-home #clc-featured-carousel .listing-box-content dl {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+  margin: 0 !important;
+  padding-top: 14px !important;
+  border-top: 1px solid var(--clc-light) !important;
+  align-items: center !important;
+}
+body.page-home #clc-featured-carousel .listing-box-content dt { display: none !important; }
+body.page-home #clc-featured-carousel .listing-box-content dd {
+  color: var(--clc-warm) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: .1em !important;
+  text-transform: uppercase !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  float: none !important;
+  width: auto !important;
+}
+body.page-home #clc-featured-carousel .listing-box-content dd span,
+body.page-home #clc-featured-carousel .listing-box-content dd strong {
+  color: var(--clc-black) !important;
+  font-weight: 600 !important;
+  margin-right: 4px !important;
+}
+body.page-home #clc-featured-carousel .disclosures_container,
+body.page-home #clc-featured-carousel .disclosures_container.logo_dsc {
+  margin-top: auto !important;
+  padding-top: 12px !important;
+  border: none !important;
+  font-size: 10px !important;
+  color: var(--clc-warm) !important;
+  text-align: left !important;
+  line-height: 1.3 !important;
+  display: block !important;
+  letter-spacing: .04em !important;
+}
+body.page-home #clc-featured-carousel .disclosures_container span {
+  display: inline !important;
+  font-size: 10px !important;
+  color: var(--clc-warm) !important;
+}
+
+body.page-home #clc-featured-carousel .owl-nav { position: static !important; margin: 0 !important; }
+body.page-home #clc-featured-carousel .owl-nav button {
+  position: absolute !important;
+  top: 130px !important;
+  background-color: var(--clc-white) !important;
+  color: var(--clc-black) !important;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 0 !important;
+  font-size: 0 !important;
+  border: 1px solid var(--clc-stone) !important;
+  transition: all .3s ease !important;
+  z-index: 10 !important;
+  transform: none !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 18px 18px !important;
+}
+body.page-home #clc-featured-carousel .owl-nav button:hover {
+  background-color: var(--clc-red) !important;
+  color: var(--clc-white) !important;
+  border-color: var(--clc-red) !important;
+}
+body.page-home #clc-featured-carousel .owl-nav button:disabled { opacity: .3 !important; cursor: not-allowed !important; }
+
+body.page-home #clc-featured-carousel .owl-nav button span,
+body.page-home #clc-featured-carousel .owl-nav button i {
+  display: none !important;
+}
+
+body.page-home #clc-featured-carousel .owl-nav .owl-prev {
+  left: 4px !important;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='15 18 9 12 15 6'%3E%3C/polyline%3E%3C/svg%3E") !important;
+}
+body.page-home #clc-featured-carousel .owl-nav .owl-next {
+  right: 4px !important;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E") !important;
+}
+body.page-home #clc-featured-carousel .owl-nav .owl-prev:hover {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='15 18 9 12 15 6'%3E%3C/polyline%3E%3C/svg%3E") !important;
+}
+body.page-home #clc-featured-carousel .owl-nav .owl-next:hover {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E") !important;
+}
+
+#clc-carousel-loading {
+  text-align: center;
+  padding: 4rem;
+  color: var(--clc-warm);
+  background: var(--clc-white);
+  font-family: var(--clc-display);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  body.page-home #clc-featured-carousel {
+    padding: 0 52px !important;
+    max-width: 100% !important;
+  }
+  body.page-home #clc-featured-carousel .listing-box { margin: 0 !important; }
+  body.page-home #clc-featured-carousel .owl-nav button {
+    width: 40px !important; height: 40px !important; top: 95px !important;
+  }
+  body.page-home #clc-featured-carousel .owl-nav .owl-prev { left: 2px !important; }
+  body.page-home #clc-featured-carousel .owl-nav .owl-next { right: 2px !important; }
+}
+
+#clc-carousel-loading p { margin: 0; }
+
+/* ============================================
+   MEET CHERI & THE TEAM
+   ============================================ */
+.clc-team { background: var(--clc-light); }
+.clc-bio { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; }
+.clc-portrait {
+  aspect-ratio: 3 / 4; width: 100%; max-width: 420px; border-radius: 8px; overflow: hidden;
+  background: linear-gradient(170deg, var(--clc-taupe), var(--clc-warm)) center/cover;
+  display: grid; place-items: end start; padding: 22px;
+  color: var(--clc-white); font: 600 13px var(--clc-display); letter-spacing: .14em; text-transform: uppercase;
+}
+.clc-portrait:has(img) { padding: 0; }
+body.page-home #clc-custom-homepage .clc-portrait img { width: 100% !important; height: 100% !important; max-width: none !important; object-fit: cover; object-position: center top; display: block; }
+.clc-bio-text { min-width: 0; }
+.clc-bio-text p { margin-top: 18px !important; max-width: 60ch; }
+.clc-role { font: 600 17px var(--clc-display); color: var(--clc-warm); margin-top: 8px; }
+.clc-bio .clc-social { display: flex; gap: 8px; margin-top: 26px; }
+.clc-bio .clc-social a {
+  width: 48px; height: 48px; border-radius: 50%; display: grid !important; place-items: center;
+  background: var(--clc-black); color: var(--clc-white) !important; transition: background .2s;
+}
+.clc-bio .clc-social a:hover { background: var(--clc-red); }
+.clc-bio .clc-social svg { width: 20px; height: 20px; fill: currentColor; }
+body.page-home #clc-custom-homepage .clc-team-h { margin-top: 72px !important; font-size: 26px !important; font-weight: 700 !important; }
+.clc-team-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 24px; }
+.clc-person { background: var(--clc-white); padding: 24px; display: flex; gap: 18px; align-items: center; }
+.clc-avatar {
+  width: 72px; height: 72px; border-radius: 50%; flex: none; background: var(--clc-stone);
+  display: grid; place-items: center; font: 700 20px var(--clc-display); color: var(--clc-warm); overflow: hidden;
+}
+.clc-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.clc-person > div:last-child { min-width: 0; }
+.clc-person b { display: block; font: 700 18px var(--clc-display); }
+.clc-person span { display: block; color: var(--clc-warm); font-size: 16px; }
+.clc-person small { display: block; margin-top: 6px; font-size: 15px; }
+.clc-person a { color: var(--clc-red) !important; font-weight: 600; overflow-wrap: anywhere; }
+
+/* ============================================
+   CHECKLISTS — gated downloads (dark)
+   ============================================ */
+.clc-magnet { background: var(--clc-black); color: var(--clc-white); }
+.clc-magnet h2 { max-width: 24ch; color: var(--clc-white) !important; }
+.clc-magnet .clc-lede { color: var(--clc-stone); }
+.clc-mag-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; margin-top: 44px; align-items: start; }
+.clc-guides { display: grid; gap: 16px; }
+.clc-guide {
+  display: flex; gap: 18px; align-items: center; text-align: left; width: 100%; padding: 22px;
+  border: 2px solid rgba(255,255,255,.25); background: transparent; color: var(--clc-white);
+  cursor: pointer; font: inherit; border-radius: 0; transition: border-color .2s, background .2s;
+}
+.clc-guide:hover { border-color: var(--clc-white); }
+.clc-guide[aria-pressed="true"] { border-color: var(--clc-red); background: rgba(234,0,42,.12); }
+.clc-pdf {
+  width: 54px; height: 68px; flex: none; background: var(--clc-white); color: var(--clc-red);
+  display: grid; place-items: center; font: 800 13px var(--clc-display);
+  clip-path: polygon(0 0, 72% 0, 100% 22%, 100% 100%, 0 100%);
+}
+.clc-guide b { display: block; font: 700 18px var(--clc-display); }
+.clc-guide span span { display: block; color: var(--clc-stone); font-size: 16px; margin-top: 4px; }
+.clc-form { background: var(--clc-white); color: var(--clc-black); padding: 32px; display: grid; gap: 18px; }
+.clc-form h3 { font-size: 22px !important; font-weight: 700 !important; }
+.clc-field { display: grid; gap: 6px; }
+.clc-field label { font: 600 16px var(--clc-display); margin: 0 !important; }
+.clc-field input,
+.clc-field select {
+  min-height: 52px !important; padding: 0 14px !important; border: 2px solid var(--clc-stone) !important; border-radius: 4px !important;
+  font: 400 17px var(--clc-body) !important; background: var(--clc-white) !important; color: var(--clc-black) !important;
+  width: 100% !important; box-shadow: none !important; margin: 0 !important;
+}
+.clc-field input:focus,
+.clc-field select:focus { border-color: var(--clc-black) !important; }
+.clc-check { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; color: var(--clc-warm); margin: 0 !important; font-weight: 400 !important; }
+.clc-check input { width: 20px; height: 20px; margin-top: 2px !important; accent-color: var(--clc-red); flex: none; }
+.clc-msg { min-height: 1.4em; font-weight: 500; }
+
+/* ============================================
+   NEWSLETTER STRIP (red)
+   ============================================ */
+.clc-news { background: var(--clc-red); color: var(--clc-white); padding: 56px 0; }
+.clc-news .clc-wrap { display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; }
+.clc-news h2 { font-size: clamp(24px, 2.6vw, 32px) !important; font-weight: 700 !important; color: var(--clc-white) !important; }
+.clc-news p { margin-top: 8px !important; }
+.clc-news form { display: flex; gap: 12px; flex: 1; max-width: 520px; min-width: min(100%, 320px); flex-wrap: wrap; }
+.clc-news input {
+  flex: 1; min-width: 0; min-height: 52px !important; padding: 0 16px !important; border: 0 !important; border-radius: 4px !important;
+  font: 400 17px var(--clc-body) !important; color: var(--clc-black) !important; background: var(--clc-white) !important; margin: 0 !important;
+}
+.clc-news-msg { flex-basis: 100%; min-height: 1.4em; }
+
+/* ============================================
+   CONTACT & LEGAL (dark) — last homepage section
+   ============================================ */
+.clc-contact { background: var(--clc-black); color: var(--clc-stone); padding: 72px 0 40px; font-size: 17px; }
+.clc-contact-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr)); gap: 40px; }
+.clc-contact .clc-brand { display: flex; flex-direction: column; line-height: 1.1; }
+.clc-contact .clc-brand b { font: 800 26px var(--clc-display); color: var(--clc-white); }
+.clc-contact .clc-brand i { color: var(--clc-red); font-style: normal; }
+.clc-contact .clc-brand span { font: 600 12px var(--clc-display); letter-spacing: .2em; text-transform: uppercase; color: var(--clc-taupe); margin-top: 4px; }
+body.page-home #clc-custom-homepage .clc-contact h4 { font: 700 13px var(--clc-display) !important; letter-spacing: .16em !important; text-transform: uppercase !important; color: var(--clc-white) !important; margin: 0 0 14px !important; }
+.clc-contact p { margin: 0 0 6px !important; }
+.clc-contact a { color: var(--clc-stone) !important; }
+.clc-contact a:hover { color: var(--clc-white) !important; }
+.clc-contact .clc-social { display: flex; gap: 6px; margin-top: 20px; }
+.clc-contact .clc-social a { width: 40px; height: 40px; border-radius: 50%; display: grid !important; place-items: center; color: var(--clc-white) !important; transition: background .2s; }
+.clc-contact .clc-social a:hover { background: var(--clc-red); }
+.clc-contact .clc-social svg { width: 20px; height: 20px; fill: currentColor; }
+.clc-tel { font-variant-numeric: tabular-nums; }
+.clc-legal { margin-top: 56px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.15); font-size: 14px; color: var(--clc-taupe); display: grid; gap: 10px; }
+.clc-legal p { max-width: 110ch; margin: 0 !important; }
+.clc-legal nav { display: flex; gap: 20px; flex-wrap: wrap; }
+.clc-legal nav a { text-decoration: underline !important; color: var(--clc-taupe) !important; }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1080px) {
+  .clc-svc-grid,
+  .clc-team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .clc-contact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  body.page-home #clc-custom-homepage,
+  body.page-home .clc-hero-inner { font-size: 17px !important; }
+  body.page-home .clc-creds { grid-template-columns: 1fr 1fr; }
+  body.page-home .clc-cred:nth-child(3) { padding-left: 0; border-left: 0; }
+  body.page-home .clc-cred:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.2); }
+  .clc-svc-grid, .clc-team-grid, .clc-bio, .clc-mag-grid, .clc-contact-grid { grid-template-columns: 1fr; }
+  .clc-bio { gap: 32px; }
+  .clc-portrait { max-width: 320px; }
+  .clc-news form { flex-direction: column; min-width: 100%; }
+  .clc-form { padding: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #clc-custom-homepage *, .clc-hero-inner * { transition: none !important; }
+}
+</style>
+
+<!-- ==========================================================
+     4) HOMEPAGE HTML
+     ========================================================== -->
+<div id="clc-custom-homepage">
+
+  <!-- Social icons (shared with the header; header.js skips its copy when this exists) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="clc-ig" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4ZM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4ZM12 2c-2.7 0-3 0-4.1.1C4.3 2.2 2.2 4.3 2.1 7.9 2 9 2 9.3 2 12s0 3 .1 4.1c.1 3.6 2.2 5.7 5.8 5.8 1.1.1 1.4.1 4.1.1s3 0 4.1-.1c3.6-.1 5.7-2.2 5.8-5.8.1-1.1.1-1.4.1-4.1s0-3-.1-4.1c-.1-3.6-2.2-5.7-5.8-5.8C15 2 14.7 2 12 2Zm0 1.8c2.7 0 3 0 4 .1 2.6.1 3.9 1.4 4 4 .1 1 .1 1.3.1 4s0 3-.1 4c-.1 2.6-1.4 3.9-4 4-1 .1-1.3.1-4 .1s-3 0-4-.1c-2.6-.1-3.9-1.4-4-4-.1-1-.1-1.3-.1-4s0-3 .1-4c.1-2.6 1.4-3.9 4-4 1-.1 1.3-.1 4-.1Z"/></symbol>
+    <symbol id="clc-fb" viewBox="0 0 24 24"><path d="M13.5 22v-8.2h2.8l.4-3.2h-3.2V8.5c0-.9.3-1.6 1.6-1.6h1.7V4.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.4H7.3v3.2h2.8V22h3.4Z"/></symbol>
+    <symbol id="clc-li" viewBox="0 0 24 24"><path d="M6.9 8.8H3.6V20h3.3V8.8ZM5.2 3.5a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8ZM20.4 13.6c0-3-.6-5.1-4.1-5.1-1.7 0-2.8.9-3.2 1.8h-.1V8.8H9.9V20h3.3v-5.5c0-1.5.3-2.9 2.1-2.9s1.8 1.7 1.8 3V20h3.3v-6.4Z"/></symbol>
+    <symbol id="clc-yt" viewBox="0 0 24 24"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8ZM10 15V9l5.2 3L10 15Z"/></symbol>
+  </svg>
+
+  <!-- HERO CONTENT — moved into BoldTrail's .cover by the script below -->
+  <div class="clc-hero-inner" id="clc-hero-content">
+    <span class="clc-eyebrow">Calgary Commercial Real Estate</span>
+    <h1>Trusted advice in Commercial, Industrial, Retail <em>&amp;</em> Land.</h1>
+    <p class="clc-sub">Buying, selling, leasing or building, one experienced team handles every type of commercial property in Calgary and area.</p>
+    <div class="clc-hero-ctas">
+      <a class="clc-btn clc-btn-red" href="#clc-contact">Talk to Our Team</a>
+      <a class="clc-btn clc-btn-ghost" data-all-listings href="/index.php?advanced=1&amp;rtype=map&amp;display=Calgary&amp;types%5B%5D=5&amp;types%5B%5D=3&amp;types%5B%5D=4&amp;types%5B%5D=12#rslt">Browse Listings</a>
     </div>
-  </section>
+    <div class="clc-creds">
+      <div class="clc-cred"><b>30+</b><span>years in commercial real estate</span></div>
+      <div class="clc-cred"><b>YYC</b><span>Calgarian for most of her life</span></div>
+      <div class="clc-cred"><b>Referral</b><span>most business comes from past clients</span></div>
+      <div class="clc-cred"><b>4</b><span>sectors: commercial, industrial, retail, land</span></div>
+    </div>
+  </div>
 
-  <!-- ===== SECTION B: CORE SERVICES (4-column, light) ===== -->
+  <!-- SERVICES (4 columns, light) -->
   <section class="clc-section clc-services" id="clc-services">
     <div class="clc-wrap">
-      <p class="clc-eyebrow">Services</p>
+      <span class="clc-eyebrow">Services</span>
       <h2>Every side of a commercial deal</h2>
       <div class="clc-svc-grid">
         <article class="clc-svc">
           <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 36V16l10-6v8l10-6v8l10-6v22z"/><path d="M10 28h4M18 28h4M26 28h4"/></svg>
           <h3>Commercial &amp; Industrial Sales / Buying</h3>
           <p>Pricing, marketing and negotiation for owners, plus search and due diligence for buyers and investors.</p>
-          <a href="#clc-contact">Discuss a sale or purchase →</a>
+          <a href="#clc-contact">Discuss a sale or purchase &rarr;</a>
         </article>
         <article class="clc-svc">
           <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="6" width="28" height="30"/><path d="M12 12h6M22 12h6M12 19h6M22 19h6M12 26h6M22 26h6"/></svg>
           <h3>Commercial Leasing</h3>
           <p>Landlord and tenant representation: finding space, filling vacancies and negotiating lease terms.</p>
-          <a href="#clc-contact">Talk about leasing →</a>
+          <a href="#clc-contact">Talk about leasing &rarr;</a>
         </article>
         <article class="clc-svc">
           <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 32l10-14 8 9 6-6 8 11z"/><circle cx="29" cy="11" r="4"/></svg>
           <h3>Land &amp; Development Sites</h3>
-          <p>Acquisition and disposition of raw land and development parcels across Calgary and surrounding areas.</p>
-          <a href="#clc-contact">Ask about land →</a>
+          <p>Acquisition and sale of raw land and development parcels across Calgary and the surrounding area.</p>
+          <a href="#clc-contact">Ask about land &rarr;</a>
         </article>
         <article class="clc-svc">
           <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="13" width="30" height="21" rx="2"/><path d="M15 13V8h10v5M5 22h30"/></svg>
           <h3>Business Brokerage &amp; Private Advisory</h3>
           <p>Confidential sale of operating businesses and private advice on property and portfolio decisions.</p>
-          <a href="#clc-contact">Start a confidential conversation →</a>
+          <a href="#clc-contact">Start a confidential conversation &rarr;</a>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ===== SECTION: ACTIVE LISTINGS (filterable) =====
-       Sample cards below. Replace with your feed (BoldTrail IDX or a Google Sheet). -->
-  <section class="clc-section" id="clc-listings">
+  <!-- LISTINGS - BoldTrail carousel gets moved here -->
+  <section class="clc-section clc-listings" id="clc-listings">
     <div class="clc-wrap">
-      <div class="clc-list-head">
+      <div class="clc-section-head">
         <div>
-          <p class="clc-eyebrow">Listings</p>
+          <span class="clc-eyebrow">Currently Available</span>
           <h2>Active properties</h2>
         </div>
-        <a class="clc-btn clc-btn-dark" href="#">View all listings</a>
+        <a class="clc-btn clc-btn-dark" data-all-listings href="/index.php?advanced=1&amp;rtype=map&amp;display=Calgary&amp;types%5B%5D=5&amp;types%5B%5D=3&amp;types%5B%5D=4&amp;types%5B%5D=12#rslt">View all Calgary listings</a>
       </div>
-      <div class="clc-tabs" role="group" aria-label="Filter listings">
-        <button class="clc-tab" data-f="all" aria-pressed="true">All</button>
-        <button class="clc-tab" data-f="buy" aria-pressed="false">Buy</button>
-        <button class="clc-tab" data-f="lease" aria-pressed="false">Lease</button>
-        <button class="clc-tab" data-f="industrial" aria-pressed="false">Commercial / Industrial</button>
-        <button class="clc-tab" data-f="retail" aria-pressed="false">Retail</button>
-        <button class="clc-tab" data-f="land" aria-pressed="false">Land</button>
-        <button class="clc-tab" data-f="business" aria-pressed="false">Businesses</button>
+      <!-- Filter tabs are built from LISTING_FILTERS in the script below (hidden until filled in) -->
+      <div class="clc-filter-tabs" id="clc-filter-tabs" hidden></div>
+    </div>
+    <div id="clc-featured-carousel" style="position: relative;">
+      <div id="clc-carousel-loading">
+        <p>Loading current listings&hellip;</p>
       </div>
-      <div class="clc-grid" id="clc-grid">
-        <article class="clc-card" data-tags="buy industrial">
-          <div class="clc-ph">Photo<span class="clc-badge">For Sale</span></div>
-          <div class="clc-card-body"><span class="clc-type">Industrial</span><h3>Freestanding Warehouse with Yard</h3><p class="clc-addr">Foothills Industrial, Calgary</p>
-            <div class="clc-facts"><span><b>$4,250,000</b></span><span>18,400 sq ft</span></div></div>
-        </article>
-        <article class="clc-card" data-tags="lease retail">
-          <div class="clc-ph">Photo<span class="clc-badge lease">For Lease</span></div>
-          <div class="clc-card-body"><span class="clc-type">Retail</span><h3>End-Cap Retail Bay</h3><p class="clc-addr">Seton, Calgary</p>
-            <div class="clc-facts"><span><b>$32.00</b> /sq ft/yr</span><span>2,150 sq ft</span></div></div>
-        </article>
-        <article class="clc-card" data-tags="buy land">
-          <div class="clc-ph">Photo<span class="clc-badge">For Sale</span></div>
-          <div class="clc-card-body"><span class="clc-type">Land</span><h3>Development Parcel, I-G Zoned</h3><p class="clc-addr">Balzac, Rocky View County</p>
-            <div class="clc-facts"><span><b>$1,890,000</b></span><span>4.2 acres</span></div></div>
-        </article>
-        <article class="clc-card" data-tags="lease industrial">
-          <div class="clc-ph">Photo<span class="clc-badge lease">For Lease</span></div>
-          <div class="clc-card-body"><span class="clc-type">Industrial</span><h3>Bay with Dock &amp; Drive-In Doors</h3><p class="clc-addr">Northeast Calgary</p>
-            <div class="clc-facts"><span><b>$14.50</b> /sq ft/yr</span><span>6,000 sq ft</span></div></div>
-        </article>
-        <article class="clc-card" data-tags="buy business">
-          <div class="clc-ph">Photo<span class="clc-badge">For Sale</span></div>
-          <div class="clc-card-body"><span class="clc-type">Business</span><h3>Established Café, Turnkey</h3><p class="clc-addr">Inner City, Calgary</p>
-            <div class="clc-facts"><span><b>$275,000</b></span><span>Confidential</span></div></div>
-        </article>
-        <article class="clc-card" data-tags="buy retail sold">
-          <div class="clc-ph">Photo<span class="clc-badge sold">Sold</span></div>
-          <div class="clc-card-body"><span class="clc-type">Retail</span><h3>Strip Centre, Fully Leased</h3><p class="clc-addr">Okotoks</p>
-            <div class="clc-facts"><span><b>Sold</b></span><span>11,800 sq ft</span></div></div>
-        </article>
-        <p class="clc-empty" id="clc-empty" hidden>No listings in this category right now. <a href="#clc-contact"><u>Tell us what you're looking for</u></a> and we'll watch for it.</p>
-      </div>
-      <p class="clc-note">Example listings for layout only.</p>
     </div>
   </section>
 
-  <!-- ===== SECTION: MEET CHERI & THE TEAM ===== -->
+  <!-- MEET CHERI & THE TEAM -->
   <section class="clc-section clc-team" id="clc-team">
     <div class="clc-wrap">
       <div class="clc-bio">
-        <div class="clc-portrait">Portrait of Cheri</div>
+        <div class="clc-portrait">
+          <img src="https://d2td4dobkk213c.cloudfront.net/royallepagesolutions2034/profiles/233574.jpg"
+               alt="Cheri Long, Commercial Real Estate" loading="lazy">
+        </div>
         <div class="clc-bio-text">
-          <p class="clc-eyebrow">Meet Cheri</p>
+          <span class="clc-eyebrow">Meet Cheri</span>
           <h2>Cheri Long</h2>
-          <div class="clc-role">Associate Broker, Royal LePage® Commercial</div>
+          <div class="clc-role">Associate Broker, Royal LePage&reg; Commercial</div>
           <p>Cheri has spent more than 30 years in Calgary commercial real estate, and most of her life in the city itself. That history shows up in the details: she knows which areas are growing, which buildings have stories, and who to call.</p>
           <p>Most of her business comes from referrals. Clients come back, and send their colleagues, because she puts their goals first and tells them plainly what a property is worth and what a deal will take.</p>
           <div class="clc-social" aria-label="Cheri on social media">
-            <a href="#" aria-label="Facebook"><svg><use href="#clc-fb"/></svg></a>
-            <a href="#" aria-label="Instagram"><svg><use href="#clc-ig"/></svg></a>
-            <a href="#" aria-label="LinkedIn"><svg><use href="#clc-li"/></svg></a>
-            <a href="#" aria-label="YouTube (coming soon)"><svg><use href="#clc-yt"/></svg></a>
+            <a href="https://www.facebook.com/CheriLongCommercialBroker" aria-label="Facebook" target="_blank" rel="noopener"><svg><use href="#clc-fb"/></svg></a>
+            <a href="https://www.instagram.com/cherilongcommercial/" aria-label="Instagram" target="_blank" rel="noopener"><svg><use href="#clc-ig"/></svg></a>
+            <a href="https://www.linkedin.com/in/cheri-long-8646439/" aria-label="LinkedIn" target="_blank" rel="noopener"><svg><use href="#clc-li"/></svg></a>
           </div>
         </div>
       </div>
 
-      <h3 class="clc-team-h">Your team</h3>
+      <h3 class="clc-team-h">Working with Cheri</h3>
       <div class="clc-team-grid">
-        <div class="clc-person"><div class="clc-avatar">AB</div><div><b>Agent Name</b><span>Commercial Agent</span><small>Site visits &amp; showings</small></div></div>
-        <div class="clc-person"><div class="clc-avatar">CD</div><div><b>Agent Name</b><span>Commercial Agent</span><small>Leasing &amp; tenant rep</small></div></div>
-        <div class="clc-person"><div class="clc-avatar">V</div><div><b>Vic</b><span>Administration</span><small>Contracts, scheduling &amp; general inquiries</small></div></div>
+        <div class="clc-person">
+          <div class="clc-avatar">VS</div>
+          <div>
+            <b>Victoria Stitt</b>
+            <span>Assistant to Cheri Long</span>
+            <small>Scheduling, paperwork &amp; general inquiries<br><a href="mailto:cladmin@royallepage.ca">cladmin@royallepage.ca</a></small>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== SECTION: LEAD MAGNET (gated downloads) ===== -->
+  <!-- CHECKLISTS (gated downloads, dark) — removed by the script while SHOW_FORMS = false -->
   <section class="clc-section clc-magnet" id="clc-guides">
     <div class="clc-wrap">
-      <p class="clc-eyebrow">Free resources</p>
+      <span class="clc-eyebrow">Free resources</span>
       <h2>Planning your next commercial move?</h2>
       <p class="clc-lede">Buying an investment property, leasing your first space, or getting a building ready to sell or lease? Download our free industry checklists.</p>
       <div class="clc-mag-grid">
         <div class="clc-guides" role="group" aria-label="Choose a checklist">
-          <button class="clc-guide" data-g="Commercial Seller & Landlord Readiness Checklist" aria-pressed="true">
+          <button type="button" class="clc-guide" data-g="Commercial Seller &amp; Landlord Readiness Checklist" aria-pressed="true">
             <span class="clc-pdf">PDF</span>
             <span><b>Commercial Seller &amp; Landlord Readiness Checklist</b><span>What to prepare before you list a property for sale or lease.</span></span>
           </button>
-          <button class="clc-guide" data-g="Commercial Buyer & Tenant Due Diligence Guide" aria-pressed="false">
+          <button type="button" class="clc-guide" data-g="Commercial Buyer &amp; Tenant Due Diligence Guide" aria-pressed="false">
             <span class="clc-pdf">PDF</span>
             <span><b>Commercial Buyer &amp; Tenant Due Diligence Guide</b><span>Questions to ask and documents to request before you commit.</span></span>
           </button>
         </div>
         <form class="clc-form" id="clc-mag-form" novalidate>
           <h3>Send me the checklist</h3>
-          <input type="hidden" id="clc-guide" name="guide" value="Commercial Seller & Landlord Readiness Checklist">
+          <input type="hidden" id="clc-guide" name="guide" value="Commercial Seller &amp; Landlord Readiness Checklist">
           <div class="clc-field"><label for="clc-fname">First name</label><input id="clc-fname" name="first_name" autocomplete="given-name" required></div>
           <div class="clc-field"><label for="clc-memail">Email address</label><input id="clc-memail" name="email" type="email" autocomplete="email" required></div>
           <div class="clc-field"><label for="clc-intent">I am looking to</label>
@@ -185,7 +822,7 @@
     </div>
   </section>
 
-  <!-- ===== NEWSLETTER STRIP ===== -->
+  <!-- NEWSLETTER STRIP (red) — removed by the script while SHOW_FORMS = false -->
   <section class="clc-news" id="clc-newsletter">
     <div class="clc-wrap">
       <div>
@@ -200,8 +837,413 @@
       </form>
     </div>
   </section>
-  <!-- Contact & legal section is added here automatically by clc.js -->
 
-</div><!-- /#clc-home -->
+  <!-- CONTACT & LEGAL (dark) - BoldTrail's own footer stays below this -->
+  <section class="clc-contact" id="clc-contact">
+    <div class="clc-wrap">
+      <div class="clc-contact-grid">
+        <div>
+          <!-- Replace the text wordmark with the Royal LePage Commercial logo image when available -->
+          <div class="clc-brand"><b>Cheri Long <i>Commercial</i></b><span>Royal LePage&reg; Commercial</span></div>
+          <div class="clc-social" aria-label="Social media">
+            <a href="https://www.instagram.com/cherilongcommercial/" aria-label="Instagram" target="_blank" rel="noopener"><svg><use href="#clc-ig"/></svg></a>
+            <a href="https://www.facebook.com/CheriLongCommercialBroker" aria-label="Facebook" target="_blank" rel="noopener"><svg><use href="#clc-fb"/></svg></a>
+            <a href="https://www.linkedin.com/in/cheri-long-8646439/" aria-label="LinkedIn" target="_blank" rel="noopener"><svg><use href="#clc-li"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <h4>Cheri Long</h4>
+          <p>Associate Broker</p>
+          <p>Cell <a class="clc-tel" href="tel:+14038609419">403-860-9419</a></p>
+        </div>
+        <div>
+          <h4>General inquiries</h4>
+          <p>Victoria Stitt, Assistant</p>
+          <p><a href="mailto:cladmin@royallepage.ca">cladmin@royallepage.ca</a></p>
+        </div>
+        <div>
+          <h4>Office</h4>
+          <p>Royal LePage&reg; Solutions</p>
+          <p>Unit 205, 264 Midpark Way SE</p>
+          <p>Calgary, AB  T2X 1J6</p>
+        </div>
+      </div>
+      <div class="clc-legal">
+        <p>&copy; <span id="clc-year">2026</span> Cheri Long Commercial. Royal LePage&reg; is a registered trademark of Bridgemarq Real Estate Services Inc. Each office is independently owned and operated. Not intended to solicit buyers or sellers currently under contract. See <a href="https://rlp.ca/notices" target="_blank" rel="noopener">rlp.ca/notices</a>.</p>
+        <p>We respect your inbox. Emails are sent only with your consent under Canada's Anti-Spam Legislation (CASL), and every message includes an unsubscribe link.</p>
+        <p>Listing information is deemed reliable but not guaranteed and should be independently verified.</p>
+        <nav aria-label="Legal"><a href="https://www.royallepage.ca/en/realestate/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a><a href="https://www.royallepage.ca/en/realestate/noticesanddisclaimers" target="_blank" rel="noopener">Notices &amp; Disclaimers</a></nav>
+      </div>
+    </div>
+  </section>
 
-<script src="https://{{SUBDOMAIN}}/assets/js/clc.js?v=1001"></script>
+</div>
+
+<!-- ==========================================================
+     5) JAVASCRIPT - Hero content + sections + move carousel
+     ========================================================== -->
+<script>
+(function () {
+  console.log('CLC Homepage Loaded v1003');
+
+  /* ─── CONFIG ─── */
+  // Every "all listings" link: all commercial listings in Calgary on the map.
+  // To change it, run the search you want on Cheri's site and paste the address
+  // from "/index.php?" onward. Keep this the same as LISTINGS_URL in header.js.
+  const ALL_LISTINGS_URL = '/index.php?advanced=1&rtype=map&display=Calgary&types%5B%5D=5&types%5B%5D=3&types%5B%5D=4&types%5B%5D=12#rslt';
+  // false = the checklist + newsletter sections are removed until the lead forms are wired up.
+  // Keep the same as SHOW_FORMS in header.js.
+  const SHOW_FORMS = false;
+  // Lead form endpoint (Cloudflare Worker). Blank = forms show a demo message only.
+  const LEAD_ENDPOINT = '';
+  const PHONE_FALLBACK = '403-860-9419';
+  // Listing filter tabs. Run each search on Cheri's BoldTrail site, copy the address bar,
+  // and paste the part after the domain here. Tabs stay hidden until at least one is filled in.
+  const LISTING_FILTERS = [
+    // ['Buy',                     '/index.php?...#rslt'],
+    // ['Lease',                   '/index.php?...#rslt'],
+    // ['Commercial / Industrial', '/index.php?...#rslt'],
+    // ['Retail',                  '/index.php?...#rslt'],
+    // ['Land',                    '/index.php?...#rslt'],
+    // ['Businesses',              '/index.php?...#rslt'],
+  ];
+  /* ────────────── */
+
+  const currentPath = window.location.pathname;
+  const urlParams = new URLSearchParams(window.location.search);
+
+  // Homepage = / or /index.php with no query string.
+  // Unlike the brokerage code, a #hash is allowed: Cheri's menu links to /#clc-services etc.
+  const isHomepage =
+    (currentPath === '/' || currentPath === '/index.php' || currentPath === '/index.html') &&
+    urlParams.toString() === '';
+
+  if (!isHomepage) {
+    const customContent = document.getElementById('clc-custom-homepage');
+    if (customContent) customContent.remove();
+    return;
+  }
+
+  document.body.classList.add('page-home');
+
+  // Forms not live yet: take the checklist + newsletter sections out entirely
+  if (!SHOW_FORMS) {
+    ['clc-guides', 'clc-newsletter'].forEach(function (id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    });
+  }
+  const yearEl = document.getElementById('clc-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ─── Hero: move our content into BoldTrail's .cover ─── */
+  function moveHeroIntoCover() {
+    const hero = document.getElementById('clc-hero-content');
+    if (!hero) return true;
+    let coverSection = document.querySelector('.cover');
+    if (!coverSection) {
+      // No BoldTrail hero on the page (e.g. local preview): build one at the top of our content
+      const custom = document.getElementById('clc-custom-homepage');
+      if (!custom || document.readyState === 'loading') return false;
+      coverSection = document.createElement('div');
+      coverSection.className = 'cover';
+      custom.insertBefore(coverSection, custom.firstChild);
+    }
+    if (coverSection.contains(hero)) return true;
+    coverSection.appendChild(hero);
+    return true;
+  }
+
+  /* ─── Custom sections: top of BoldTrail's listings container ─── */
+  function injectCustomContent() {
+    const customContent = document.getElementById('clc-custom-homepage');
+    if (!customContent) return;
+    if (customContent.dataset.injected === 'true') return;
+
+    const listingsContainer = document.querySelector('.listings.container');
+    if (!listingsContainer) return;
+
+    const sectionsToHide = listingsContainer.querySelectorAll(
+      'section, .container-fluid, #categories, #about, #latest-blogs'
+    );
+    sectionsToHide.forEach(function (section) {
+      if (section.id === 'horizontal-search') return;
+      if (customContent.contains(section)) return;
+      section.style.display = 'none';
+    });
+
+    listingsContainer.insertBefore(customContent, listingsContainer.firstChild);
+    customContent.dataset.injected = 'true';
+  }
+
+  /* ─── Live listings: move BoldTrail's carousel in (move, never clone) ─── */
+  function injectFeaturedCarousel() {
+    const targetContainer = document.getElementById('clc-featured-carousel');
+    if (!targetContainer) return;
+    if (targetContainer.querySelector('.listing-box-wrapper, .listing-carousel')) return;
+
+    const btWrapper =
+      document.querySelector('.listings.container > .listing-box-wrapper.listing-box-background') ||
+      document.querySelector('.listing-box-wrapper.listing-box-background') ||
+      document.querySelector('.listing-carousel-wrapper');
+
+    if (!btWrapper) return;
+
+    const loadingEl = document.getElementById('clc-carousel-loading');
+    if (loadingEl) loadingEl.remove();
+
+    targetContainer.appendChild(btWrapper);
+
+    setTimeout(enhanceCards, 200);
+    setTimeout(enhanceCards, 800);
+  }
+
+  function enhanceCards() {
+    const carousel = document.getElementById('clc-featured-carousel');
+    if (!carousel) return;
+
+    carousel.querySelectorAll('.listing-box').forEach(function (card) {
+      if (card.dataset.clcEnhanced === 'true') return;
+
+      const listingUrl = (card.getAttribute('data-link') || '').trim();
+      if (listingUrl) {
+        card.addEventListener('click', function (e) {
+          if (e.target.closest('a')) return;
+          window.location.href = listingUrl;
+        });
+      }
+
+      if (!card.querySelector('.clc-card-address')) {
+        const address = parseAddressFromLink(listingUrl);
+        if (address) {
+          const titleBlock = card.querySelector('.listing-box-title');
+          const priceEl = card.querySelector('.listing-box-title h3');
+          if (titleBlock && priceEl) {
+            const addressEl = document.createElement('p');
+            addressEl.className = 'clc-card-address';
+            addressEl.textContent = address;
+            titleBlock.insertBefore(addressEl, priceEl);
+          }
+        }
+      }
+      card.dataset.clcEnhanced = 'true';
+    });
+  }
+
+  function parseAddressFromLink(dataLink) {
+    if (!dataLink) return '';
+    const slug = dataLink.replace(/^\/property\//, '').trim();
+    const parts = slug.split('-');
+    const cities = ['calgary', 'chestermere', 'airdrie', 'cochrane', 'okotoks', 'strathmore', 'crossfield',
+                    'high', 'river', 'langdon', 'canmore', 'banff', 'balzac', 'rocky', 'foothills', 'didsbury', 'olds'];
+    let cityIndex = -1;
+    for (let i = 2; i < parts.length; i++) {
+      if (cities.indexOf(parts[i].toLowerCase()) !== -1) { cityIndex = i; break; }
+    }
+    const addressParts = (cityIndex > 2)
+      ? parts.slice(2, cityIndex)
+      : parts.slice(2, Math.max(parts.length - 2, 3));
+    return addressParts.map(function (w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(' ');
+  }
+
+  // If no listings ever arrive, swap "Loading…" for a useful link
+  function listingsFallback() {
+    const loadingEl = document.getElementById('clc-carousel-loading');
+    if (!loadingEl) return;
+    loadingEl.className = 'clc-wrap';
+    loadingEl.innerHTML = '<div class="clc-listings-empty">See every current property on the ' +
+      '<a href="' + ALL_LISTINGS_URL + '">full Calgary listings map &rarr;</a></div>';
+  }
+
+  /* ─── Filter tabs (links to saved BoldTrail searches) ─── */
+  function buildFilterTabs() {
+    const box = document.getElementById('clc-filter-tabs');
+    if (!box || !LISTING_FILTERS.length || box.childElementCount) return;
+    const all = [['All', ALL_LISTINGS_URL]].concat(LISTING_FILTERS);
+    box.innerHTML = all.map(function (f, i) {
+      return '<a href="' + f[1] + '"' + (i === 0 ? ' class="is-all"' : '') + '>' + f[0] + '</a>';
+    }).join('');
+    box.hidden = false;
+  }
+
+  /* ─── Checklist chooser + forms ─── */
+  function bindForms() {
+    const home = document.getElementById('clc-custom-homepage');
+    if (!home || home.dataset.formsBound === 'true') return;
+    home.dataset.formsBound = 'true';
+
+    const guides = home.querySelectorAll('.clc-guide');
+    const guideInput = document.getElementById('clc-guide');
+    guides.forEach(function (g) {
+      g.addEventListener('click', function () {
+        guides.forEach(function (x) { x.setAttribute('aria-pressed', x === g ? 'true' : 'false'); });
+        guideInput.value = g.getAttribute('data-g');
+        document.getElementById('clc-fname').focus();
+      });
+    });
+
+    function send(data, msgEl, okText) {
+      if (!LEAD_ENDPOINT) { msgEl.textContent = okText + ' (Demo: form not connected yet.)'; return Promise.resolve(); }
+      data.source = location.href;
+      return fetch(LEAD_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); msgEl.textContent = okText; })
+        .catch(function () { msgEl.textContent = 'That didn’t go through. Please try again, or call ' + PHONE_FALLBACK + '.'; throw new Error('send failed'); });
+    }
+
+    const mag = document.getElementById('clc-mag-form');
+    if (mag) mag.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const f = e.target, msg = document.getElementById('clc-mag-msg');
+      if (!f.first_name.value.trim() || !f.email.value || !f.email.checkValidity() || !f.intent.value) {
+        msg.textContent = 'Please fill in your first name, a valid email and what you’re looking to do.';
+        return;
+      }
+      send({ type: 'checklist', guide: f.guide.value, first_name: f.first_name.value.trim(), email: f.email.value, intent: f.intent.value, newsletter: f.newsletter.checked },
+        msg, 'Thanks, ' + f.first_name.value.trim() + '. Check your inbox for the ' + f.guide.value + '.')
+        .then(function () { const g = f.guide.value; f.reset(); f.guide.value = g; }, function () {});
+    });
+
+    const news = document.getElementById('clc-news-form');
+    if (news) news.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const input = document.getElementById('clc-nemail'), msg = document.getElementById('clc-news-msg');
+      if (!input.value || !input.checkValidity()) { msg.textContent = 'Please enter a valid email address.'; return; }
+      send({ type: 'newsletter', email: input.value }, msg, 'You’re subscribed.').then(function () { input.value = ''; }, function () {});
+    });
+  }
+
+  function setListingLinks() {
+    document.querySelectorAll('a[data-all-listings]').forEach(function (a) { a.setAttribute('href', ALL_LISTINGS_URL); });
+  }
+
+  function runAll() {
+    setListingLinks();
+    injectCustomContent();
+    moveHeroIntoCover();
+    injectFeaturedCarousel();
+    buildFilterTabs();
+    bindForms();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runAll);
+  } else {
+    runAll();
+  }
+
+  window.addEventListener('load', function () {
+    [100, 300, 600, 1000, 1500, 2000, 3000, 5000].forEach(function (delay) {
+      setTimeout(injectFeaturedCarousel, delay);
+      setTimeout(moveHeroIntoCover, delay);
+    });
+    setTimeout(listingsFallback, 8000);
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    let observerActive = true;
+    const observer = new MutationObserver(function () {
+      if (!observerActive) return;
+      const targetContainer = document.getElementById('clc-featured-carousel');
+      if (targetContainer && !targetContainer.querySelector('.listing-box-wrapper, .listing-carousel')) {
+        injectFeaturedCarousel();
+      }
+      const coverSection = document.querySelector('.cover');
+      if (coverSection && !coverSection.querySelector('#clc-hero-content')) {
+        moveHeroIntoCover();
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true, attributes: false });
+    setTimeout(function () {
+      observerActive = false;
+      observer.disconnect();
+    }, 15000);
+  });
+
+})();
+</script>
+<!-- ==========================================================
+     6) SEARCH MAP: START ON CALGARY + AUTO-SEARCH (search results pages)
+     - Opens the map centred on the City of Calgary, unless the
+       visitor searched a place, or already moved the map this visit.
+     - Clicks BoldTrail's "Redo Search in Map" after the visitor
+       pans or zooms. Ignores the map's own moves on page load.
+     ========================================================== -->
+<script>
+(function () {
+  /* ─── CONFIG ─── */
+  var CENTER_ON_CALGARY = true;         // false = leave the map exactly as BoldTrail sets it
+  var CALGARY = [51.0447, -114.0719];   // downtown Calgary
+  var CALGARY_ZOOM = 11;                // whole city in view; 10 = city + nearby towns
+  // true = also refresh the results to the Calgary map area on first load
+  var SEARCH_CALGARY_ON_LOAD = false;
+  /* ────────────── */
+
+  var KEY = 'clc_map_moved';
+  function store(get) { try { return get ? sessionStorage.getItem(KEY) : sessionStorage.setItem(KEY, '1'); } catch (e) { return null; } }
+
+  // Leave the map alone if the visitor searched a place, or has already moved the map this visit
+  var params = new URLSearchParams(location.search);
+  var searchedPlace = (params.get('display') || '').trim() !== '';
+  var shouldCenter = CENTER_ON_CALGARY && !searchedPlace && !store(true);
+
+  var tries = 0;
+  (function hook() {
+    var m = window.listingsMap;                 // BoldTrail's Leaflet map (Google basemap)
+    if (!m || !m.on) { if (++tries < 40) setTimeout(hook, 250); return; }
+
+    var user = false, drawing = false, t;
+    var c = m.getContainer();
+    ['mousedown', 'touchstart', 'wheel'].forEach(function (ev) {
+      c.addEventListener(ev, function () { user = true; store(false); }, { passive: true });
+    });
+
+    /* Start on Calgary — once, after BoldTrail and the Google map layer have finished loading.
+       Moving the map earlier leaves the Google layer blank (grey) while the markers still show. */
+    if (shouldCenter) {
+      var moves = 0, searched = false;
+      var offCalgary = function () {
+        var cur = m.getCenter();
+        return Math.abs(cur.lat - CALGARY[0]) + Math.abs(cur.lng - CALGARY[1]) > 0.02 || m.getZoom() !== CALGARY_ZOOM;
+      };
+      var redraw = function () {
+        // Make the Google layer catch up with the new view
+        m.invalidateSize({ pan: false });
+        m.panBy([1, 0], { animate: false });
+        m.panBy([-1, 0], { animate: false });
+      };
+      var center = function () {
+        if (user || moves >= 2 || !offCalgary()) return;
+        moves++;
+        m.setView(CALGARY, CALGARY_ZOOM);       // normal (animated) move so the Google layer follows
+        setTimeout(redraw, 700);
+        if (SEARCH_CALGARY_ON_LOAD && !searched) {
+          searched = true;
+          setTimeout(function () {
+            var b = document.getElementById('search-area-link');
+            if (b && !user) { store(false); b.click(); }
+          }, 1500);
+        }
+      };
+      var start = function () {
+        setTimeout(center, 1200);               // after BoldTrail's own fit-to-results
+        setTimeout(center, 3500);               // once more, only if BoldTrail re-fit the map
+      };
+      if (document.readyState === 'complete') start(); else window.addEventListener('load', start);
+    }
+
+    // Don't fire while someone is using the Draw tool
+    m.on('draw:drawstart', function () { drawing = true; clearTimeout(t); });
+    m.on('draw:drawstop',  function () { drawing = false; user = false; });
+
+    m.on('movestart', function () { clearTimeout(t); });
+    m.on('moveend', function () {
+      if (!user || drawing) return;
+      clearTimeout(t);
+      t = setTimeout(function () {
+        var b = document.getElementById('search-area-link');
+        if (b) { user = false; b.click(); }
+      }, 800);
+    });
+  })();
+})();
+</script>
