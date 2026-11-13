@@ -1,5 +1,7 @@
 /* =========================================================
    Cheri Long Commercial - Header Injection & Behavior
+   v1011 - Map search pages: lock page scrolling (html.clc-map-lock) so only the
+           results list scrolls, not the hidden page behind the map.
    v1010 - No "Talk to Our Team" button and no top strip: "Call Cheri" + social
            icons sit at the right of the header. Phones get a "☰ Menu"
            button (hamburger) with a drop-down menu, plus a call button.
@@ -27,9 +29,9 @@
            the page; FOUC guard lives in Custom Header Code).
    Bump ?v= in BOTH BoldTrail Custom Code fields when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1010');
+console.log('CLC HEADER JS LOADED v1011');
 (function () {
-  const VERSION = '1010';
+  const VERSION = '1011';
 
   /* ─── CONFIG ─── */
   const BOLDTRAIL_BASE = 'https://cherilongcommercial.com';   // used only off BoldTrail (subdomain pages)
@@ -221,6 +223,10 @@ console.log('CLC HEADER JS LOADED v1010');
   function setMapOffset() {
     if (!document.getElementById('listings-map')) return;
     document.body.classList.add('clc-map-page');
+    if (window.innerWidth >= 768) {
+      document.documentElement.classList.add('clc-map-lock');
+      if (window.scrollY) window.scrollTo(0, 0);
+    }
     const measure = function () {
       const h = document.getElementById('clc-header');
       const top = h ? Math.round(h.getBoundingClientRect().bottom) : 0;   // bottom edge of our header

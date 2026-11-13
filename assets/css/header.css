@@ -1,5 +1,6 @@
 /* =========================================================
    Cheri Long Commercial - Custom Header
+   v1011 - Map search pages no longer scroll behind the pinned map/results.
    v1010 - No top strip or header button: "Call Cheri" + social icons at the
            right of the header. Phones: logo + call icon + "☰ Menu" drop-down.
    v1009 - Header is solid black on pages without a hero photo (search, map,
@@ -210,6 +211,11 @@ body.clc-map-page #listings-map { top: var(--clc-top, 110px) !important; }
   body.clc-map-page #map-col ~ [class*="col-"],
   body.clc-map-page #scrolling-column { height: calc(100vh - var(--clc-top, 110px)) !important; }
   body.clc-map-page #map { height: calc(100vh - var(--clc-top, 110px) + 70px) !important; }
+  /* v1011: nothing behind the map should scroll. BoldTrail locks <body> but not <html>,
+     and its page wrapper is a full screen tall below our header, so the page could scroll. */
+  html.clc-map-lock, html:has(body.clc-map-page) { overflow: hidden !important; height: 100% !important; }
+  body.clc-map-page .page-wrapper,
+  body.clc-map-page .main-wrapper { height: calc(100vh - var(--clc-top, 110px)) !important; overflow: hidden !important; }
 }
 
 /* Phones: slim black header (no overlap with the photo), menu still always visible */
