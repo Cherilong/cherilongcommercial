@@ -89,7 +89,8 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 
 - Colours (tokens in `clc.css`): black `#000000`, red `#EA002A`, white, warm grey `#6B6660`, taupe `#A89E92`,
   stone `#D6D1C8`, light grey `#EFEFEF`. `#C20023` is for hover only. No blue, yellow or gold. One accent: red.
-- Fonts: Raleway (headings) and Roboto (body). No other families.
+- Fonts: Raleway (headings) and Roboto (body). Only exception: Great Vibes (script) for the "Cheri Long" signature
+  in the homepage hero (`--clc-script`), approved by Kyle Nov 2026. No other families.
 - ® on the first "Royal LePage" on every page.
 - Every public page needs the legal block: rlp.ca/notices, "independently owned and operated",
   "not intended to solicit buyers or sellers currently under contract". `clc.js` adds it.

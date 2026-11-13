@@ -72,7 +72,7 @@ div[class*="advanced-search"][style*="max-height"],
      ========================================================== -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Raleway:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <!-- ==========================================================
      2b) CLC SITE HEADER (built + injected by header.js)
@@ -100,6 +100,7 @@ div[class*="advanced-search"][style*="max-height"],
   --clc-light:   #EFEFEF;
   --clc-display: 'Raleway', 'Helvetica Neue', Arial, sans-serif;
   --clc-body:    'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --clc-script:  'Great Vibes', 'Brush Script MT', cursive;   /* signature only */
   --clc-wrap:    1920px;                  /* full width, capped for very large monitors */
   --clc-gutter:  clamp(24px, 4vw, 72px);  /* side margins grow with the screen */
   /* Hero photo (Calgary skyline). Phones get a smaller copy — see the @media rule below. */
@@ -253,11 +254,25 @@ body.page-home .clc-hero-inner {
 }
 /* v1006: room for the see-through header that sits on top of the hero */
 @media (min-width: 761px) {
-  body.clc-overlay.page-home .cover { min-height: clamp(720px, 100vh, 980px) !important; }
-  body.clc-overlay.page-home .clc-hero-inner { padding-top: 220px; }
+  body.clc-overlay.page-home .cover { min-height: clamp(760px, 100vh, 1000px) !important; }
+  body.clc-overlay.page-home .clc-hero-inner { padding-top: 172px; }
 }
 @media (min-width: 761px) and (max-width: 1080px) {
-  body.clc-overlay.page-home .clc-hero-inner { padding-top: 270px; }
+  body.clc-overlay.page-home .clc-hero-inner { padding-top: 222px; }
+}
+
+/* v1008: "Cheri Long / Associate Broker" signature, centred under the menu */
+body.page-home .clc-sig { text-align: center; margin: 0 0 clamp(36px, 6vh, 72px); }
+body.page-home .clc-sig-inner { display: inline-flex; flex-direction: column; align-items: flex-end; }
+body.page-home .clc-sig-name {
+  font: 400 clamp(56px, 6.4vw, 92px)/1 var(--clc-script);
+  color: var(--clc-white); letter-spacing: 0; padding: 0 .12em;
+  text-shadow: 0 2px 18px rgba(0,0,0,.35);
+}
+body.page-home .clc-sig-title {
+  font: 600 clamp(12px, 1vw, 14px)/1 var(--clc-display);
+  letter-spacing: .32em; text-transform: uppercase; color: var(--clc-stone);
+  margin-top: .9em; margin-right: .2em;   /* clears the tail of the "g" */
 }
 body.page-home .clc-hero-inner h1 {
   font-size: clamp(38px, 5.4vw, 64px) !important;
@@ -696,6 +711,12 @@ body.page-home #clc-custom-homepage .clc-contact h4 { font: 700 13px var(--clc-d
 
   <!-- HERO CONTENT — moved into BoldTrail's .cover by the script below -->
   <div class="clc-hero-inner" id="clc-hero-content">
+    <div class="clc-sig" aria-label="Cheri Long, Associate Broker">
+      <span class="clc-sig-inner">
+        <span class="clc-sig-name">Cheri Long</span>
+        <span class="clc-sig-title">Associate Broker</span>
+      </span>
+    </div>
     <h1>Trusted advice in Commercial, Industrial, Retail <em>&amp;</em> Land.</h1>
     <p class="clc-sub">Buying, selling, leasing or building, one experienced team handles every type of commercial property in Calgary and area.</p>
     <div class="clc-hero-ctas">
