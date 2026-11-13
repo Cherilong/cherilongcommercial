@@ -213,7 +213,8 @@ body.clc-map-page #listings-map { top: var(--clc-top, 110px) !important; }
   body.clc-map-page #map { height: calc(100vh - var(--clc-top, 110px) + 70px) !important; }
   /* v1011: nothing behind the map should scroll. BoldTrail locks <body> but not <html>,
      and its page wrapper is a full screen tall below our header, so the page could scroll. */
-  html.clc-map-lock, html:has(body.clc-map-page) { overflow: hidden !important; height: 100% !important; }
+  html.clc-map-lock, html:has(body.clc-map-page) { overflow: hidden !important; height: 100% !important; background: #F9F9F8 !important; }
+  body.clc-map-page #scrolling-column { background: #F9F9F8; }
   body.clc-map-page .page-wrapper,
   body.clc-map-page .main-wrapper { height: calc(100vh - var(--clc-top, 110px)) !important; overflow: hidden !important; }
 }
