@@ -1,5 +1,6 @@
 /* =========================================================
    Cheri Long Commercial - Custom Header
+   v1004 - Brand row: Cheri's name + Royal LePage Commercial logo.
    v1002 - No style changes (version kept in step with header.js).
    v1001 - Utility bar (socials, newsletter, phone) + white header:
            row 1 brand + "Talk to Our Team", row 2 flat menu
@@ -80,6 +81,9 @@ body.has-clc-header .kv-sticky-spacer {
 .clc-brand span { font: 600 .72rem var(--clc-display); letter-spacing: .2em; text-transform: uppercase; color: var(--clc-warm); margin-top: 4px; }
 .clc-brand i { color: var(--clc-red); font-style: normal; }
 .clc-brand img { display: block; height: 56px; width: auto; max-width: 100%; }
+/* v1004: Cheri's name + Royal LePage Commercial logo, split by a thin rule */
+.clc-brand-row { display: flex; align-items: center; gap: 22px; min-width: 0; text-decoration: none !important; color: inherit !important; }
+.clc-brand-row .clc-rlp-logo { display: block; height: 80px; width: auto; max-width: 100%; padding-left: 22px; border-left: 1px solid var(--clc-stone); }
 
 /* Skip link: hidden until a keyboard user tabs to it */
 .clc-skip {
@@ -105,6 +109,8 @@ body.has-clc-header .kv-sticky-spacer {
 @media (max-width: 760px) {
   #clc-header { position: static; }
   .clc-brand img { height: 46px; }
+  .clc-brand-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .clc-brand-row .clc-rlp-logo { height: 64px; padding-left: 0; border-left: 0; }
   #clc-header .clc-head-top { flex-direction: column; align-items: stretch; gap: 14px; }
   #clc-header .clc-nav { border-top: 0; padding-bottom: 12px; }
   /* Menu stays fully visible on phones: two columns of big tap targets */

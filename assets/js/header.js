@@ -1,5 +1,7 @@
 /* =========================================================
    Cheri Long Commercial - Header Injection & Behavior
+   v1004 - Royal LePage Commercial / Royal LePage Solutions logo beside
+           Cheri's name in the header (LOGO_URL).
    v1003 - Real phone + social links. YouTube removed (no channel yet).
            SHOW_FORMS = false hides "Resources & Guides" and
            "Newsletter sign-up" until the lead forms are wired up.
@@ -12,9 +14,9 @@
            the page; FOUC guard lives in Custom Header Code).
    Bump ?v= in BOTH BoldTrail Custom Code fields when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1003');
+console.log('CLC HEADER JS LOADED v1004');
 (function () {
-  const VERSION = '1003';
+  const VERSION = '1004';
 
   /* ─── CONFIG ─── */
   const BOLDTRAIL_BASE = 'https://cherilongcommercial.com';   // used only off BoldTrail (subdomain pages)
@@ -22,9 +24,9 @@ console.log('CLC HEADER JS LOADED v1003');
   // ALL_LISTINGS_URL in the Custom Body Code.
   const LISTINGS_URL = '/index.php?advanced=1&rtype=map&display=Calgary&types%5B%5D=5&types%5B%5D=3&types%5B%5D=4&types%5B%5D=12#rslt';
   const PHONE = '403-860-9419';                                 // Cheri's cell
-  // Logo image (white background version). Leave '' to show the text name instead.
-  // e.g. 'https://raw.githubusercontent.com/Cherilong/cherilongcommercial/main/assets/images/logo.png'
-  const LOGO_URL = '';
+  // Royal LePage Commercial logo shown beside Cheri's name (black/red, for the white header).
+  // Leave '' to show the text-only "Royal LePage® Commercial" line instead.
+  const LOGO_URL = 'https://info.cherilongcommercial.com/assets/images/rlp-commercial-brokerage-black-red.png';
   const SOCIAL = {
     instagram: 'https://www.instagram.com/cherilongcommercial/',
     facebook:  'https://www.facebook.com/CheriLongCommercialBroker',
@@ -67,10 +69,9 @@ console.log('CLC HEADER JS LOADED v1003');
   function buildHeaderHTML() {
     return `
       <div class="clc-wrap clc-head-top">
-        <a class="clc-brand" data-home href="/" aria-label="Cheri Long Commercial home">
-          ${LOGO_URL
-            ? '<img src="' + LOGO_URL + '" alt="Cheri Long Commercial, Royal LePage Commercial">'
-            : '<b>Cheri Long <i>Commercial</i></b><span>Royal LePage&reg; Commercial</span>'}
+        <a class="clc-brand-row" data-home href="/" aria-label="Cheri Long Commercial home">
+          <span class="clc-brand"><b>Cheri Long <i>Commercial</i></b>${LOGO_URL ? '' : '<span>Royal LePage&reg; Commercial</span>'}</span>
+          ${LOGO_URL ? '<img class="clc-rlp-logo" src="' + LOGO_URL + '" alt="Royal LePage Commercial, Royal LePage Solutions" width="809" height="324">' : ''}
         </a>
         <a class="clc-btn" data-sec="clc-contact" href="#">Talk to Our Team</a>
       </div>

@@ -1,5 +1,5 @@
 <!-- ============================================================
-     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1003)
+     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1004)
      Same structure as the Royal LePage Solutions homepage code.
      Paste into: Web & IDX → Website Settings → Custom Body Code
      ============================================================ -->
@@ -78,7 +78,7 @@ div[class*="advanced-search"][style*="max-height"],
      2b) CLC SITE HEADER (built + injected by header.js)
      Loaded from GitHub Pages at info.cherilongcommercial.com.
      ========================================================== -->
-<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1003"></script>
+<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1004"></script>
 
 <!-- ==========================================================
      3) HOMEPAGE LAYOUT - SCOPED TO HOMEPAGE
@@ -630,6 +630,7 @@ body.page-home #clc-custom-homepage .clc-team-h { margin-top: 72px !important; f
 .clc-contact .clc-brand { display: flex; flex-direction: column; line-height: 1.1; }
 .clc-contact .clc-brand b { font: 800 26px var(--clc-display); color: var(--clc-white); }
 .clc-contact .clc-brand i { color: var(--clc-red); font-style: normal; }
+body.page-home #clc-custom-homepage .clc-foot-logo { display: block; width: 240px !important; max-width: 100% !important; height: auto !important; margin-top: 18px; }
 .clc-contact .clc-brand span { font: 600 12px var(--clc-display); letter-spacing: .2em; text-transform: uppercase; color: var(--clc-taupe); margin-top: 4px; }
 body.page-home #clc-custom-homepage .clc-contact h4 { font: 700 13px var(--clc-display) !important; letter-spacing: .16em !important; text-transform: uppercase !important; color: var(--clc-white) !important; margin: 0 0 14px !important; }
 .clc-contact p { margin: 0 0 6px !important; }
@@ -843,8 +844,9 @@ body.page-home #clc-custom-homepage .clc-contact h4 { font: 700 13px var(--clc-d
     <div class="clc-wrap">
       <div class="clc-contact-grid">
         <div>
-          <!-- Replace the text wordmark with the Royal LePage Commercial logo image when available -->
-          <div class="clc-brand"><b>Cheri Long <i>Commercial</i></b><span>Royal LePage&reg; Commercial</span></div>
+          <div class="clc-brand"><b>Cheri Long <i>Commercial</i></b></div>
+          <img class="clc-foot-logo" src="https://info.cherilongcommercial.com/assets/images/rlp-commercial-brokerage-white-red.png"
+               alt="Royal LePage Commercial, Royal LePage Solutions" width="809" height="324" loading="lazy">
           <div class="clc-social" aria-label="Social media">
             <a href="https://www.instagram.com/cherilongcommercial/" aria-label="Instagram" target="_blank" rel="noopener"><svg><use href="#clc-ig"/></svg></a>
             <a href="https://www.facebook.com/CheriLongCommercialBroker" aria-label="Facebook" target="_blank" rel="noopener"><svg><use href="#clc-fb"/></svg></a>
@@ -884,7 +886,7 @@ body.page-home #clc-custom-homepage .clc-contact h4 { font: 700 13px var(--clc-d
      ========================================================== -->
 <script>
 (function () {
-  console.log('CLC Homepage Loaded v1003');
+  console.log('CLC Homepage Loaded v1004');
 
   /* ─── CONFIG ─── */
   // Every "all listings" link: all commercial listings in Calgary on the map.
