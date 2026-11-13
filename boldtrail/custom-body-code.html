@@ -102,8 +102,8 @@ div[class*="advanced-search"][style*="max-height"],
   --clc-body:    'Roboto', 'Helvetica Neue', Arial, sans-serif;
   --clc-wrap:    1200px;
   --clc-gutter:  24px;
-  /* Hero photo: replace none with url('https://raw.githubusercontent.com/Cherilong/cherilongcommercial/main/assets/images/hero.jpg') */
-  --clc-hero-image: none;
+  /* Hero photo (Calgary skyline). Phones get a smaller copy — see the @media rule below. */
+  --clc-hero-image: url('https://info.cherilongcommercial.com/assets/images/hero-calgary.jpg');
 }
 
 /* ============================================
@@ -233,7 +233,7 @@ body.page-home .cover-pull-top {
   color: var(--clc-white) !important;
   background:
     linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.72) 50%, rgba(0,0,0,.35) 100%),
-    var(--clc-hero-image) center/cover no-repeat,
+    var(--clc-hero-image) 72% center/cover no-repeat,
     linear-gradient(160deg, #3a3633 0%, #6B6660 55%, #A89E92 100%) !important;
   display: flex !important;
   flex-direction: column !important;
@@ -655,6 +655,7 @@ body.page-home #clc-custom-homepage .clc-contact h4 { font: 700 13px var(--clc-d
   .clc-contact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 760px) {
+  :root { --clc-hero-image: url('https://info.cherilongcommercial.com/assets/images/hero-calgary-1200.jpg'); }
   body.page-home #clc-custom-homepage,
   body.page-home .clc-hero-inner { font-size: 17px !important; }
   body.page-home .clc-creds { grid-template-columns: 1fr 1fr; }
