@@ -254,11 +254,14 @@ body.page-home .clc-hero-inner {
 }
 /* v1006: room for the see-through header that sits on top of the hero */
 @media (min-width: 761px) {
+  /* BoldTrail pulls the hero up 60px (body.cover-pull-top); undo it so the signature sits below the menu line */
+  body.clc-overlay.page-home .cover,
+  body.clc-overlay.page-home .cover-pull-top { margin-top: 0 !important; top: 0 !important; }
   body.clc-overlay.page-home .cover { min-height: clamp(760px, 100vh, 1000px) !important; }
-  body.clc-overlay.page-home .clc-hero-inner { padding-top: 172px; }
+  body.clc-overlay.page-home .clc-hero-inner { padding-top: 180px; }
 }
 @media (min-width: 761px) and (max-width: 1080px) {
-  body.clc-overlay.page-home .clc-hero-inner { padding-top: 222px; }
+  body.clc-overlay.page-home .clc-hero-inner { padding-top: 230px; }
 }
 
 /* v1008: "Cheri Long / Associate Broker" signature, centred under the menu */
