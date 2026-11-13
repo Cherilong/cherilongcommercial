@@ -3,7 +3,7 @@
 Custom code and pages for **Cheri Long Commercial** (Cheri Long, Associate Broker, Royal LePage® Commercial, Calgary).
 Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 
-> **Current live setup (Nov 2026, v1005):** the header is built by `assets/js/header.js` + `assets/css/header.css`
+> **Current live setup (Nov 2026, v1006):** the header is built by `assets/js/header.js` + `assets/css/header.css`
 > (same pattern as the Royal LePage Solutions site). `boldtrail/custom-header-code.html` and
 > `boldtrail/custom-body-code.html` hold the homepage. `assets/js/clc.js`, `assets/css/clc.css` and `preview/` are an
 > earlier draft and are NOT loaded anywhere. Sections below that mention clc.js describe that draft.
@@ -12,7 +12,8 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > **Subdomain pages (v1005):** `/services/`, `/about/`, `/contact/` (site header + footer, styles in
 > `assets/css/pages.css`; header.js fills `<footer id="clc-site-footer">`) and `/links/` (stand-alone Instagram
 > link-in-bio page, own inline styles). New pages: copy `/_template/` to `/<page-name>/`. The old `pages/` folder
-> convention below is replaced by top-level folders. Menu links for Services/About/Contact come from `PAGES` in header.js.
+> convention below is replaced by top-level folders. v1006: see-through header on pages with a hero
+> (homepage + subdomain pages, `body.clc-overlay`), solid black after scrolling; logo only, no name text. Menu links for Services/About/Contact come from `PAGES` in header.js.
 
 Two parts work together:
 
@@ -72,7 +73,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 1. Edit the file(s) and commit to `main`. GitHub Pages ignores `?v=`, so the commit is what updates the file.
 2. If `clc.css` or `clc.js` changed, bump the version: `VERSION` in the file header, then every `?v=` in
    `boldtrail/custom-header-code.html`, `boldtrail/custom-body-code.html` and every `pages/*/index.html`.
-   Keep all of them on the same number. Current: **1005**.
+   Keep all of them on the same number. Current: **1006**.
 3. Tell Kyle which BoldTrail field(s) to re-paste. Always give the complete file, never a partial diff.
 4. Check the live BoldTrail homepage, one BoldTrail inner page (e.g. a search page) and one subdomain page.
 

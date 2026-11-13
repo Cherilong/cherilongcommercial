@@ -1,5 +1,5 @@
 <!-- ============================================================
-     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1005)
+     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1006)
      Same structure as the Royal LePage Solutions homepage code.
      Paste into: Web & IDX → Website Settings → Custom Body Code
      ============================================================ -->
@@ -78,7 +78,7 @@ div[class*="advanced-search"][style*="max-height"],
      2b) CLC SITE HEADER (built + injected by header.js)
      Loaded from GitHub Pages at info.cherilongcommercial.com.
      ========================================================== -->
-<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1005"></script>
+<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1006"></script>
 
 <!-- ==========================================================
      3) HOMEPAGE LAYOUT - SCOPED TO HOMEPAGE
@@ -232,7 +232,8 @@ body.page-home .cover-pull-top {
   overflow: hidden !important;
   color: var(--clc-white) !important;
   background:
-    linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.72) 50%, rgba(0,0,0,.35) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.65) 0%, rgba(0,0,0,0) 32%),
+    linear-gradient(90deg, rgba(0,0,0,.9) 0%, rgba(0,0,0,.66) 50%, rgba(0,0,0,.28) 100%),
     var(--clc-hero-image) 72% center/cover no-repeat,
     linear-gradient(160deg, #3a3633 0%, #6B6660 55%, #A89E92 100%) !important;
   display: flex !important;
@@ -249,6 +250,14 @@ body.page-home .clc-hero-inner {
   padding: clamp(72px, 10vw, 128px) var(--clc-gutter) 0;
   font: 400 18px/1.6 var(--clc-body);
   color: var(--clc-white);
+}
+/* v1006: room for the see-through header that sits on top of the hero */
+@media (min-width: 761px) {
+  body.clc-overlay.page-home .cover { min-height: clamp(720px, 100vh, 980px) !important; }
+  body.clc-overlay.page-home .clc-hero-inner { padding-top: 220px; }
+}
+@media (min-width: 761px) and (max-width: 1080px) {
+  body.clc-overlay.page-home .clc-hero-inner { padding-top: 270px; }
 }
 body.page-home .clc-hero-inner h1 {
   font-size: clamp(38px, 5.4vw, 64px) !important;
@@ -687,7 +696,6 @@ body.page-home #clc-custom-homepage .clc-contact h4 { font: 700 13px var(--clc-d
 
   <!-- HERO CONTENT — moved into BoldTrail's .cover by the script below -->
   <div class="clc-hero-inner" id="clc-hero-content">
-    <span class="clc-eyebrow">Calgary Commercial Real Estate</span>
     <h1>Trusted advice in Commercial, Industrial, Retail <em>&amp;</em> Land.</h1>
     <p class="clc-sub">Buying, selling, leasing or building, one experienced team handles every type of commercial property in Calgary and area.</p>
     <div class="clc-hero-ctas">
@@ -893,7 +901,7 @@ body.page-home #clc-custom-homepage .clc-contact h4 { font: 700 13px var(--clc-d
      ========================================================== -->
 <script>
 (function () {
-  console.log('CLC Homepage Loaded v1005');
+  console.log('CLC Homepage Loaded v1006');
 
   /* ─── CONFIG ─── */
   // Every "all listings" link: all commercial listings in Calgary on the map.

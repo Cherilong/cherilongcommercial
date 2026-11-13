@@ -1,5 +1,5 @@
 /* =========================================================
-   Cheri Long Commercial - Subdomain page styles (v1005)
+   Cheri Long Commercial - Subdomain page styles (v1006)
    Used by info.cherilongcommercial.com pages (services, about,
    contact). Load AFTER header.css, which defines the --clc-* tokens.
    The /links/ page has its own small stylesheet inline.
@@ -40,9 +40,19 @@ p { margin: 0; }
 .clc-page-hero {
   color: var(--clc-white);
   background:
-    linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.72) 55%, rgba(0,0,0,.4) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.65) 0%, rgba(0,0,0,0) 45%),
+    linear-gradient(90deg, rgba(0,0,0,.9) 0%, rgba(0,0,0,.7) 55%, rgba(0,0,0,.35) 100%),
+    url('../images/hero-calgary.jpg') 72% center / cover no-repeat,
     linear-gradient(160deg, #3a3633 0%, #6B6660 55%, #A89E92 100%);
   padding: clamp(64px, 9vw, 112px) 0 clamp(56px, 7vw, 88px);
+}
+/* Room for the see-through header sitting on top of the hero */
+@media (min-width: 761px) { body.clc-overlay .clc-page-hero { padding-top: calc(clamp(64px, 9vw, 112px) + 150px); } }
+@media (min-width: 761px) and (max-width: 1080px) { body.clc-overlay .clc-page-hero { padding-top: calc(clamp(64px, 9vw, 112px) + 200px); } }
+@media (max-width: 760px) {
+  .clc-page-hero { background:
+    linear-gradient(90deg, rgba(0,0,0,.9) 0%, rgba(0,0,0,.72) 100%),
+    url('../images/hero-calgary-1200.jpg') 72% center / cover no-repeat, #3a3633; }
 }
 .clc-page-hero h1 { font-size: clamp(36px, 5vw, 58px); font-weight: 800; max-width: 20ch; }
 .clc-page-hero h1 em { font-style: normal; color: var(--clc-red); }

@@ -1,5 +1,7 @@
 /* =========================================================
    Cheri Long Commercial - Custom Header
+   v1006 - See-through header over hero photos (body.clc-overlay), solid
+           black after scrolling (body.clc-scrolled). Logo only.
    v1005 - No header style changes (pages.css added for subdomain pages).
    v1004 - Brand row: Cheri's name + Royal LePage Commercial logo.
    v1002 - No style changes (version kept in step with header.js).
@@ -84,7 +86,11 @@ body.has-clc-header .kv-sticky-spacer {
 .clc-brand img { display: block; height: 56px; width: auto; max-width: 100%; }
 /* v1004: Cheri's name + Royal LePage Commercial logo, split by a thin rule */
 .clc-brand-row { display: flex; align-items: center; gap: 22px; min-width: 0; text-decoration: none !important; color: inherit !important; }
-.clc-brand-row .clc-rlp-logo { display: block; height: 80px; width: auto; max-width: 100%; padding-left: 22px; border-left: 1px solid var(--clc-stone); }
+.clc-brand-row .clc-rlp-logo { display: block; height: 72px; width: auto; max-width: 100%; }
+/* Two logo versions: dark on the white header, light on the see-through/black header */
+.clc-brand-row .clc-logo-light { display: none; }
+body.clc-overlay .clc-brand-row .clc-logo-dark { display: none; }
+body.clc-overlay .clc-brand-row .clc-logo-light { display: block; }
 
 /* Skip link: hidden until a keyboard user tabs to it */
 .clc-skip {
@@ -111,11 +117,68 @@ body.has-clc-header .kv-sticky-spacer {
   #clc-header { position: static; }
   .clc-brand img { height: 46px; }
   .clc-brand-row { flex-direction: column; align-items: flex-start; gap: 8px; }
-  .clc-brand-row .clc-rlp-logo { height: 64px; padding-left: 0; border-left: 0; }
+  .clc-brand-row .clc-rlp-logo { height: 60px; }
   #clc-header .clc-head-top { flex-direction: column; align-items: stretch; gap: 14px; }
   #clc-header .clc-nav { border-top: 0; padding-bottom: 12px; }
   /* Menu stays fully visible on phones: two columns of big tap targets */
   #clc-header .clc-nav ul { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
   #clc-header .clc-nav ul a { background: var(--clc-light); padding: 12px 14px; }
 }
-@media (prefers-reduced-motion: reduce) { #clc-topbar *, #clc-header * { transition: none !important; } }
+
+/* ─────────────────────────────────────────────────────────
+   5) v1006: See-through header over the hero photo
+      body.clc-overlay  = page has a hero (set by header.js)
+      body.clc-scrolled = visitor scrolled past the top
+   ───────────────────────────────────────────────────────── */
+@media (min-width: 761px) {
+  body.clc-overlay #clc-topbar {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 9001;
+    height: 52px; background: transparent; font-size: 15px;
+  }
+  body.clc-overlay #clc-topbar .clc-wrap { height: 52px; padding-top: 0; padding-bottom: 0; }
+  body.clc-overlay #clc-header {
+    position: absolute; top: 52px; left: 0; right: 0; z-index: 9000;
+    max-width: calc(var(--clc-wrap) + 48px); margin: 0 auto; padding: 14px 24px;
+    display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px 28px;
+    background: transparent; color: var(--clc-white);
+    border-top: 1px solid rgba(255,255,255,.2); border-bottom: 1px solid rgba(255,255,255,.2);
+  }
+  body.clc-overlay #clc-header .clc-head-top { display: contents; }
+  body.clc-overlay #clc-header .clc-brand-row { order: 1; }
+  body.clc-overlay #clc-header .clc-nav { order: 2; border: 0; }
+  body.clc-overlay #clc-header .clc-head-top > .clc-btn { order: 3; }
+  body.clc-overlay #clc-header .clc-rlp-logo { height: 62px; }
+  body.clc-overlay #clc-header .clc-nav .clc-wrap { padding: 0; max-width: none; }
+  body.clc-overlay #clc-header .clc-nav ul { justify-content: center; flex-wrap: nowrap; gap: 0 26px; }
+  body.clc-overlay #clc-header .clc-nav ul a { color: var(--clc-white) !important; white-space: nowrap; padding: 10px 2px 8px; font-size: 1rem; }
+  body.clc-overlay #clc-header .clc-nav ul a:hover { color: var(--clc-stone) !important; }
+
+  /* Scrolled: solid black bar pinned to the top, full width */
+  body.clc-overlay.clc-scrolled #clc-header {
+    position: fixed; top: 0; padding-top: 8px; padding-bottom: 8px;
+    background: var(--clc-black); border-top-color: transparent; border-bottom-color: transparent;
+    box-shadow: 0 0 0 100vmax var(--clc-black); clip-path: inset(0 -100vmax);
+    animation: clc-drop .25s ease-out;
+  }
+  body.clc-overlay.clc-scrolled #clc-header .clc-rlp-logo { height: 48px; }
+}
+@keyframes clc-drop { from { transform: translateY(-100%); } to { transform: none; } }
+
+/* Narrower screens: menu drops to its own row under the logo + button */
+@media (min-width: 761px) and (max-width: 1080px) {
+  body.clc-overlay #clc-header { grid-template-columns: auto 1fr; }
+  body.clc-overlay #clc-header .clc-head-top > .clc-btn { justify-self: end; }
+  body.clc-overlay #clc-header .clc-nav { grid-column: 1 / -1; order: 4; }
+  body.clc-overlay #clc-header .clc-nav ul { justify-content: space-between; }
+}
+
+/* Phones: slim black header (no overlap with the photo), menu still always visible */
+@media (max-width: 760px) {
+  body.clc-overlay #clc-header { background: var(--clc-black); color: var(--clc-white); border-bottom: 1px solid rgba(255,255,255,.15); }
+  body.clc-overlay #clc-header .clc-rlp-logo { height: 58px; }
+  body.clc-overlay #clc-header .clc-nav ul a { background: rgba(255,255,255,.1); color: var(--clc-white) !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #clc-topbar *, #clc-header * { transition: none !important; }
+  body.clc-overlay.clc-scrolled #clc-header { animation: none; }
+}

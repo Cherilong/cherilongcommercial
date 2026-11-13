@@ -1,5 +1,8 @@
 /* =========================================================
    Cheri Long Commercial - Header Injection & Behavior
+   v1006 - See-through header over the hero photo on the homepage and
+           the subdomain pages (body.clc-overlay); turns solid black
+           after scrolling. Logo only (no "Cheri Long Commercial" text).
    v1005 - Services, About and Contact are now their own pages on
            info.cherilongcommercial.com (PAGES). Builds the shared
            contact & legal footer into #clc-site-footer on those pages.
@@ -17,9 +20,9 @@
            the page; FOUC guard lives in Custom Header Code).
    Bump ?v= in BOTH BoldTrail Custom Code fields when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1005');
+console.log('CLC HEADER JS LOADED v1006');
 (function () {
-  const VERSION = '1005';
+  const VERSION = '1006';
 
   /* ─── CONFIG ─── */
   const BOLDTRAIL_BASE = 'https://cherilongcommercial.com';   // used only off BoldTrail (subdomain pages)
@@ -27,9 +30,10 @@ console.log('CLC HEADER JS LOADED v1005');
   // ALL_LISTINGS_URL in the Custom Body Code.
   const LISTINGS_URL = '/index.php?advanced=1&rtype=map&display=Calgary&types%5B%5D=5&types%5B%5D=3&types%5B%5D=4&types%5B%5D=12#rslt';
   const PHONE = '403-860-9419';                                 // Cheri's cell
-  // Royal LePage Commercial logo shown beside Cheri's name (black/red, for the white header).
-  // Leave '' to show the text-only "Royal LePage® Commercial" line instead.
+  // Royal LePage Commercial logo: black/red for the white header (search & listing pages),
+  // white/red for the see-through header over photos. Leave LOGO_URL '' to show a text name instead.
   const LOGO_URL = 'https://info.cherilongcommercial.com/assets/images/rlp-commercial-brokerage-black-red.png';
+  const LOGO_URL_LIGHT = 'https://info.cherilongcommercial.com/assets/images/rlp-commercial-brokerage-white-red.png';
   const SOCIAL = {
     instagram: 'https://www.instagram.com/cherilongcommercial/',
     facebook:  'https://www.facebook.com/CheriLongCommercialBroker',
@@ -83,8 +87,10 @@ console.log('CLC HEADER JS LOADED v1005');
     return `
       <div class="clc-wrap clc-head-top">
         <a class="clc-brand-row" data-home href="/" aria-label="Cheri Long Commercial home">
-          <span class="clc-brand"><b>Cheri Long <i>Commercial</i></b>${LOGO_URL ? '' : '<span>Royal LePage&reg; Commercial</span>'}</span>
-          ${LOGO_URL ? '<img class="clc-rlp-logo" src="' + LOGO_URL + '" alt="Royal LePage Commercial, Royal LePage Solutions" width="809" height="324">' : ''}
+          ${LOGO_URL
+            ? '<img class="clc-rlp-logo clc-logo-dark" src="' + LOGO_URL + '" alt="Royal LePage Commercial, Royal LePage Solutions" width="809" height="324">' +
+              '<img class="clc-rlp-logo clc-logo-light" src="' + LOGO_URL_LIGHT + '" alt="Royal LePage Commercial, Royal LePage Solutions" width="809" height="324">'
+            : '<span class="clc-brand"><b>Cheri Long <i>Commercial</i></b><span>Royal LePage&reg; Commercial</span></span>'}
         </a>
         <a class="clc-btn" data-page="contact" href="#">Talk to Our Team</a>
       </div>
@@ -147,6 +153,7 @@ console.log('CLC HEADER JS LOADED v1005');
     buildFooter();
 
     body.classList.add('has-clc-header');
+    setOverlay();
     requestAnimationFrame(function () {
       const first = !document.documentElement.classList.contains('clc-ready');
       document.documentElement.classList.add('clc-ready');   // FOUC guard: reveal the page
@@ -157,6 +164,28 @@ console.log('CLC HEADER JS LOADED v1005');
       }
     });
     console.log('[CLC Header] Injected + bound OK - v' + VERSION);
+  }
+
+  /* ─── See-through header over a hero photo ───
+     On: BoldTrail homepage (#clc-custom-homepage) and subdomain pages with .clc-page-hero.
+     Off: every other BoldTrail page (search, listings) keeps the solid white header. */
+  let scrollBound = false;
+  function setOverlay() {
+    const hasHero = !!document.querySelector('body.page-home #clc-custom-homepage, .clc-page-hero');
+    document.body.classList.toggle('clc-overlay', hasHero);
+    if (!hasHero || scrollBound) return;
+    scrollBound = true;
+    let ticking = false;
+    const update = function () {
+      ticking = false;
+      const topbar = document.getElementById('clc-topbar');
+      const limit = topbar ? topbar.offsetHeight : 48;
+      document.body.classList.toggle('clc-scrolled', window.scrollY > limit + 40);
+    };
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
   }
 
   /* ─── Contact & legal footer for subdomain pages (fills #clc-site-footer) ─── */
