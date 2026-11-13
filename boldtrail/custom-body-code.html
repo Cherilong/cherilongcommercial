@@ -1,5 +1,5 @@
 <!-- ============================================================
-     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1007)
+     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1008)
      Same structure as the Royal LePage Solutions homepage code.
      Paste into: Web & IDX → Website Settings → Custom Body Code
      ============================================================ -->
@@ -78,7 +78,7 @@ div[class*="advanced-search"][style*="max-height"],
      2b) CLC SITE HEADER (built + injected by header.js)
      Loaded from GitHub Pages at info.cherilongcommercial.com.
      ========================================================== -->
-<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1007"></script>
+<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1008"></script>
 
 <!-- ==========================================================
      3) HOMEPAGE LAYOUT - SCOPED TO HOMEPAGE
@@ -724,7 +724,7 @@ body.page-home #clc-custom-homepage .clc-contact h4 { font: 700 13px var(--clc-d
     <p class="clc-sub">Buying, selling, leasing or building, one experienced team handles every type of commercial property in Calgary and area.</p>
     <div class="clc-hero-ctas">
       <a class="clc-btn clc-btn-red" href="#clc-contact">Talk to Our Team</a>
-      <a class="clc-btn clc-btn-ghost" data-all-listings href="/index.php?advanced=1&amp;rtype=map&amp;display=Calgary&amp;types%5B%5D=5&amp;types%5B%5D=3&amp;types%5B%5D=4&amp;types%5B%5D=12#rslt">Browse Listings</a>
+      <a class="clc-btn clc-btn-ghost" data-all-listings href="/index.php?advanced=1&amp;rtype=map&amp;display=Calgary&amp;pak=city%3Ag30_c3nfkdtg&amp;types%5B%5D=4&amp;types%5B%5D=5&amp;types%5B%5D=3&amp;types%5B%5D=12&amp;sortby=listings.listingdate+DESC#rslt">Browse Listings</a>
     </div>
     <div class="clc-creds">
       <div class="clc-cred"><b>30+</b><span>years in commercial real estate</span></div>
@@ -781,7 +781,7 @@ body.page-home #clc-custom-homepage .clc-contact h4 { font: 700 13px var(--clc-d
           <span class="clc-eyebrow">Currently Available</span>
           <h2>Active properties</h2>
         </div>
-        <a class="clc-btn clc-btn-dark" data-all-listings href="/index.php?advanced=1&amp;rtype=map&amp;display=Calgary&amp;types%5B%5D=5&amp;types%5B%5D=3&amp;types%5B%5D=4&amp;types%5B%5D=12#rslt">View all Calgary listings</a>
+        <a class="clc-btn clc-btn-dark" data-all-listings href="/index.php?advanced=1&amp;rtype=map&amp;display=Calgary&amp;pak=city%3Ag30_c3nfkdtg&amp;types%5B%5D=4&amp;types%5B%5D=5&amp;types%5B%5D=3&amp;types%5B%5D=12&amp;sortby=listings.listingdate+DESC#rslt">View all Calgary listings</a>
       </div>
       <!-- Filter tabs are built from LISTING_FILTERS in the script below (hidden until filled in) -->
       <div class="clc-filter-tabs" id="clc-filter-tabs" hidden></div>
@@ -925,13 +925,13 @@ body.page-home #clc-custom-homepage .clc-contact h4 { font: 700 13px var(--clc-d
      ========================================================== -->
 <script>
 (function () {
-  console.log('CLC Homepage Loaded v1007');
+  console.log('CLC Homepage Loaded v1008');
 
   /* ─── CONFIG ─── */
   // Every "all listings" link: all commercial listings in Calgary on the map.
   // To change it, run the search you want on Cheri's site and paste the address
   // from "/index.php?" onward. Keep this the same as LISTINGS_URL in header.js.
-  const ALL_LISTINGS_URL = '/index.php?advanced=1&rtype=map&display=Calgary&types%5B%5D=5&types%5B%5D=3&types%5B%5D=4&types%5B%5D=12#rslt';
+  const ALL_LISTINGS_URL = '/index.php?advanced=1&rtype=map&display=Calgary&pak=city%3Ag30_c3nfkdtg&types%5B%5D=4&types%5B%5D=5&types%5B%5D=3&types%5B%5D=12&sortby=listings.listingdate+DESC#rslt';
   // false = the checklist + newsletter sections are removed until the lead forms are wired up.
   // Keep the same as SHOW_FORMS in header.js.
   const SHOW_FORMS = false;

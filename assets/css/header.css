@@ -1,5 +1,7 @@
 /* =========================================================
    Cheri Long Commercial - Custom Header
+   v1008 - Single-row header on every page (logo | menu | button), not just
+           over photos. Map search pages: map + results start below our header.
    v1007 - Full-width layout: --clc-wrap 1920px, side margins scale
            with the screen (--clc-gutter).
    v1006 - See-through header over hero photos (body.clc-overlay), solid
@@ -133,6 +135,22 @@ body.clc-overlay .clc-brand-row .clc-logo-light { display: block; }
       body.clc-overlay  = page has a hero (set by header.js)
       body.clc-scrolled = visitor scrolled past the top
    ───────────────────────────────────────────────────────── */
+/* v1008: one compact row on every page from tablet up: logo | menu | button */
+@media (min-width: 761px) {
+  #clc-header {
+    display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px 28px;
+    padding: 12px var(--clc-gutter);
+  }
+  #clc-header .clc-head-top { display: contents; }
+  #clc-header .clc-brand-row { order: 1; }
+  #clc-header .clc-nav { order: 2; border: 0; }
+  #clc-header .clc-head-top > .clc-btn { order: 3; }
+  #clc-header .clc-rlp-logo { height: 58px; }
+  #clc-header .clc-nav .clc-wrap { padding: 0; max-width: none; }
+  #clc-header .clc-nav ul { justify-content: center; flex-wrap: nowrap; gap: 0 26px; }
+  #clc-header .clc-nav ul a { white-space: nowrap; padding: 10px 2px 8px; font-size: 1rem; }
+}
+
 @media (min-width: 761px) {
   body.clc-overlay #clc-topbar {
     position: absolute; top: 0; left: 0; right: 0; z-index: 9001;
@@ -169,10 +187,26 @@ body.clc-overlay .clc-brand-row .clc-logo-light { display: block; }
 
 /* Narrower screens: menu drops to its own row under the logo + button */
 @media (min-width: 761px) and (max-width: 1080px) {
-  body.clc-overlay #clc-header { grid-template-columns: auto 1fr; }
-  body.clc-overlay #clc-header .clc-head-top > .clc-btn { justify-self: end; }
-  body.clc-overlay #clc-header .clc-nav { grid-column: 1 / -1; order: 4; }
-  body.clc-overlay #clc-header .clc-nav ul { justify-content: space-between; }
+  #clc-header { grid-template-columns: auto 1fr; }
+  #clc-header .clc-head-top > .clc-btn { justify-self: end; }
+  #clc-header .clc-nav { grid-column: 1 / -1; order: 4; }
+  #clc-header .clc-nav ul { justify-content: space-between; gap: 0 12px; }
+}
+
+/* ─────────────────────────────────────────────────────────
+   6) v1008: BoldTrail map search pages (body.clc-map-page)
+      BoldTrail pins #listings-map 110px from the top for its own
+      header. header.js measures ours into --clc-top.
+   ───────────────────────────────────────────────────────── */
+body.clc-map-page #listings-map { top: var(--clc-top, 110px) !important; }
+@media (min-width: 768px) {
+  body.clc-map-page #listings-map { bottom: 0 !important; height: auto !important; padding-bottom: 0 !important; }
+  body.clc-map-page #listings-map > .fullwidth-wrapper,
+  body.clc-map-page #listings-map > .fullwidth-wrapper > .row,
+  body.clc-map-page #map-col,
+  body.clc-map-page #map-col ~ [class*="col-"],
+  body.clc-map-page #scrolling-column { height: calc(100vh - var(--clc-top, 110px)) !important; }
+  body.clc-map-page #map { height: calc(100vh - var(--clc-top, 110px) + 70px) !important; }
 }
 
 /* Phones: slim black header (no overlap with the photo), menu still always visible */

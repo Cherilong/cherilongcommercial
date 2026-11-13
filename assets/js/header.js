@@ -1,5 +1,8 @@
 /* =========================================================
    Cheri Long Commercial - Header Injection & Behavior
+   v1008 - Listings link filters to the City of Calgary (pak=city:…) and
+           sorts newest first. Map search pages (body.clc-map-page): BoldTrail's
+           pinned map + results panel start below our header (--clc-top).
    v1007 - No script changes (full-width layout is CSS only).
    v1006 - See-through header over the hero photo on the homepage and
            the subdomain pages (body.clc-overlay); turns solid black
@@ -21,15 +24,15 @@
            the page; FOUC guard lives in Custom Header Code).
    Bump ?v= in BOTH BoldTrail Custom Code fields when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1007');
+console.log('CLC HEADER JS LOADED v1008');
 (function () {
-  const VERSION = '1007';
+  const VERSION = '1008';
 
   /* ─── CONFIG ─── */
   const BOLDTRAIL_BASE = 'https://cherilongcommercial.com';   // used only off BoldTrail (subdomain pages)
   // "Listings" menu link: all commercial listings in Calgary. Keep the same as
   // ALL_LISTINGS_URL in the Custom Body Code.
-  const LISTINGS_URL = '/index.php?advanced=1&rtype=map&display=Calgary&types%5B%5D=5&types%5B%5D=3&types%5B%5D=4&types%5B%5D=12#rslt';
+  const LISTINGS_URL = '/index.php?advanced=1&rtype=map&display=Calgary&pak=city%3Ag30_c3nfkdtg&types%5B%5D=4&types%5B%5D=5&types%5B%5D=3&types%5B%5D=12&sortby=listings.listingdate+DESC#rslt';
   const PHONE = '403-860-9419';                                 // Cheri's cell
   // Royal LePage Commercial logo: black/red for the white header (search & listing pages),
   // white/red for the see-through header over photos. Leave LOGO_URL '' to show a text name instead.
@@ -155,6 +158,7 @@ console.log('CLC HEADER JS LOADED v1007');
 
     body.classList.add('has-clc-header');
     setOverlay();
+    setMapOffset();
     requestAnimationFrame(function () {
       const first = !document.documentElement.classList.contains('clc-ready');
       document.documentElement.classList.add('clc-ready');   // FOUC guard: reveal the page
@@ -187,6 +191,21 @@ console.log('CLC HEADER JS LOADED v1007');
       if (!ticking) { ticking = true; requestAnimationFrame(update); }
     }, { passive: true });
     update();
+  }
+
+  /* ─── Map search pages: BoldTrail pins #listings-map 110px from the top (its own header).
+     Measure our topbar + header and move the map + results panel down to match. */
+  let mapBound = false;
+  function setMapOffset() {
+    if (!document.getElementById('listings-map')) return;
+    document.body.classList.add('clc-map-page');
+    const measure = function () {
+      const h = document.getElementById('clc-header');
+      const top = h ? Math.round(h.getBoundingClientRect().bottom) : 0;   // bottom edge of our header
+      if (top > 0) document.documentElement.style.setProperty('--clc-top', top + 'px');
+    };
+    measure();
+    if (!mapBound) { mapBound = true; window.addEventListener('resize', measure); window.addEventListener('load', measure); }
   }
 
   /* ─── Contact & legal footer for subdomain pages (fills #clc-site-footer) ─── */
