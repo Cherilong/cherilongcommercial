@@ -264,14 +264,16 @@ console.log('CLC HEADER JS LOADED v1012');
   /* \u2500\u2500\u2500 Lead capture \u2500\u2500\u2500
      PLACEHOLDER until CLC_SITE.leadEndpoint is set: opens the visitor's email app with the
      details filled in, addressed to the assistant, so nothing is lost. With an endpoint set,
-     the form POSTs JSON there instead (e.g. a Cloudflare Worker that creates the rlpSPHERE lead). */
+     the form POSTs JSON there instead (the Google Apps Script web app that creates the rlpSPHERE lead). */
   function sendLead(data, msgEl, okText) {
     data.source = location.href;
     data.submitted = new Date().toISOString();
     if (S.leadEndpoint) {
       msgEl.textContent = 'Sending\u2026';
-      return fetch(S.leadEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
-        .then(function (r) { if (!r.ok) throw new Error(r.status); msgEl.textContent = okText; return true; })
+      // Sent as text/plain (no Content-Type header) so the Google Apps Script endpoint gets no CORS preflight
+      return fetch(S.leadEndpoint, { method: 'POST', body: JSON.stringify(data) })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (res) { if (!res || !res.ok) throw new Error('rejected'); msgEl.textContent = okText; return true; })
         .catch(function () { msgEl.textContent = 'That didn\u2019t go through. Please call ' + PHONE + ' or email ' + ASSIST.email + '.'; return false; });
     }
     const lines = Object.keys(data).filter(function (k) { return data[k] !== '' && data[k] != null && k !== 'type'; })

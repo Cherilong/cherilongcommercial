@@ -53,7 +53,8 @@ window.CLC_SITE = {
   // LEAD CAPTURE: where the inquiry + newsletter forms send data.
   // PLACEHOLDER: no endpoint yet. While this is '', forms open the visitor's email app
   // with everything filled in, addressed to the assistant email above, so no lead is lost.
-  // Set to a real URL (e.g. a Cloudflare Worker that creates the rlpSPHERE lead) to switch over.
+  // Set to the Google Apps Script Web app URL (ends in /exec) to switch over. It adds the lead to
+  // Cheri's rlpSPHERE contacts with hashtags (see apps-script/SETUP.md).
   leadEndpoint: ''
 };
 

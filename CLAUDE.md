@@ -26,7 +26,9 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > `boldtrail/custom-body-code.html` hold the homepage. `assets/js/clc.js`, `assets/css/clc.css` and `preview/` are an
 > earlier draft and are NOT loaded anywhere. Sections below that mention clc.js describe that draft.
 > Main domain: cherilongcommercial.com. Subdomain: info.cherilongcommercial.com.
-> `SHOW_FORMS` (in header.js AND the Body Code) is false until the lead forms are wired up.
+> **Lead capture:** forms POST (text/plain JSON) to `leadEndpoint` = a Google Apps Script web app (`apps-script/Code.gs`,
+> setup in `apps-script/SETUP.md`) that logs to the "Cheri Website Signups" Sheet and adds the contact to Cheri's
+> rlpSPHERE (assigned to user 233574) with hashtags `web-lead`, `web-inquiry`, `web-newsletter`. Token lives only in Script Properties.
 > **Subdomain pages (v1005):** `/services/`, `/about/`, `/contact/` (site header + footer, styles in
 > `assets/css/pages.css`; header.js fills `<footer id="clc-site-footer">`) and `/links/` (stand-alone Instagram
 > link-in-bio page, own inline styles). New pages: copy `/_template/` to `/<page-name>/`. The old `pages/` folder
@@ -141,8 +143,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 - [ ] Hero photo, Cheri's direct line (if any)
 - [x] Listings: BoldTrail feed works. Calgary filter needs `pak=city:g30_c3nfkdtg` (display= alone does nothing);
       sorted newest first. Types: 4 Commercial, 5 Land, 3 Multi-Family, 12 Farm.
-- [ ] `LEAD_ENDPOINT`: Cloudflare Worker that stores the lead and emails the checklist PDF (Resend), same pattern as
-      Royal LePage Solutions' bluebird-lead-proxy. Restrict allowed origins to her two domains.
+- [ ] `leadEndpoint`: deploy `apps-script/Code.gs` (see `apps-script/SETUP.md`), paste the /exec URL into site-config.js
 - [ ] Write the two checklist PDFs: Seller & Landlord Readiness, Buyer & Tenant Due Diligence
 - [ ] Own Privacy Policy page (legal links currently point to royallepage.ca privacy policy + notices)
 - [ ] YouTube channel link when live
