@@ -5,6 +5,18 @@
      the one in custom-body-code.html.
      ============================================================ -->
 
+<!-- Page redirects: old BoldTrail pages → new pages on info.cherilongcommercial.com.
+     Runs first, before anything loads. Add a line per page: '/old-page.php': 'new address'. -->
+<script>
+(function () {
+  var REDIRECTS = {
+    '/contact.php': 'https://info.cherilongcommercial.com/about/'
+  };
+  var to = REDIRECTS[location.pathname.toLowerCase()];
+  if (to) location.replace(to);
+})();
+</script>
+
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
