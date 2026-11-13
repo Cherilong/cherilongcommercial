@@ -1,5 +1,8 @@
 /* =========================================================
    Cheri Long Commercial - Header Injection & Behavior
+   v1010 - No "Talk to Our Team" button and no top strip: "Call Cheri" + social
+           icons sit at the right of the header. Phones get a "☰ Menu"
+           button (hamburger) with a drop-down menu, plus a call button.
    v1008 - Listings link filters to the City of Calgary (pak=city:…) and
            sorts newest first. Map search pages (body.clc-map-page): BoldTrail's
            pinned map + results panel start below our header (--clc-top).
@@ -24,9 +27,9 @@
            the page; FOUC guard lives in Custom Header Code).
    Bump ?v= in BOTH BoldTrail Custom Code fields when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1008');
+console.log('CLC HEADER JS LOADED v1010');
 (function () {
-  const VERSION = '1008';
+  const VERSION = '1010';
 
   /* ─── CONFIG ─── */
   const BOLDTRAIL_BASE = 'https://cherilongcommercial.com';   // used only off BoldTrail (subdomain pages)
@@ -76,16 +79,8 @@ console.log('CLC HEADER JS LOADED v1008');
   }
 
   /* ─── Markup ─── */
-  function buildTopbarHTML() {
-    return `
-      <div class="clc-wrap">
-        ${social()}
-        <div class="clc-util-right">
-          ${SHOW_FORMS ? '<a data-sec="clc-newsletter" href="#">Newsletter sign-up</a>' : ''}
-          <a class="clc-call" href="tel:${PHONE.replace(/[^0-9+]/g, '')}">Call Cheri <span class="clc-tel">${PHONE}</span></a>
-        </div>
-      </div>`;
-  }
+  const TEL = 'tel:+1' + PHONE.replace(/[^0-9]/g, '');
+  const PHONE_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg>';
 
   function buildHeaderHTML() {
     return `
@@ -96,16 +91,29 @@ console.log('CLC HEADER JS LOADED v1008');
               '<img class="clc-rlp-logo clc-logo-light" src="' + LOGO_URL_LIGHT + '" alt="Royal LePage Commercial, Royal LePage Solutions" width="809" height="324">'
             : '<span class="clc-brand"><b>Cheri Long <i>Commercial</i></b><span>Royal LePage&reg; Commercial</span></span>'}
         </a>
-        <a class="clc-btn" data-page="contact" href="#">Talk to Our Team</a>
+        <div class="clc-head-contact">
+          <a class="clc-call" href="${TEL}">Call Cheri <span class="clc-tel">${PHONE}</span></a>
+          ${social()}
+        </div>
+        <div class="clc-mobile-actions">
+          <a class="clc-call-icon" href="${TEL}" aria-label="Call Cheri ${PHONE}">${PHONE_ICON}</a>
+          <button class="clc-menu-btn" type="button" aria-expanded="false" aria-controls="clc-nav">
+            <span class="clc-burger" aria-hidden="true"><i></i><i></i><i></i></span><span class="clc-menu-label">Menu</span>
+          </button>
+        </div>
       </div>
-      <nav class="clc-nav" aria-label="Main"><div class="clc-wrap"><ul>
+      <nav class="clc-nav" id="clc-nav" aria-label="Main"><div class="clc-wrap"><ul>
         <li><a data-home href="/">Home</a></li>
         <li><a data-listings href="#">Listings</a></li>
         <li><a data-page="services" href="#">Services</a></li>
         <li><a data-page="about" href="#">About Cheri &amp; Team</a></li>
         ${SHOW_FORMS ? '<li><a data-sec="clc-guides" href="#">Resources &amp; Guides</a></li>' : ''}
         <li><a data-page="contact" href="#">Contact</a></li>
-      </ul></div></nav>`;
+      </ul>
+      <div class="clc-nav-extra">
+        <a class="clc-nav-call" href="${TEL}">${PHONE_ICON}<span>Call Cheri <b class="clc-tel">${PHONE}</b></span></a>
+        ${social()}
+      </div></div></nav>`;
   }
 
   /* ─── Inject everything ─── */
@@ -127,11 +135,8 @@ console.log('CLC HEADER JS LOADED v1008');
       header = document.createElement('header');
       header.id = 'clc-header';
       header.innerHTML = buildHeaderHTML();
-      const topbar = document.createElement('div');
-      topbar.id = 'clc-topbar';
-      topbar.innerHTML = buildTopbarHTML();
-      skip.insertAdjacentElement('afterend', topbar);
-      topbar.insertAdjacentElement('afterend', header);
+      skip.insertAdjacentElement('afterend', header);
+      bindMenu(header);
     }
 
     // Links: section on this page → #id; otherwise the homepage section
@@ -171,6 +176,24 @@ console.log('CLC HEADER JS LOADED v1008');
     console.log('[CLC Header] Injected + bound OK - v' + VERSION);
   }
 
+  /* ─── Phone "☰ Menu" button ─── */
+  function bindMenu(header) {
+    const btn = header.querySelector('.clc-menu-btn');
+    if (!btn) return;
+    const label = btn.querySelector('.clc-menu-label');
+    const set = function (open) {
+      document.body.classList.toggle('clc-menu-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (label) label.textContent = open ? 'Close' : 'Menu';
+    };
+    btn.addEventListener('click', function () { set(!document.body.classList.contains('clc-menu-open')); });
+    header.querySelectorAll('.clc-nav a').forEach(function (a) { a.addEventListener('click', function () { set(false); }); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && document.body.classList.contains('clc-menu-open')) { set(false); btn.focus(); }
+    });
+    window.addEventListener('resize', function () { if (window.innerWidth > 760) set(false); });
+  }
+
   /* ─── See-through header over a hero photo ───
      On: BoldTrail homepage (#clc-custom-homepage) and subdomain pages with .clc-page-hero.
      Off: every other BoldTrail page (search, listings) keeps the solid white header. */
@@ -183,9 +206,8 @@ console.log('CLC HEADER JS LOADED v1008');
     let ticking = false;
     const update = function () {
       ticking = false;
-      const topbar = document.getElementById('clc-topbar');
-      const limit = topbar ? topbar.offsetHeight : 48;
-      document.body.classList.toggle('clc-scrolled', window.scrollY > limit + 40);
+      // Turn solid once the visitor has scrolled past the see-through header
+      document.body.classList.toggle('clc-scrolled', window.scrollY > 140);
     };
     window.addEventListener('scroll', function () {
       if (!ticking) { ticking = true; requestAnimationFrame(update); }
@@ -194,7 +216,7 @@ console.log('CLC HEADER JS LOADED v1008');
   }
 
   /* ─── Map search pages: BoldTrail pins #listings-map 110px from the top (its own header).
-     Measure our topbar + header and move the map + results panel down to match. */
+     Measure our header and move the map + results panel down to match. */
   let mapBound = false;
   function setMapOffset() {
     if (!document.getElementById('listings-map')) return;

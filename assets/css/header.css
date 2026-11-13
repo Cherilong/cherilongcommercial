@@ -1,5 +1,7 @@
 /* =========================================================
    Cheri Long Commercial - Custom Header
+   v1010 - No top strip or header button: "Call Cheri" + social icons at the
+           right of the header. Phones: logo + call icon + "☰ Menu" drop-down.
    v1009 - Header is solid black on pages without a hero photo (search, map,
            listing pages) instead of white. White/red logo everywhere.
    v1008 - Single-row header on every page (logo | menu | button), not just
@@ -216,6 +218,76 @@ body.clc-map-page #listings-map { top: var(--clc-top, 110px) !important; }
   body.clc-overlay #clc-header .clc-rlp-logo { height: 58px; }
   body.clc-overlay #clc-header .clc-nav ul a { background: rgba(255,255,255,.1); color: var(--clc-white) !important; }
 }
+/* ─────────────────────────────────────────────────────────
+   7) v1010: Call Cheri + socials at the right; phone hamburger menu
+   ───────────────────────────────────────────────────────── */
+#clc-header { color: var(--clc-white); }
+#clc-header .clc-head-contact { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+#clc-header .clc-call { font: 500 17px/1.3 var(--clc-body); white-space: nowrap; }
+#clc-header .clc-call:hover { color: var(--clc-stone) !important; }
+#clc-header .clc-call .clc-tel { font-weight: 700; }
+#clc-header .clc-head-contact .clc-social { gap: 2px; margin-right: -8px; }
+#clc-header .clc-head-contact .clc-social a { width: 36px; height: 36px; }
+#clc-header .clc-head-contact .clc-social svg { width: 18px; height: 18px; }
+#clc-header .clc-mobile-actions,
+#clc-header .clc-nav-extra { display: none; }
+
+@media (min-width: 761px) and (max-width: 1080px) {
+  /* Tablet: logo + Call Cheri on row 1, menu across row 2 */
+  #clc-header .clc-head-contact { justify-self: end; }
+  #clc-header .clc-nav, body.clc-overlay #clc-header .clc-nav { order: 4; grid-column: 1 / -1; }
+}
+@media (min-width: 761px) {
+  #clc-header .clc-head-contact { order: 3; }
+  /* No strip above any more: the see-through header starts at the very top */
+  body.clc-overlay #clc-header { top: 0; border-top: 0; }
+}
+
+/* Phones: slim bar (logo · call · ☰ Menu); menu opens as a full-width list */
+@media (max-width: 760px) {
+  #clc-header { position: sticky; top: 0; }
+  #clc-header .clc-head-top {
+    flex-direction: row !important; align-items: center !important; justify-content: space-between;
+    gap: 12px; padding-top: 10px; padding-bottom: 10px;
+  }
+  #clc-header .clc-rlp-logo, body.clc-overlay #clc-header .clc-rlp-logo { height: 46px; }
+  #clc-header .clc-brand-row { flex-direction: row; }
+  #clc-header .clc-head-contact { display: none; }
+  #clc-header .clc-mobile-actions { display: flex; align-items: center; gap: 8px; }
+  #clc-header .clc-call-icon {
+    width: 48px; height: 48px; display: grid !important; place-items: center; border-radius: 4px;
+    background: var(--clc-red); color: var(--clc-white) !important;
+  }
+  #clc-header .clc-call-icon svg { width: 22px; height: 22px; fill: currentColor; }
+  #clc-header .clc-menu-btn {
+    display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 14px;
+    background: transparent; color: var(--clc-white); border: 1px solid rgba(255,255,255,.4); border-radius: 4px;
+    font: 600 16px var(--clc-display); cursor: pointer;
+  }
+  #clc-header .clc-burger { display: grid; gap: 4px; width: 20px; }
+  #clc-header .clc-burger i { display: block; height: 2px; background: currentColor; border-radius: 2px; transition: transform .2s, opacity .2s; }
+  body.clc-menu-open #clc-header .clc-burger i:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  body.clc-menu-open #clc-header .clc-burger i:nth-child(2) { opacity: 0; }
+  body.clc-menu-open #clc-header .clc-burger i:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  /* Menu panel */
+  #clc-header .clc-nav { display: none; border-top: 1px solid rgba(255,255,255,.15); padding: 4px 0 20px; }
+  body.clc-menu-open #clc-header .clc-nav { display: block; max-height: calc(100vh - 70px); overflow-y: auto; }
+  #clc-header .clc-nav ul, body.clc-overlay #clc-header .clc-nav ul { display: block; }
+  #clc-header .clc-nav ul a, body.clc-overlay #clc-header .clc-nav ul a {
+    display: block; background: none; padding: 16px 2px; font: 600 20px var(--clc-display);
+    border-bottom: 1px solid rgba(255,255,255,.12); color: var(--clc-white) !important;
+  }
+  #clc-header .clc-nav ul a[aria-current] { color: var(--clc-red) !important; border-bottom-color: rgba(255,255,255,.12); }
+  #clc-header .clc-nav-extra { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding-top: 20px; }
+  #clc-header .clc-nav-call {
+    display: inline-flex !important; align-items: center; gap: 12px; min-height: 52px; padding: 0 20px; border-radius: 4px;
+    background: var(--clc-red); color: var(--clc-white) !important; font: 600 18px var(--clc-display);
+  }
+  #clc-header .clc-nav-call svg { width: 20px; height: 20px; fill: currentColor; }
+  #clc-header .clc-nav-extra .clc-social a { width: 48px; height: 48px; border: 1px solid rgba(255,255,255,.25); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   #clc-topbar *, #clc-header * { transition: none !important; }
   body.clc-overlay.clc-scrolled #clc-header { animation: none; }
