@@ -13,7 +13,8 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > `assets/css/pages.css`; header.js fills `<footer id="clc-site-footer">`) and `/links/` (stand-alone Instagram
 > link-in-bio page, own inline styles). New pages: copy `/_template/` to `/<page-name>/`. The old `pages/` folder
 > convention below is replaced by top-level folders. v1006: see-through header on pages with a hero
-> (homepage + subdomain pages, `body.clc-overlay`), solid black after scrolling; logo only, no name text. Menu links for Services/About/Contact come from `PAGES` in header.js.
+> (homepage + subdomain pages, `body.clc-overlay`), solid black after scrolling; logo only, no name text.
+> v1009: every other page (BoldTrail search/map/listings) gets a solid black header, white/red logo. Menu links for Services/About/Contact come from `PAGES` in header.js.
 
 Two parts work together:
 

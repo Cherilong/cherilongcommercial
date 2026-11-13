@@ -1,5 +1,7 @@
 /* =========================================================
    Cheri Long Commercial - Custom Header
+   v1009 - Header is solid black on pages without a hero photo (search, map,
+           listing pages) instead of white. White/red logo everywhere.
    v1008 - Single-row header on every page (logo | menu | button), not just
            over photos. Map search pages: map + results start below our header.
    v1007 - Full-width layout: --clc-wrap 1920px, side margins scale
@@ -82,7 +84,7 @@ body.has-clc-header .kv-sticky-spacer {
 /* ─────────────────────────────────────────────────────────
    4) Header
    ───────────────────────────────────────────────────────── */
-#clc-header { position: sticky; top: 0; z-index: 9000; background: var(--clc-white); border-bottom: 1px solid var(--clc-stone); }
+#clc-header { position: sticky; top: 0; z-index: 9000; background: var(--clc-black); color: var(--clc-white); border-bottom: 1px solid rgba(255,255,255,.15); }
 #clc-header .clc-head-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 18px; padding-bottom: 18px; }
 .clc-brand { display: flex; flex-direction: column; line-height: 1.1; flex: none; }
 .clc-brand b { font: 800 1.45rem var(--clc-display); letter-spacing: .01em; }
@@ -93,9 +95,8 @@ body.has-clc-header .kv-sticky-spacer {
 .clc-brand-row { display: flex; align-items: center; gap: 22px; min-width: 0; text-decoration: none !important; color: inherit !important; }
 .clc-brand-row .clc-rlp-logo { display: block; height: 72px; width: auto; max-width: 100%; }
 /* Two logo versions: dark on the white header, light on the see-through/black header */
-.clc-brand-row .clc-logo-light { display: none; }
-body.clc-overlay .clc-brand-row .clc-logo-dark { display: none; }
-body.clc-overlay .clc-brand-row .clc-logo-light { display: block; }
+.clc-brand-row .clc-logo-dark { display: none; }   /* header is black on every page now */
+.clc-brand-row .clc-logo-light { display: block; }
 
 /* Skip link: hidden until a keyboard user tabs to it */
 .clc-skip {
@@ -109,10 +110,10 @@ body.clc-overlay .clc-brand-row .clc-logo-light { display: block; }
   font: 700 .95rem var(--clc-display); letter-spacing: .06em; background: var(--clc-red); color: var(--clc-white) !important; flex: none; transition: background .2s;
 }
 #clc-header .clc-btn:hover { background: var(--clc-red-dk); }
-#clc-header .clc-nav { border-top: 1px solid var(--clc-stone); }
+#clc-header .clc-nav { border-top: 1px solid rgba(255,255,255,.15); }
 #clc-header .clc-nav ul { list-style: none; margin: 0; padding: 0; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2px; }
 #clc-header .clc-nav ul a { display: block; padding: 14px 4px 11px; font: 600 1.02rem var(--clc-display); border-bottom: 3px solid transparent; }
-#clc-header .clc-nav ul a:hover { color: var(--clc-red) !important; }
+#clc-header .clc-nav ul a:hover { color: var(--clc-stone) !important; }
 #clc-header .clc-nav ul a[aria-current] { border-bottom-color: var(--clc-red); }
 
 @media (max-width: 1080px) {
@@ -127,7 +128,7 @@ body.clc-overlay .clc-brand-row .clc-logo-light { display: block; }
   #clc-header .clc-nav { border-top: 0; padding-bottom: 12px; }
   /* Menu stays fully visible on phones: two columns of big tap targets */
   #clc-header .clc-nav ul { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
-  #clc-header .clc-nav ul a { background: var(--clc-light); padding: 12px 14px; }
+  #clc-header .clc-nav ul a { background: rgba(255,255,255,.1); padding: 12px 14px; }
 }
 
 /* ─────────────────────────────────────────────────────────
