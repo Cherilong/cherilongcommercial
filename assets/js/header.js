@@ -1,5 +1,8 @@
 /* =========================================================
    Cheri Long Commercial - Header Injection & Behavior
+   v1005 - Services, About and Contact are now their own pages on
+           info.cherilongcommercial.com (PAGES). Builds the shared
+           contact & legal footer into #clc-site-footer on those pages.
    v1004 - Royal LePage Commercial / Royal LePage Solutions logo beside
            Cheri's name in the header (LOGO_URL).
    v1003 - Real phone + social links. YouTube removed (no channel yet).
@@ -14,9 +17,9 @@
            the page; FOUC guard lives in Custom Header Code).
    Bump ?v= in BOTH BoldTrail Custom Code fields when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1004');
+console.log('CLC HEADER JS LOADED v1005');
 (function () {
-  const VERSION = '1004';
+  const VERSION = '1005';
 
   /* ─── CONFIG ─── */
   const BOLDTRAIL_BASE = 'https://cherilongcommercial.com';   // used only off BoldTrail (subdomain pages)
@@ -33,6 +36,16 @@ console.log('CLC HEADER JS LOADED v1004');
     linkedin:  'https://www.linkedin.com/in/cheri-long-8646439/',
     youtube:   ''     // add her channel link here when it exists; '' hides the icon
   };
+  // Stand-alone pages on the subdomain (menu + "Talk to Our Team" link here)
+  const SITE = 'https://info.cherilongcommercial.com';
+  const PAGES = {
+    services: SITE + '/services/',
+    about:    SITE + '/about/',
+    contact:  SITE + '/contact/'
+  };
+  const EMAIL = 'cladmin@royallepage.ca';            // Victoria Stitt, general inquiries
+  const FOOTER_LOGO = SITE + '/assets/images/rlp-commercial-brokerage-white-red.png';
+
   // false = hide "Resources & Guides" and "Newsletter sign-up" until the lead forms are live.
   // Keep the same as SHOW_FORMS in the Custom Body Code.
   const SHOW_FORMS = false;
@@ -73,15 +86,15 @@ console.log('CLC HEADER JS LOADED v1004');
           <span class="clc-brand"><b>Cheri Long <i>Commercial</i></b>${LOGO_URL ? '' : '<span>Royal LePage&reg; Commercial</span>'}</span>
           ${LOGO_URL ? '<img class="clc-rlp-logo" src="' + LOGO_URL + '" alt="Royal LePage Commercial, Royal LePage Solutions" width="809" height="324">' : ''}
         </a>
-        <a class="clc-btn" data-sec="clc-contact" href="#">Talk to Our Team</a>
+        <a class="clc-btn" data-page="contact" href="#">Talk to Our Team</a>
       </div>
       <nav class="clc-nav" aria-label="Main"><div class="clc-wrap"><ul>
         <li><a data-home href="/">Home</a></li>
         <li><a data-listings href="#">Listings</a></li>
-        <li><a data-sec="clc-services" href="#">Services</a></li>
-        <li><a data-sec="clc-team" href="#">About Cheri &amp; Team</a></li>
+        <li><a data-page="services" href="#">Services</a></li>
+        <li><a data-page="about" href="#">About Cheri &amp; Team</a></li>
         ${SHOW_FORMS ? '<li><a data-sec="clc-guides" href="#">Resources &amp; Guides</a></li>' : ''}
-        <li><a data-sec="clc-contact" href="#">Contact</a></li>
+        <li><a data-page="contact" href="#">Contact</a></li>
       </ul></div></nav>`;
   }
 
@@ -123,6 +136,15 @@ console.log('CLC HEADER JS LOADED v1004');
     document.querySelectorAll('#clc-header a[data-listings]').forEach(function (a) { a.setAttribute('href', base + LISTINGS_URL); });
     const homeLink = document.querySelector('#clc-header nav a[data-home]');
     if (homeLink) { isHome ? homeLink.setAttribute('aria-current', 'page') : homeLink.removeAttribute('aria-current'); }
+    // Stand-alone pages: menu links + mark the page we're on
+    const onSubdomain = location.hostname === SITE.replace('https://', '');
+    document.querySelectorAll('#clc-header a[data-page]').forEach(function (a) {
+      const url = PAGES[a.getAttribute('data-page')];
+      a.setAttribute('href', url);
+      const here = onSubdomain && location.pathname.replace(/index\.html$/, '') === url.replace(SITE, '');
+      if (here && a.closest('nav')) a.setAttribute('aria-current', 'page');
+    });
+    buildFooter();
 
     body.classList.add('has-clc-header');
     requestAnimationFrame(function () {
@@ -135,6 +157,45 @@ console.log('CLC HEADER JS LOADED v1004');
       }
     });
     console.log('[CLC Header] Injected + bound OK - v' + VERSION);
+  }
+
+  /* ─── Contact & legal footer for subdomain pages (fills #clc-site-footer) ─── */
+  function buildFooter() {
+    const slot = document.getElementById('clc-site-footer');
+    if (!slot || slot.dataset.built === 'true') return;
+    const tel = PHONE.replace(/[^0-9]/g, '');
+    slot.innerHTML = `
+      <div class="clc-wrap">
+        <div class="clc-foot-grid">
+          <div>
+            <div class="clc-foot-brand"><b>Cheri Long <i>Commercial</i></b></div>
+            <img class="clc-foot-logo" src="${FOOTER_LOGO}" alt="Royal LePage Commercial, Royal LePage Solutions" width="809" height="324" loading="lazy">
+            ${social()}
+          </div>
+          <div>
+            <h4>Cheri Long</h4>
+            <p>Associate Broker</p>
+            <p>Cell <a class="clc-tel" href="tel:+1${tel}">${PHONE}</a></p>
+          </div>
+          <div>
+            <h4>General inquiries</h4>
+            <p>Victoria Stitt, Assistant</p>
+            <p><a href="mailto:${EMAIL}">${EMAIL}</a></p>
+          </div>
+          <div>
+            <h4>Office</h4>
+            <p>Royal LePage&reg; Solutions</p>
+            <p>Unit 205, 264 Midpark Way SE</p>
+            <p>Calgary, AB&nbsp; T2X 1J6</p>
+          </div>
+        </div>
+        <div class="clc-legal">
+          <p>&copy; ${new Date().getFullYear()} Cheri Long Commercial. Royal LePage&reg; is a registered trademark of Bridgemarq Real Estate Services Inc. Each office is independently owned and operated. Not intended to solicit buyers or sellers currently under contract. See <a href="https://rlp.ca/notices" target="_blank" rel="noopener">rlp.ca/notices</a>.</p>
+          <p>Listing information is deemed reliable but not guaranteed and should be independently verified.</p>
+          <nav aria-label="Legal"><a href="https://www.royallepage.ca/en/realestate/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a><a href="https://www.royallepage.ca/en/realestate/noticesanddisclaimers" target="_blank" rel="noopener">Notices &amp; Disclaimers</a></nav>
+        </div>
+      </div>`;
+    slot.dataset.built = 'true';
   }
 
   function run() {
