@@ -10,9 +10,12 @@
 <script>
 (function () {
   var REDIRECTS = {
-    '/contact.php': 'https://info.cherilongcommercial.com/about/'
+    '/contact.php': 'https://info.cherilongcommercial.com/about/',
+    '/contact':     'https://info.cherilongcommercial.com/contact/'
   };
-  var to = REDIRECTS[location.pathname.toLowerCase()];
+  // Lower-case and ignore a trailing slash, so /Contact/ and /contact both match
+  var path = location.pathname.toLowerCase().replace(/\/+$/, '') || '/';
+  var to = REDIRECTS[path];
   if (to) location.replace(to);
 })();
 </script>
