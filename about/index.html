@@ -15,10 +15,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/header.css?v=1010">
-  <link rel="stylesheet" href="../assets/css/pages.css?v=1010">
+  <link rel="stylesheet" href="../assets/css/header.css?v=1012">
+  <link rel="stylesheet" href="../assets/css/pages.css?v=1012">
   <style>html { visibility: hidden; } html.clc-ready { visibility: visible; }</style>
   <script>setTimeout(function () { document.documentElement.classList.add('clc-ready'); }, 2500);</script>
+  <script src="../assets/js/site-config.js?v=1012"></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -27,7 +28,7 @@
     "jobTitle": "Associate Broker",
     "image": "https://d2td4dobkk213c.cloudfront.net/royallepagesolutions2034/profiles/233574.jpg",
     "telephone": "+1-403-860-9419",
-    "worksFor": { "@type": "RealEstateAgent", "name": "Royal LePage Solutions", "@id": "https://cherilongcommercial.com/#agent" },
+    "worksFor": { "@type": "RealEstateAgent", "name": "Royal LePage Solutions", "@id": "https://www.cherilongcommercial.com/#agent" },
     "sameAs": [
       "https://www.instagram.com/cherilongcommercial/",
       "https://www.facebook.com/CheriLongCommercialBroker",
@@ -36,13 +37,14 @@
   }
   </script>
 </head>
-<body>
+<!-- Hero photo for this page: replace assets/images/hero-about.jpg (same file name) to change it -->
+<body style="--clc-page-hero: url('/assets/images/hero-about.jpg')">
 
 <main id="clc-page">
 
   <section class="clc-page-hero">
     <div class="clc-wrap">
-      <span class="clc-eyebrow">About Cheri &amp; Team</span>
+      <span class="clc-eyebrow">About Cheri</span>
       <h1>Calgary roots. <em>30+ years</em> in commercial real estate.</h1>
       <p class="clc-sub">Most of Cheri's business comes from people who have worked with her before, and the people they send her way.</p>
     </div>
@@ -69,7 +71,7 @@
             <a href="https://www.linkedin.com/in/cheri-long-8646439/" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.9 8.8H3.6V20h3.3V8.8ZM5.2 3.5a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8ZM20.4 13.6c0-3-.6-5.1-4.1-5.1-1.7 0-2.8.9-3.2 1.8h-.1V8.8H9.9V20h3.3v-5.5c0-1.5.3-2.9 2.1-2.9s1.8 1.7 1.8 3V20h3.3v-6.4Z"/></svg></a>
           </div>
           <div class="clc-cta-row">
-            <a class="clc-btn clc-btn-red" href="tel:+14038609419">Call Cheri 403-860-9419</a>
+            <a class="clc-btn clc-btn-red" href="tel:+14038609419">Call Cheri <span data-clc="phone">403-860-9419</span></a>
             <a class="clc-btn clc-btn-outline" href="../services/">See our services</a>
           </div>
         </div>
@@ -77,15 +79,79 @@
     </div>
   </section>
 
-  <section class="clc-section clc-section--light">
+  <!-- PLACEHOLDER SECTIONS below are hidden on the live site (data-todo) until filled in.
+       TODO(Kyle): replace every [bracketed] item with real, approved facts, then delete data-todo
+       from that <section>. Preview them with ?preview=1 at the end of the address. -->
+
+  <!-- Proof points: concrete numbers instead of general claims -->
+  <section class="clc-section clc-section--light" data-todo>
     <div class="clc-wrap">
-      <span class="clc-eyebrow">What to expect</span>
-      <h2>How Cheri works with clients</h2>
-      <div class="clc-values">
-        <div class="clc-value"><b>Straight answers</b><p>An honest read on value and what a deal will take, even when it isn't what you hoped to hear.</p></div>
-        <div class="clc-value"><b>Your goals first</b><p>Advice built around what you need, whether that means acting now or waiting.</p></div>
-        <div class="clc-value"><b>Local knowledge</b><p>A lifetime in Calgary and three decades in its commercial market.</p></div>
-        <div class="clc-value"><b>Relationships that last</b><p>Most clients come by referral, and many come back for their next move.</p></div>
+      <span class="clc-eyebrow">By the numbers</span>
+      <h2>A track record you can check</h2>
+      <div class="clc-proof">
+        <div><b>[## transactions]</b><span>[e.g. deals closed since 19xx]</span></div>
+        <div><b>[## sq ft]</b><span>[e.g. square feet leased or sold]</span></div>
+        <div><b>[## %]</b><span>[e.g. share of business from repeat clients and referrals]</span></div>
+        <div><b>[## years]</b><span>[e.g. longest client relationship]</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notable deals -->
+  <section class="clc-section" data-todo>
+    <div class="clc-wrap">
+      <span class="clc-eyebrow">Notable deals</span>
+      <h2>Selected transactions</h2>
+      <ul class="clc-list">
+        <li>[Deal 1: property type, area, size, sold/leased, who Cheri represented]</li>
+        <li>[Deal 2]</li>
+        <li>[Deal 3]</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Specialties & areas -->
+  <section class="clc-section clc-section--light" data-todo>
+    <div class="clc-wrap clc-two">
+      <div>
+        <span class="clc-eyebrow">Specialties</span>
+        <h2>What Cheri knows best</h2>
+        <ul class="clc-list">
+          <li>[Specialty 1, e.g. industrial bays in NE Calgary]</li>
+          <li>[Specialty 2]</li>
+          <li>[Specialty 3]</li>
+        </ul>
+      </div>
+      <div>
+        <span class="clc-eyebrow">Areas</span>
+        <h2>Where she works</h2>
+        <ul class="clc-list">
+          <li>[Area 1, e.g. Calgary NE industrial]</li>
+          <li>[Area 2, e.g. Strathmore]</li>
+          <li>[Area 3, e.g. Rocky View County]</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Designations & community -->
+  <section class="clc-section" data-todo>
+    <div class="clc-wrap clc-two">
+      <div>
+        <span class="clc-eyebrow">Credentials</span>
+        <h2>Designations &amp; memberships</h2>
+        <ul class="clc-list">
+          <li>[Designation or membership, e.g. year licensed as Associate Broker]</li>
+          <li>[Board / association memberships]</li>
+        </ul>
+      </div>
+      <div>
+        <span class="clc-eyebrow">Community</span>
+        <h2>Community involvement</h2>
+        <ul class="clc-list">
+          <li>[Organization or cause Cheri supports]</li>
+          <li>[Organization or cause]</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -98,10 +164,10 @@
       <div class="clc-person">
         <div class="clc-avatar" aria-hidden="true">VS</div>
         <div>
-          <b>Victoria Stitt</b>
+          <b data-clc="assistantName">Victoria Stitt</b>
           <span>Assistant to Cheri Long</span>
           <span>Scheduling, paperwork &amp; general inquiries</span>
-          <a href="mailto:cladmin@royallepage.ca">cladmin@royallepage.ca</a>
+          <a data-clc="assistantEmail" href="mailto:cladmin@royallepage.ca">cladmin@royallepage.ca</a>
         </div>
       </div>
     </div>
@@ -123,7 +189,7 @@
         <h2>Let's talk about your next move</h2>
         <p>Buying, selling, leasing or just exploring options.</p>
       </div>
-      <a class="clc-btn clc-btn-dark" href="../contact/">Contact Cheri</a>
+      <a class="clc-btn clc-btn-dark" href="../contact/#inquiry">Contact Cheri</a>
     </div>
   </section>
 
@@ -131,6 +197,6 @@
 
 <footer id="clc-site-footer"></footer>
 
-<script src="../assets/js/header.js?v=1010"></script>
+<script src="../assets/js/header.js?v=1012"></script>
 </body>
 </html>

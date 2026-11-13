@@ -299,3 +299,112 @@ body.clc-map-page #listings-map { top: var(--clc-top, 110px) !important; }
   #clc-topbar *, #clc-header * { transition: none !important; }
   body.clc-overlay.clc-scrolled #clc-header { animation: none; }
 }
+
+/* ─────────────────────────────────────────────────────────
+   8) v1012
+   ───────────────────────────────────────────────────────── */
+.clc-hide { display: none !important; }
+.clc-sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+/* Placeholder content (data-todo): hidden on the live site; visible with #clc-preview / ?preview=1 */
+[data-todo] { display: none !important; }
+html.clc-preview [data-todo] { display: revert !important; outline: 2px dashed #EA002A; outline-offset: 4px; }
+
+/* Bigger logo (+25%); scrolled header snaps to a compact black bar (no slide/clip animation) */
+@media (min-width: 761px) {
+  #clc-header .clc-rlp-logo { height: 72px; }
+  body.clc-overlay #clc-header .clc-rlp-logo { height: 78px; }
+  body.clc-overlay.clc-scrolled #clc-header {
+    position: fixed; top: 0; left: 0; right: 0; animation: none;
+    box-shadow: none; clip-path: none;
+    padding-top: 10px; padding-bottom: 10px;
+    background: var(--clc-black); border-bottom: 1px solid rgba(255,255,255,.12);
+  }
+  body.clc-overlay.clc-scrolled #clc-header .clc-rlp-logo { height: 60px; }
+}
+@media (max-width: 760px) {
+  #clc-header .clc-rlp-logo, body.clc-overlay #clc-header .clc-rlp-logo { height: 56px; }
+}
+
+/* BoldTrail's own footer: hide the duplicate logo + agent/brokerage block (our footer replaces them).
+   KEPT: MLS®/CREA/DDF® disclaimers + trademark notices (.footer-top-right), terms/privacy bar, "Powered by BoldTrail". */
+body.has-clc-header #custom-footer-wrapper,
+body.has-clc-header #footer .footer-top-left { display: none !important; }
+body.has-clc-header #footer .footer-top-right { width: 100% !important; max-width: none !important; float: none !important; flex: 1 1 100% !important; }
+body.has-clc-header #footer .footer-top { padding-top: 24px !important; }
+body.has-clc-header #footer .footer-top-right,
+body.has-clc-header #footer .footer-top-right * { color: #BDB6AD !important; }
+
+/* Shared footer (all pages) */
+#clc-site-footer { display: block; width: 100%; box-sizing: border-box; background: var(--clc-black); color: var(--clc-stone); padding: 72px 0 40px; font: 400 17px/1.6 var(--clc-body); -webkit-font-smoothing: antialiased; text-align: left; }
+#clc-site-footer * { box-sizing: border-box; }
+#clc-site-footer .clc-wrap { max-width: var(--clc-wrap); margin: 0 auto; padding: 0 var(--clc-gutter); }
+#clc-site-footer a { color: var(--clc-stone) !important; text-decoration: none !important; }
+#clc-site-footer a:hover { color: var(--clc-white) !important; }
+#clc-site-footer p { margin: 0 0 6px; color: inherit; font-size: inherit; line-height: inherit; }
+#clc-site-footer .clc-foot-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr)); gap: 40px; }
+#clc-site-footer h4 { font: 700 13px var(--clc-display); letter-spacing: .16em; text-transform: uppercase; color: var(--clc-white); margin: 0 0 14px; }
+#clc-site-footer .clc-foot-brand b { font: 800 26px/1.1 var(--clc-display); color: var(--clc-white); }
+/* "Commercial" in a lighter red on black so it passes WCAG AA (brand red is too dark on black) */
+#clc-site-footer .clc-foot-brand i { color: #FF4D6A; font-style: normal; }
+#clc-site-footer .clc-foot-logo { display: block; width: 240px; max-width: 100%; height: auto; margin-top: 18px; }
+#clc-site-footer .clc-social { margin-top: 20px; }
+#clc-site-footer .clc-legal { margin-top: 56px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.15); font-size: 14px; color: #BDB6AD; display: grid; gap: 10px; }
+#clc-site-footer .clc-legal p { max-width: 110ch; }
+#clc-site-footer .clc-legal nav { display: flex; gap: 20px; flex-wrap: wrap; }
+#clc-site-footer .clc-legal a { text-decoration: underline !important; color: #BDB6AD !important; }
+@media (max-width: 1080px) { #clc-site-footer .clc-foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) { #clc-site-footer .clc-foot-grid { grid-template-columns: 1fr; } #clc-site-footer { padding-top: 56px; } }
+
+/* Inquiry form (Contact page + homepage) */
+.clc-inquiry { font: 400 17px/1.5 var(--clc-body); color: var(--clc-black); text-align: left; }
+.clc-inquiry * { box-sizing: border-box; }
+.clc-inquiry .clc-q-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 18px; }
+.clc-inquiry .clc-q-wide { grid-column: 1 / -1; }
+.clc-inquiry .clc-q-field { display: grid; gap: 6px; min-width: 0; }
+.clc-inquiry label { font: 600 15px var(--clc-display); color: var(--clc-black); margin: 0; }
+.clc-inquiry .clc-q-opt { font-weight: 400; color: #57534E; }
+.clc-inquiry input:not([type=checkbox]), .clc-inquiry select, .clc-inquiry textarea {
+  width: 100% !important; min-height: 50px; padding: 10px 14px !important; margin: 0 !important;
+  border: 2px solid var(--clc-stone) !important; border-radius: 4px !important; background: var(--clc-white) !important;
+  font: 400 17px var(--clc-body) !important; color: var(--clc-black) !important; box-shadow: none !important;
+}
+.clc-inquiry textarea { min-height: 110px; resize: vertical; }
+.clc-inquiry input:focus, .clc-inquiry select:focus, .clc-inquiry textarea:focus { border-color: var(--clc-black) !important; outline: 3px solid rgba(234,0,42,.25); outline-offset: 0; }
+.clc-inquiry .clc-q-check { display: flex; gap: 12px; align-items: flex-start; margin-top: 18px; font: 400 15px/1.45 var(--clc-body); color: #4A4642; }
+.clc-inquiry .clc-q-check input { width: 22px; height: 22px; margin: 1px 0 0; flex: none; accent-color: var(--clc-red); }
+.clc-inquiry .clc-q-actions { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 20px; }
+.clc-inquiry .clc-q-submit {
+  min-height: 52px; padding: 0 28px; border: 0; border-radius: 4px; cursor: pointer;
+  background: var(--clc-red); color: var(--clc-white); font: 700 16px var(--clc-display); letter-spacing: .04em;
+}
+.clc-inquiry .clc-q-submit:hover { background: var(--clc-red-dk); }
+.clc-inquiry .clc-q-msg { margin: 0; font-weight: 500; flex: 1 1 260px; }
+.clc-inquiry .clc-q-note { margin: 14px 0 0; font-size: 15px; color: #57534E; }
+.clc-inquiry .clc-q-note a { color: var(--clc-red); font-weight: 600; }
+@media (max-width: 640px) {
+  .clc-inquiry .clc-q-grid { grid-template-columns: 1fr; }
+  .clc-inquiry .clc-q-submit { width: 100%; }
+}
+
+/* Newsletter form */
+.clc-news-form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; max-width: 560px; font: 400 16px/1.45 var(--clc-body); }
+.clc-news-form input[type=email] {
+  min-height: 52px; padding: 0 16px !important; border: 0 !important; border-radius: 4px !important; margin: 0 !important;
+  font: 400 17px var(--clc-body) !important; color: var(--clc-black) !important; background: var(--clc-white) !important; width: 100% !important;
+}
+.clc-news-form button { min-height: 52px; padding: 0 26px; border: 0; border-radius: 4px; background: var(--clc-black); color: var(--clc-white); font: 700 16px var(--clc-display); cursor: pointer; }
+.clc-news-form button:hover { background: #2A2725; }
+.clc-news-consent { grid-column: 1 / -1; display: flex; gap: 10px; align-items: flex-start; font-size: 15px; margin: 0; color: inherit; font-weight: 400; }
+.clc-news-consent input { width: 22px; height: 22px; margin: 1px 0 0; flex: none; accent-color: var(--clc-black); }
+.clc-news-msg { grid-column: 1 / -1; margin: 0; min-height: 1.4em; font-weight: 500; }
+@media (max-width: 560px) { .clc-news-form { grid-template-columns: 1fr; } .clc-news-form button { width: 100%; } }
+
+/* Jumping to the form: keep its top clear of the pinned header */
+#clc-inquiry, #inquiry, [data-clc-inquiry] { scroll-margin-top: 110px; }
+
+/* Tap targets: at least 44px tall without changing the visual layout */
+#clc-header .clc-call { display: inline-flex; align-items: center; gap: .3em; padding: 11px 0; margin: -11px 0; }
+#clc-header .clc-head-contact .clc-social a { width: 44px; height: 44px; margin: -4px 0; }
+#clc-site-footer .clc-social a { width: 44px; height: 44px; }
+#clc-site-footer .clc-foot-grid a { display: inline-block; padding: 11px 0; margin: -11px 0; }
+#clc-site-footer .clc-legal nav a { display: inline-flex; align-items: center; min-height: 44px; }

@@ -1,11 +1,13 @@
 <!-- ============================================================
-     CHERI LONG COMMERCIAL - BOLDTRAIL CUSTOM HEADER CODE  (v1010)
-     Paste into: Web & IDX → Website Settings → Custom Header Code
+     CHERI LONG COMMERCIAL - BOLDTRAIL CUSTOM HEADER CODE  (v1012)
+     Paste into: Web & IDX -> Website Settings -> Custom Header Code
      When header.js / header.css change, bump every ?v= below AND
      the one in custom-body-code.html.
+     Phone, emails, office address, listings link and the lead
+     endpoint live in ONE file: assets/js/site-config.js (GitHub).
      ============================================================ -->
 
-<!-- Page redirects: old BoldTrail pages → new pages on info.cherilongcommercial.com.
+<!-- Page redirects: old BoldTrail pages -> new pages on info.cherilongcommercial.com.
      Runs first, before anything loads. Add a line per page: '/old-page.php': 'new address'. -->
 <script>
 (function () {
@@ -21,25 +23,28 @@
 })();
 </script>
 
+<!-- Shared site settings (single source for phone, address, listings link, lead endpoint) -->
+<script src="https://info.cherilongcommercial.com/assets/js/site-config.js?v=1012"></script>
+
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Raleway:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <!-- CLC Header CSS -->
-<link rel="preload" href="https://info.cherilongcommercial.com/assets/css/header.css?v=1010" as="style">
-<link rel="stylesheet" href="https://info.cherilongcommercial.com/assets/css/header.css?v=1010">
+<link rel="preload" href="https://info.cherilongcommercial.com/assets/css/header.css?v=1012" as="style">
+<link rel="stylesheet" href="https://info.cherilongcommercial.com/assets/css/header.css?v=1012">
 
 <!-- Preload header JS -->
-<link rel="preload" href="https://info.cherilongcommercial.com/assets/js/header.js?v=1010" as="script">
+<link rel="preload" href="https://info.cherilongcommercial.com/assets/js/header.js?v=1012" as="script">
 
-<!-- FOUC guard
-     (No "reserve header space" padding: Cheri's header sits in the page flow, not fixed) -->
+<!-- FOUC guard: hide the page until our header is in place, on black so the flash
+     matches the dark hero. Once ready the black is REMOVED: BoldTrail's inner pages make
+     <body> one screen tall and let content overflow it, so a black <html> background
+     would show behind everything below the first screen (property pages). -->
 <style>
-  /* Hide page until header is ready — black bg so any
-     flash matches the dark hero rather than white */
   html { visibility: hidden; background: #000000; }
-  html.clc-ready { visibility: visible; }
+  html.clc-ready { visibility: visible; background: transparent; }
 </style>
 
 <!-- Safety fallback: reveal even if JS fails -->
@@ -49,45 +54,49 @@
   }, 2500);
 </script>
 
-<!-- Structured data for Google -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "RealEstateAgent",
-  "name": "Cheri Long Commercial",
-  "@id": "https://cherilongcommercial.com/#agent",
-  "url": "https://cherilongcommercial.com/",
-  "image": "https://d2td4dobkk213c.cloudfront.net/royallepagesolutions2034/profiles/233574.jpg",
-  "telephone": "+1-403-860-9419",
-  "description": "Calgary commercial real estate: sales, leasing, land and business brokerage, led by Associate Broker Cheri Long.",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "264 Midpark Way SE, Unit 205",
-    "addressLocality": "Calgary",
-    "addressRegion": "AB",
-    "postalCode": "T2X 1J6",
-    "addressCountry": "CA"
-  },
-  "sameAs": [
-    "https://www.instagram.com/cherilongcommercial/",
-    "https://www.facebook.com/CheriLongCommercialBroker",
-    "https://www.linkedin.com/in/cheri-long-8646439/"
-  ],
-  "areaServed": [
-    { "@type": "City", "name": "Calgary" },
-    { "@type": "AdministrativeArea", "name": "Calgary Region, Alberta" }
-  ],
-  "knowsAbout": [
-    "Commercial Real Estate",
-    "Industrial Real Estate",
-    "Retail Leasing",
-    "Commercial Leasing",
-    "Land and Development Sites",
-    "Business Brokerage"
-  ],
-  "parentOrganization": {
-    "@type": "RealEstateAgent",
-    "name": "Royal LePage Solutions"
+<!-- Homepage description for Google and social shares.
+     Also set the same text in BoldTrail's SEO settings (social sites don't run scripts). -->
+<script>
+(function () {
+  var p = location.pathname;
+  if (!(p === '/' || p === '/index.php' || p === '/index.html') || location.search) return;
+  var TEXT = 'Calgary commercial, industrial, retail and land real estate with Associate Broker Cheri Long. 30+ years of local experience. Call 403-860-9419.';
+  function set() {
+    [['name', 'description'], ['property', 'og:description'], ['name', 'twitter:description']].forEach(function (m) {
+      var el = document.querySelector('meta[' + m[0] + '="' + m[1] + '"]');
+      if (!el) { el = document.createElement('meta'); el.setAttribute(m[0], m[1]); document.head.appendChild(el); }
+      el.setAttribute('content', TEXT);
+    });
   }
-}
+  set();
+  document.addEventListener('DOMContentLoaded', set);
+})();
+</script>
+
+<!-- Structured data for Google, built from site-config.js so the address lives in one place -->
+<script>
+(function () {
+  var S = window.CLC_SITE; if (!S) return;
+  var o = S.office, sameAs = [];
+  for (var k in S.social) if (S.social[k]) sameAs.push(S.social[k]);
+  var data = {
+    '@context': 'https://schema.org',
+    '@type': 'RealEstateAgent',
+    'name': 'Cheri Long Commercial',
+    '@id': S.mainSite + '/#agent',
+    'url': S.mainSite + '/',
+    'image': 'https://d2td4dobkk213c.cloudfront.net/royallepagesolutions2034/profiles/233574.jpg',
+    'telephone': '+1-' + S.phone,
+    'description': 'Calgary commercial real estate: sales, leasing, land and business brokerage, led by Associate Broker Cheri Long.',
+    'address': { '@type': 'PostalAddress', 'streetAddress': o.street + ', ' + o.unit, 'addressLocality': o.city, 'addressRegion': o.province, 'postalCode': o.postal, 'addressCountry': 'CA' },
+    'sameAs': sameAs,
+    'areaServed': [{ '@type': 'City', 'name': 'Calgary' }, { '@type': 'AdministrativeArea', 'name': 'Calgary Region, Alberta' }],
+    'knowsAbout': ['Commercial Real Estate', 'Industrial Real Estate', 'Retail Leasing', 'Commercial Leasing', 'Land and Development Sites', 'Business Brokerage'],
+    'parentOrganization': { '@type': 'RealEstateAgent', 'name': 'Royal LePage Solutions' }
+  };
+  var s = document.createElement('script');
+  s.type = 'application/ld+json';
+  s.text = JSON.stringify(data);
+  document.head.appendChild(s);
+})();
 </script>

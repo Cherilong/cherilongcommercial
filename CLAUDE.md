@@ -3,7 +3,25 @@
 Custom code and pages for **Cheri Long Commercial** (Cheri Long, Associate Broker, Royal LePage® Commercial, Calgary).
 Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 
-> **Current live setup (Nov 2026, v1010):** the header is built by `assets/js/header.js` + `assets/css/header.css`
+> **v1012 (Nov 13 2026) — read this first.**
+> - `assets/js/site-config.js` is the SINGLE source for phone, emails, office address, listings URL, page URLs,
+>   social links and `leadEndpoint`. Loaded first by the BoldTrail Custom Header Code and every subdomain page.
+>   Values in [BRACKETS] are placeholders and are hidden on the live site (`CLC_SITE.isPlaceholder`).
+> - `header.js` builds: header, the shared footer on EVERY page (inserted above BoldTrail's #footer on BoldTrail pages),
+>   the inquiry form (`[data-clc-inquiry]`, `="compact"` on the homepage) and newsletter form (`[data-clc-newsletter]`),
+>   service-button preselect (`a[data-intent]` / `data-ptype`, or `?intent=&type=` on /contact/), and the property-page
+>   cleanup (hides 0-value Bedrooms/Bathrooms, jumpId/French rows, Amenities, "Find Your Home's Value").
+> - Lead capture is a PLACEHOLDER: with `leadEndpoint` empty, forms open a pre-filled email to the assistant.
+> - `[data-todo]` sections are hidden unless the URL has `#clc-preview` (homepage) or `?preview=1` (subdomain).
+> - Custom Header Code: `html.clc-ready` background MUST stay transparent (BoldTrail inner pages make <body> one screen
+>   tall; a black <html> showed behind everything below the first screen on property pages).
+> - Body Code: every homepage rule scoped to `body.page-home` except section 1 (BoldTrail modal/filter fix, site-wide on
+>   purpose) and section 6 (map auto-search script).
+> - Per-page hero photos: replace `assets/images/hero-services.jpg` / `hero-about.jpg` / `hero-contact.jpg` (same names).
+>   Inline CSS var URLs must be root-relative (`/assets/...`), not `../`.
+> - Keep JS ASCII-only (non-ASCII as \uXXXX); body code HTML uses entities.
+
+> **Current live setup (Nov 2026, v1012):** the header is built by `assets/js/header.js` + `assets/css/header.css`
 > (same pattern as the Royal LePage Solutions site). `boldtrail/custom-header-code.html` and
 > `boldtrail/custom-body-code.html` hold the homepage. `assets/js/clc.js`, `assets/css/clc.css` and `preview/` are an
 > earlier draft and are NOT loaded anywhere. Sections below that mention clc.js describe that draft.
@@ -74,7 +92,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 1. Edit the file(s) and commit to `main`. GitHub Pages ignores `?v=`, so the commit is what updates the file.
 2. If `clc.css` or `clc.js` changed, bump the version: `VERSION` in the file header, then every `?v=` in
    `boldtrail/custom-header-code.html`, `boldtrail/custom-body-code.html` and every `pages/*/index.html`.
-   Keep all of them on the same number. Current: **1010**.
+   Keep all of them on the same number. Current: **1012**.
 3. Tell Kyle which BoldTrail field(s) to re-paste. Always give the complete file, never a partial diff.
 4. Check the live BoldTrail homepage, one BoldTrail inner page (e.g. a search page) and one subdomain page.
 
@@ -128,5 +146,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 - [ ] Write the two checklist PDFs: Seller & Landlord Readiness, Buyer & Tenant Due Diligence
 - [ ] Own Privacy Policy page (legal links currently point to royallepage.ca privacy policy + notices)
 - [ ] YouTube channel link when live
-- [x] Domain: cherilongcommercial.com
+- [x] Domain: cherilongcommercial.com (always link the www version)
+- [ ] Confirm office postal code (T2X 1J6 per BoldTrail vs T2X 1M2 per Google Maps) in site-config.js
+- [ ] Fill placeholders: [CHERI_EMAIL], stats, transactions, testimonials, About proof points/deals/specialties/designations/community
 - [ ] Broker sign-off before launch

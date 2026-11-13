@@ -1,67 +1,42 @@
 /* =========================================================
-   Cheri Long Commercial - Header Injection & Behavior
-   v1011 - Map search pages: lock page scrolling (html.clc-map-lock) so only the
-           results list scrolls, not the hidden page behind the map.
-   v1010 - No "Talk to Our Team" button and no top strip: "Call Cheri" + social
-           icons sit at the right of the header. Phones get a "☰ Menu"
-           button (hamburger) with a drop-down menu, plus a call button.
-   v1008 - Listings link filters to the City of Calgary (pak=city:…) and
-           sorts newest first. Map search pages (body.clc-map-page): BoldTrail's
-           pinned map + results panel start below our header (--clc-top).
-   v1007 - No script changes (full-width layout is CSS only).
-   v1006 - See-through header over the hero photo on the homepage and
-           the subdomain pages (body.clc-overlay); turns solid black
-           after scrolling. Logo only (no "Cheri Long Commercial" text).
-   v1005 - Services, About and Contact are now their own pages on
-           info.cherilongcommercial.com (PAGES). Builds the shared
-           contact & legal footer into #clc-site-footer on those pages.
-   v1004 - Royal LePage Commercial / Royal LePage Solutions logo beside
-           Cheri's name in the header (LOGO_URL).
-   v1003 - Real phone + social links. YouTube removed (no channel yet).
-           SHOW_FORMS = false hides "Resources & Guides" and
-           "Newsletter sign-up" until the lead forms are wired up.
-   v1002 - "Listings" opens the map of all commercial listings in Calgary
-           (LISTINGS_URL) instead of the homepage carousel.
-   v1001 - Builds the utility bar + flat-nav header at the top
-           of every page (BoldTrail and info.cherilongcommercial.com).
-           Adds body.has-clc-header (header.css then hides
-           BoldTrail's own header) and html.clc-ready (reveals
-           the page; FOUC guard lives in Custom Header Code).
-   Bump ?v= in BOTH BoldTrail Custom Code fields when this changes.
+   Cheri Long Commercial - Header, footer, forms & page fixes
+   v1012 - Reads everything from site-config.js (window.CLC_SITE).
+           Shared footer on EVERY page (BoldTrail + subdomain).
+           Inquiry form + newsletter form components (lead capture
+           placeholder: opens an email to the assistant until
+           CLC_SITE.leadEndpoint is set). Service buttons preselect
+           the matching option. Property pages: hide residential-only
+           fields. Menu: "About Cheri".
+   v1011 - Map search pages: lock page scrolling (html.clc-map-lock).
+   v1010 - "Call Cheri" + socials at the right; phone "\u2630 Menu".
+   v1008 - Map search pages sit below our header (--clc-top).
+   v1006 - See-through header over hero photos (body.clc-overlay).
+   v1001 - Builds the header on every page; html.clc-ready reveals the page.
+   Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1011');
+console.log('CLC HEADER JS LOADED v1012');
 (function () {
-  const VERSION = '1011';
+  const VERSION = '1012';
 
-  /* ─── CONFIG ─── */
-  const BOLDTRAIL_BASE = 'https://cherilongcommercial.com';   // used only off BoldTrail (subdomain pages)
-  // "Listings" menu link: all commercial listings in Calgary. Keep the same as
-  // ALL_LISTINGS_URL in the Custom Body Code.
-  const LISTINGS_URL = '/index.php?advanced=1&rtype=map&display=Calgary&pak=city%3Ag30_c3nfkdtg&types%5B%5D=4&types%5B%5D=5&types%5B%5D=3&types%5B%5D=12&sortby=listings.listingdate+DESC#rslt';
-  const PHONE = '403-860-9419';                                 // Cheri's cell
-  // Royal LePage Commercial logo: black/red for the white header (search & listing pages),
-  // white/red for the see-through header over photos. Leave LOGO_URL '' to show a text name instead.
-  const LOGO_URL = 'https://info.cherilongcommercial.com/assets/images/rlp-commercial-brokerage-black-red.png';
-  const LOGO_URL_LIGHT = 'https://info.cherilongcommercial.com/assets/images/rlp-commercial-brokerage-white-red.png';
-  const SOCIAL = {
-    instagram: 'https://www.instagram.com/cherilongcommercial/',
-    facebook:  'https://www.facebook.com/CheriLongCommercialBroker',
-    linkedin:  'https://www.linkedin.com/in/cheri-long-8646439/',
-    youtube:   ''     // add her channel link here when it exists; '' hides the icon
-  };
-  // Stand-alone pages on the subdomain (menu + "Talk to Our Team" link here)
-  const SITE = 'https://info.cherilongcommercial.com';
-  const PAGES = {
-    services: SITE + '/services/',
-    about:    SITE + '/about/',
-    contact:  SITE + '/contact/'
-  };
-  const EMAIL = 'cladmin@royallepage.ca';            // Victoria Stitt, general inquiries
-  const FOOTER_LOGO = SITE + '/assets/images/rlp-commercial-brokerage-white-red.png';
+  /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
+  const S = window.CLC_SITE || {};
+  const MAIN = S.mainSite || 'https://www.cherilongcommercial.com';
+  const SUB = S.subSite || 'https://info.cherilongcommercial.com';
+  const LISTINGS_URL = S.listingsUrl || MAIN + '/';
+  const PAGES = S.pages || { services: SUB + '/services/', about: SUB + '/about/', contact: SUB + '/contact/' };
+  const PHONE = S.phone || '403-860-9419';
+  const SOCIAL = S.social || {};
+  const ASSIST = S.assistant || { name: 'Victoria Stitt', title: 'Assistant', email: 'cladmin@royallepage.ca' };
+  const OFFICE = S.office || { brokerage: 'Royal LePage\u00ae Solutions', unit: 'Unit 205', street: '264 Midpark Way SE', city: 'Calgary', province: 'AB', postal: 'T2X 1J6' };
+  const isPh = S.isPlaceholder || function (v) { return !v || /^\s*\[.*\]\s*$/.test(String(v)); };
+  const TEL = 'tel:+1' + PHONE.replace(/[^0-9]/g, '');
+  const LOGO_URL = SUB + '/assets/images/rlp-commercial-brokerage-black-red.png';
+  const LOGO_URL_LIGHT = SUB + '/assets/images/rlp-commercial-brokerage-white-red.png';
 
-  // false = hide "Resources & Guides" and "Newsletter sign-up" until the lead forms are live.
-  // Keep the same as SHOW_FORMS in the Custom Body Code.
-  const SHOW_FORMS = false;
+  // false = hide "Resources & Guides" (checklists) until the checklist PDFs exist.
+  const SHOW_GUIDES = false;
+
+  const esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
 
   const SPRITE =
     '<svg width="0" height="0" style="position:absolute" aria-hidden="true">' +
@@ -73,25 +48,22 @@ console.log('CLC HEADER JS LOADED v1011');
 
   function social() {
     return '<div class="clc-social" aria-label="Social media">' +
-      '<a href="' + SOCIAL.instagram + '" aria-label="Instagram" target="_blank" rel="noopener"><svg><use href="#clc-ig"/></svg></a>' +
-      '<a href="' + SOCIAL.facebook + '" aria-label="Facebook" target="_blank" rel="noopener"><svg><use href="#clc-fb"/></svg></a>' +
-      '<a href="' + SOCIAL.linkedin + '" aria-label="LinkedIn" target="_blank" rel="noopener"><svg><use href="#clc-li"/></svg></a>' +
+      (SOCIAL.instagram ? '<a href="' + SOCIAL.instagram + '" aria-label="Instagram" target="_blank" rel="noopener"><svg><use href="#clc-ig"/></svg></a>' : '') +
+      (SOCIAL.facebook ? '<a href="' + SOCIAL.facebook + '" aria-label="Facebook" target="_blank" rel="noopener"><svg><use href="#clc-fb"/></svg></a>' : '') +
+      (SOCIAL.linkedin ? '<a href="' + SOCIAL.linkedin + '" aria-label="LinkedIn" target="_blank" rel="noopener"><svg><use href="#clc-li"/></svg></a>' : '') +
       (SOCIAL.youtube ? '<a href="' + SOCIAL.youtube + '" aria-label="YouTube" target="_blank" rel="noopener"><svg><use href="#clc-yt"/></svg></a>' : '') +
       '</div>';
   }
 
-  /* ─── Markup ─── */
-  const TEL = 'tel:+1' + PHONE.replace(/[^0-9]/g, '');
+  /* \u2500\u2500\u2500 Header markup \u2500\u2500\u2500 */
   const PHONE_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg>';
 
   function buildHeaderHTML() {
     return `
       <div class="clc-wrap clc-head-top">
         <a class="clc-brand-row" data-home href="/" aria-label="Cheri Long Commercial home">
-          ${LOGO_URL
-            ? '<img class="clc-rlp-logo clc-logo-dark" src="' + LOGO_URL + '" alt="Royal LePage Commercial, Royal LePage Solutions" width="809" height="324">' +
-              '<img class="clc-rlp-logo clc-logo-light" src="' + LOGO_URL_LIGHT + '" alt="Royal LePage Commercial, Royal LePage Solutions" width="809" height="324">'
-            : '<span class="clc-brand"><b>Cheri Long <i>Commercial</i></b><span>Royal LePage&reg; Commercial</span></span>'}
+          <img class="clc-rlp-logo clc-logo-dark" src="${LOGO_URL}" alt="Royal LePage Commercial, Royal LePage Solutions" width="809" height="324">
+          <img class="clc-rlp-logo clc-logo-light" src="${LOGO_URL_LIGHT}" alt="Royal LePage Commercial, Royal LePage Solutions" width="809" height="324">
         </a>
         <div class="clc-head-contact">
           <a class="clc-call" href="${TEL}">Call Cheri <span class="clc-tel">${PHONE}</span></a>
@@ -108,8 +80,8 @@ console.log('CLC HEADER JS LOADED v1011');
         <li><a data-home href="/">Home</a></li>
         <li><a data-listings href="#">Listings</a></li>
         <li><a data-page="services" href="#">Services</a></li>
-        <li><a data-page="about" href="#">About Cheri &amp; Team</a></li>
-        ${SHOW_FORMS ? '<li><a data-sec="clc-guides" href="#">Resources &amp; Guides</a></li>' : ''}
+        <li><a data-page="about" href="#">About Cheri</a></li>
+        ${SHOW_GUIDES ? '<li><a data-sec="clc-guides" href="#">Resources &amp; Guides</a></li>' : ''}
         <li><a data-page="contact" href="#">Contact</a></li>
       </ul>
       <div class="clc-nav-extra">
@@ -118,14 +90,13 @@ console.log('CLC HEADER JS LOADED v1011');
       </div></div></nav>`;
   }
 
-  /* ─── Inject everything ─── */
+  /* \u2500\u2500\u2500 Inject everything \u2500\u2500\u2500 */
   function ensureInjected() {
     const body = document.body;
     if (!document.getElementById('clc-ig')) body.insertAdjacentHTML('afterbegin', SPRITE);
 
     let header = document.getElementById('clc-header');
     if (!header) {
-      // Skip link for keyboard / screen-reader users (visible only when focused)
       const main = document.querySelector('#clc-custom-homepage, #clc-page, .main, main');
       if (main && !main.id) main.id = 'clc-main';
       const skip = document.createElement('a');
@@ -141,44 +112,47 @@ console.log('CLC HEADER JS LOADED v1011');
       bindMenu(header);
     }
 
-    // Links: section on this page → #id; otherwise the homepage section
-    const onBoldTrail = !!document.querySelector('#header, .kv-header, .site-header, .listings.container');
-    const base = onBoldTrail ? '' : BOLDTRAIL_BASE;
+    const onBoldTrail = !!document.querySelector('#header, .kv-header, .site-header, .listings.container, #footer');
+    const base = onBoldTrail ? '' : MAIN;
     const isHome = !!document.getElementById('clc-custom-homepage');
-    document.querySelectorAll('#clc-topbar a[data-sec], #clc-header a[data-sec]').forEach(function (a) {
+    document.querySelectorAll('#clc-header a[data-sec]').forEach(function (a) {
       const id = a.getAttribute('data-sec');
-      a.setAttribute('href', document.getElementById(id) ? '#' + id : base + '/#' + id);
+      a.setAttribute('href', document.getElementById(id) ? '#' + id : MAIN + '/#' + id);
     });
     document.querySelectorAll('#clc-header a[data-home]').forEach(function (a) { a.setAttribute('href', base + '/'); });
-    document.querySelectorAll('#clc-header a[data-listings]').forEach(function (a) { a.setAttribute('href', base + LISTINGS_URL); });
+    document.querySelectorAll('a[data-listings], a[data-all-listings]').forEach(function (a) { a.setAttribute('href', LISTINGS_URL); });
     const homeLink = document.querySelector('#clc-header nav a[data-home]');
     if (homeLink) { isHome ? homeLink.setAttribute('aria-current', 'page') : homeLink.removeAttribute('aria-current'); }
-    // Stand-alone pages: menu links + mark the page we're on
-    const onSubdomain = location.hostname === SITE.replace('https://', '');
+    const onSubdomain = location.hostname === SUB.replace('https://', '');
     document.querySelectorAll('#clc-header a[data-page]').forEach(function (a) {
       const url = PAGES[a.getAttribute('data-page')];
       a.setAttribute('href', url);
-      const here = onSubdomain && location.pathname.replace(/index\.html$/, '') === url.replace(SITE, '');
+      const here = onSubdomain && location.pathname.replace(/index\.html$/, '') === url.replace(SUB, '');
       if (here && a.closest('nav')) a.setAttribute('aria-current', 'page');
     });
-    buildFooter();
+
+    buildFooter(onBoldTrail);
+    document.querySelectorAll('[data-clc-inquiry]').forEach(renderInquiry);
+    document.querySelectorAll('[data-clc-newsletter]').forEach(renderNewsletter);
+    bindIntentLinks();
+    if (S.fill) S.fill();
+    if (document.querySelector('.details-page')) cleanDetailsPage();
 
     body.classList.add('has-clc-header');
     setOverlay();
     setMapOffset();
     requestAnimationFrame(function () {
       const first = !document.documentElement.classList.contains('clc-ready');
-      document.documentElement.classList.add('clc-ready');   // FOUC guard: reveal the page
-      // Arrived via /#clc-section from another page: jump there now that it exists
+      document.documentElement.classList.add('clc-ready');
       if (first && /^#clc-[\w-]+$/.test(location.hash)) {
         const t = document.getElementById(location.hash.slice(1));
         if (t) t.scrollIntoView();
       }
+      if (first) applyIntentFromUrl();
     });
-    console.log('[CLC Header] Injected + bound OK - v' + VERSION);
   }
 
-  /* ─── Phone "☰ Menu" button ─── */
+  /* \u2500\u2500\u2500 Phone "\u2630 Menu" button \u2500\u2500\u2500 */
   function bindMenu(header) {
     const btn = header.querySelector('.clc-menu-btn');
     if (!btn) return;
@@ -196,9 +170,7 @@ console.log('CLC HEADER JS LOADED v1011');
     window.addEventListener('resize', function () { if (window.innerWidth > 760) set(false); });
   }
 
-  /* ─── See-through header over a hero photo ───
-     On: BoldTrail homepage (#clc-custom-homepage) and subdomain pages with .clc-page-hero.
-     Off: every other BoldTrail page (search, listings) keeps the solid white header. */
+  /* \u2500\u2500\u2500 See-through header over a hero photo \u2500\u2500\u2500 */
   let scrollBound = false;
   function setOverlay() {
     const hasHero = !!document.querySelector('body.page-home #clc-custom-homepage, .clc-page-hero');
@@ -208,7 +180,6 @@ console.log('CLC HEADER JS LOADED v1011');
     let ticking = false;
     const update = function () {
       ticking = false;
-      // Turn solid once the visitor has scrolled past the see-through header
       document.body.classList.toggle('clc-scrolled', window.scrollY > 140);
     };
     window.addEventListener('scroll', function () {
@@ -217,8 +188,7 @@ console.log('CLC HEADER JS LOADED v1011');
     update();
   }
 
-  /* ─── Map search pages: BoldTrail pins #listings-map 110px from the top (its own header).
-     Measure our header and move the map + results panel down to match. */
+  /* \u2500\u2500\u2500 Map search pages \u2500\u2500\u2500 */
   let mapBound = false;
   function setMapOffset() {
     if (!document.getElementById('listings-map')) return;
@@ -229,56 +199,227 @@ console.log('CLC HEADER JS LOADED v1011');
     }
     const measure = function () {
       const h = document.getElementById('clc-header');
-      const top = h ? Math.round(h.getBoundingClientRect().bottom) : 0;   // bottom edge of our header
+      const top = h ? Math.round(h.getBoundingClientRect().bottom) : 0;
       if (top > 0) document.documentElement.style.setProperty('--clc-top', top + 'px');
     };
     measure();
     if (!mapBound) { mapBound = true; window.addEventListener('resize', measure); window.addEventListener('load', measure); }
   }
 
-  /* ─── Contact & legal footer for subdomain pages (fills #clc-site-footer) ─── */
-  function buildFooter() {
-    const slot = document.getElementById('clc-site-footer');
+  /* \u2500\u2500\u2500 Shared contact & legal footer (same on BoldTrail and the subdomain) \u2500\u2500\u2500
+     Subdomain pages have <footer id="clc-site-footer">. On BoldTrail pages we create it just
+     above BoldTrail's footer; header.css hides BoldTrail's duplicate logo/agent block but keeps
+     the MLS\u00ae/CREA/DDF\u00ae disclaimers, trademark notices and "Powered by BoldTrail". */
+  function buildFooter(onBoldTrail) {
+    if (document.getElementById('listings-map')) return;   // full-screen map search pages have no room for a footer
+    let slot = document.getElementById('clc-site-footer');
+    if (!slot && onBoldTrail) {
+      const anchor = document.getElementById('custom-footer-wrapper') || document.getElementById('footer');
+      if (!anchor) return;
+      slot = document.createElement('footer');
+      slot.id = 'clc-site-footer';
+      anchor.parentNode.insertBefore(slot, anchor);
+    }
     if (!slot || slot.dataset.built === 'true') return;
-    const tel = PHONE.replace(/[^0-9]/g, '');
+    const year = new Date().getFullYear();
+    const cheriEmail = isPh(S.cheriEmail) ? '' : `<p><a href="mailto:${esc(S.cheriEmail)}">${esc(S.cheriEmail)}</a></p>`;
     slot.innerHTML = `
       <div class="clc-wrap">
         <div class="clc-foot-grid">
           <div>
             <div class="clc-foot-brand"><b>Cheri Long <i>Commercial</i></b></div>
-            <img class="clc-foot-logo" src="${FOOTER_LOGO}" alt="Royal LePage Commercial, Royal LePage Solutions" width="809" height="324" loading="lazy">
+            <img class="clc-foot-logo" src="${LOGO_URL_LIGHT}" alt="Royal LePage Commercial, Royal LePage Solutions" width="809" height="324" loading="lazy">
             ${social()}
           </div>
           <div>
-            <h4>Cheri Long</h4>
-            <p>Associate Broker</p>
-            <p>Cell <a class="clc-tel" href="tel:+1${tel}">${PHONE}</a></p>
+            <h4>${esc(S.name || 'Cheri Long')}</h4>
+            <p>${esc(S.title || 'Associate Broker')}</p>
+            <p>Cell <a class="clc-tel" href="${TEL}">${esc(PHONE)}</a></p>
+            ${cheriEmail}
           </div>
           <div>
             <h4>General inquiries</h4>
-            <p>Victoria Stitt, Assistant</p>
-            <p><a href="mailto:${EMAIL}">${EMAIL}</a></p>
+            <p>${esc(ASSIST.name)}, ${esc(ASSIST.title)}</p>
+            <p><a href="mailto:${esc(ASSIST.email)}">${esc(ASSIST.email)}</a></p>
           </div>
           <div>
             <h4>Office</h4>
-            <p>Royal LePage&reg; Solutions</p>
-            <p>Unit 205, 264 Midpark Way SE</p>
-            <p>Calgary, AB&nbsp; T2X 1J6</p>
+            <p>${esc(OFFICE.brokerage).replace('\u00ae', '&reg;')}</p>
+            <p>${esc(OFFICE.unit)}, ${esc(OFFICE.street)}</p>
+            <p>${esc(OFFICE.city)}, ${esc(OFFICE.province)}&nbsp; ${esc(OFFICE.postal)}</p>
+            ${S.officePhone ? `<p>Office <a class="clc-tel" href="tel:+1${String(S.officePhone).replace(/[^0-9]/g, '')}">${esc(S.officePhone)}</a></p>` : ''}
           </div>
         </div>
         <div class="clc-legal">
-          <p>&copy; ${new Date().getFullYear()} Cheri Long Commercial. Royal LePage&reg; is a registered trademark of Bridgemarq Real Estate Services Inc. Each office is independently owned and operated. Not intended to solicit buyers or sellers currently under contract. See <a href="https://rlp.ca/notices" target="_blank" rel="noopener">rlp.ca/notices</a>.</p>
-          <p>Listing information is deemed reliable but not guaranteed and should be independently verified.</p>
+          <p>&copy; ${year} Cheri Long Commercial. Royal LePage&reg; is a registered trademark of Bridgemarq Real Estate Services Inc. Each office is independently owned and operated. Not intended to solicit buyers or sellers currently under contract. See <a href="https://rlp.ca/notices" target="_blank" rel="noopener">rlp.ca/notices</a>.</p>
+          <p>We respect your inbox. Marketing emails are sent only with your consent under Canada's Anti-Spam Legislation (CASL), and every message includes an unsubscribe link.</p>
+          <p>Listing information is deemed reliable but not guaranteed and should be independently verified.${S.officePhone ? ` Need help using this website? Call our office at ${esc(S.officePhone)}.` : ''}</p>
           <nav aria-label="Legal"><a href="https://www.royallepage.ca/en/realestate/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a><a href="https://www.royallepage.ca/en/realestate/noticesanddisclaimers" target="_blank" rel="noopener">Notices &amp; Disclaimers</a></nav>
         </div>
       </div>`;
     slot.dataset.built = 'true';
   }
 
+  /* \u2500\u2500\u2500 Lead capture \u2500\u2500\u2500
+     PLACEHOLDER until CLC_SITE.leadEndpoint is set: opens the visitor's email app with the
+     details filled in, addressed to the assistant, so nothing is lost. With an endpoint set,
+     the form POSTs JSON there instead (e.g. a Cloudflare Worker that creates the rlpSPHERE lead). */
+  function sendLead(data, msgEl, okText) {
+    data.source = location.href;
+    data.submitted = new Date().toISOString();
+    if (S.leadEndpoint) {
+      msgEl.textContent = 'Sending\u2026';
+      return fetch(S.leadEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); msgEl.textContent = okText; return true; })
+        .catch(function () { msgEl.textContent = 'That didn\u2019t go through. Please call ' + PHONE + ' or email ' + ASSIST.email + '.'; return false; });
+    }
+    const lines = Object.keys(data).filter(function (k) { return data[k] !== '' && data[k] != null && k !== 'type'; })
+      .map(function (k) { return k.replace(/_/g, ' ') + ': ' + data[k]; });
+    const subject = data.type === 'newsletter' ? 'Newsletter sign-up' : 'Website inquiry' + (data.looking_to ? ': ' + data.looking_to : '') + (data.name ? ' \u2013 ' + data.name : '');
+    location.href = 'mailto:' + ASSIST.email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+    msgEl.textContent = 'Your email app should open with your details filled in. Just press Send. If it doesn\u2019t, call ' + PHONE + '.';
+    return Promise.resolve(true);
+  }
+
+  const INTENTS = [['buy', 'Buy a property'], ['sell', 'Sell a property'], ['lease-space', 'Lease space for my business'], ['lease-out', 'Lease out space I own'], ['business-sale', 'Buy or sell a business'], ['other', 'Something else']];
+  const TYPES = [['office', 'Office'], ['industrial', 'Industrial'], ['retail', 'Retail'], ['land', 'Land'], ['business', 'Business'], ['other', 'Other']];
+  const opts = function (list) { return '<option value="">Choose one</option>' + list.map(function (o) { return '<option value="' + o[0] + '">' + o[1] + '</option>'; }).join(''); };
+
+  let formCount = 0;
+  function renderInquiry(slot) {
+    if (slot.dataset.built === 'true') return;
+    const compact = slot.getAttribute('data-clc-inquiry') === 'compact';
+    const n = ++formCount, id = function (k) { return 'clc-q' + n + '-' + k; };
+    slot.innerHTML = `
+      <form class="clc-inquiry${compact ? ' is-compact' : ''}" novalidate>
+        <div class="clc-q-grid">
+          <div class="clc-q-field"><label for="${id('name')}">Name <span aria-hidden="true">*</span></label><input id="${id('name')}" name="name" autocomplete="name" required></div>
+          <div class="clc-q-field"><label for="${id('email')}">Email <span aria-hidden="true">*</span></label><input id="${id('email')}" name="email" type="email" autocomplete="email" required></div>
+          <div class="clc-q-field"><label for="${id('phone')}">Phone</label><input id="${id('phone')}" name="phone" type="tel" autocomplete="tel"></div>
+          <div class="clc-q-field"><label for="${id('intent')}">I\u2019m looking to</label><select id="${id('intent')}" name="looking_to" data-q="intent">${opts(INTENTS)}</select></div>
+          <div class="clc-q-field"><label for="${id('ptype')}">Property type</label><select id="${id('ptype')}" name="property_type" data-q="ptype">${opts(TYPES)}</select></div>
+          ${compact ? '' : `<div class="clc-q-field"><label for="${id('area')}">Area</label><input id="${id('area')}" name="area" placeholder="e.g. NE Calgary, Strathmore"></div>
+          <div class="clc-q-field clc-q-wide"><label for="${id('details')}">Size, budget or timeline <span class="clc-q-opt">(optional)</span></label><input id="${id('details')}" name="size_budget_timeline" placeholder="e.g. 2,000\u20133,000 sq ft, by spring"></div>`}
+          <div class="clc-q-field clc-q-wide"><label for="${id('msg')}">Message</label><textarea id="${id('msg')}" name="message" rows="${compact ? 3 : 5}"></textarea></div>
+        </div>
+        <label class="clc-q-check"><input type="checkbox" name="marketing_consent" value="yes"> Yes, also send me Cheri\u2019s Calgary commercial market updates by email. I can unsubscribe at any time.</label>
+        <div class="clc-q-actions">
+          <button class="clc-q-submit" type="submit">Send to Cheri\u2019s team</button>
+          <p class="clc-q-msg" role="status" aria-live="polite"></p>
+        </div>
+        <p class="clc-q-note">Prefer to talk? Call Cheri at <a href="${TEL}">${esc(PHONE)}</a>.</p>
+      </form>`;
+    slot.dataset.built = 'true';
+    const form = slot.querySelector('form');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const msg = form.querySelector('.clc-q-msg');
+      const name = form.name.value.trim(), email = form.email.value.trim();
+      if (!name || !email || !form.email.checkValidity()) {
+        msg.textContent = 'Please add your name and a valid email address.';
+        (!name ? form.name : form.email).focus();
+        return;
+      }
+      const data = { type: 'inquiry' };
+      new FormData(form).forEach(function (v, k) {
+        if (k === 'looking_to' || k === 'property_type') {
+          const sel = form.querySelector('[name="' + k + '"]');
+          v = sel && sel.value ? sel.options[sel.selectedIndex].text : '';
+        }
+        data[k] = typeof v === 'string' ? v.trim() : v;
+      });
+      data.marketing_consent = form.marketing_consent.checked ? 'yes' : 'no';
+      sendLead(data, msg, 'Thanks, ' + name + '. Cheri\u2019s team will be in touch shortly.').then(function (ok) { if (ok && S.leadEndpoint) form.reset(); });
+    });
+  }
+
+  function renderNewsletter(slot) {
+    if (slot.dataset.built === 'true') return;
+    const n = ++formCount;
+    slot.innerHTML = `
+      <form class="clc-news-form" novalidate>
+        <label class="clc-sr" for="clc-n${n}-email">Email address</label>
+        <input id="clc-n${n}-email" name="email" type="email" placeholder="Your email address" autocomplete="email" required>
+        <button type="submit">Subscribe</button>
+        <label class="clc-news-consent"><input type="checkbox" name="consent" required> I agree to receive Calgary commercial market updates by email from Cheri Long, ${esc(OFFICE.brokerage)}. Unsubscribe at any time.</label>
+        <p class="clc-news-msg" role="status" aria-live="polite"></p>
+      </form>`;
+    slot.dataset.built = 'true';
+    const form = slot.querySelector('form');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const msg = form.querySelector('.clc-news-msg');
+      if (!form.email.value || !form.email.checkValidity()) { msg.textContent = 'Please enter a valid email address.'; form.email.focus(); return; }
+      if (!form.consent.checked) { msg.textContent = 'Please tick the box to confirm you\u2019d like to receive emails.'; form.consent.focus(); return; }
+      sendLead({ type: 'newsletter', email: form.email.value.trim(), marketing_consent: 'yes' }, msg, 'You\u2019re subscribed. Thank you!')
+        .then(function (ok) { if (ok && S.leadEndpoint) form.reset(); });
+    });
+  }
+
+  /* Service buttons: data-intent="sell" (+ optional data-ptype). On a page with the form they
+     preselect + scroll; elsewhere they go to the Contact page as ?intent=sell#inquiry. */
+  function setIntent(intent, ptype) {
+    document.querySelectorAll('form.clc-inquiry').forEach(function (f) {
+      if (intent && f.querySelector('[data-q="intent"] option[value="' + intent + '"]')) f.querySelector('[data-q="intent"]').value = intent;
+      if (ptype && f.querySelector('[data-q="ptype"] option[value="' + ptype + '"]')) f.querySelector('[data-q="ptype"]').value = ptype;
+    });
+  }
+  let intentBound = false;
+  function bindIntentLinks() {
+    document.querySelectorAll('a[data-intent]').forEach(function (a) {
+      if (a.dataset.intentSet) return;
+      a.dataset.intentSet = '1';
+      if (!document.querySelector('form.clc-inquiry')) {
+        a.href = PAGES.contact + '?intent=' + encodeURIComponent(a.dataset.intent) + (a.dataset.ptype ? '&type=' + encodeURIComponent(a.dataset.ptype) : '') + '#inquiry';
+      }
+    });
+    if (intentBound) return;
+    intentBound = true;
+    document.addEventListener('click', function (e) {
+      const a = e.target.closest && e.target.closest('a[data-intent]');
+      const form = document.querySelector('form.clc-inquiry');
+      if (!a || !form) return;
+      e.preventDefault();
+      setIntent(a.dataset.intent, a.dataset.ptype);
+      const box = form.closest('[id]') || form;
+      box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(function () { form.querySelector('[name="name"]').focus({ preventScroll: true }); }, 500);
+    });
+  }
+  function applyIntentFromUrl() {
+    const p = new URLSearchParams(location.search);
+    if (p.get('intent') || p.get('type')) setIntent(p.get('intent'), p.get('type'));
+  }
+
+  /* \u2500\u2500\u2500 Property detail pages: hide residential-only fields (commercial listings) \u2500\u2500\u2500 */
+  function cleanDetailsPage() {
+    const txt = function (el) { return (el.textContent || '').replace(/\s+/g, ' ').trim(); };
+    document.querySelectorAll('.details-page li').forEach(function (li) {
+      const label = li.querySelector('strong');
+      if (!label || !/^(Bedrooms|Bathrooms|Half Bathrooms)$/.test(txt(label))) return;
+      const value = txt(li).slice(txt(label).length).trim();
+      if (value === '' || value === '0' || value === '{}' || value === '-') li.classList.add('clc-hide');
+    });
+    document.querySelectorAll('.details-page tr').forEach(function (tr) {
+      const th = tr.querySelector('th');
+      if (th && /^(jumpId|Property Subtype French|Listing Type French)$/.test(txt(th))) tr.classList.add('clc-hide');
+    });
+    document.querySelectorAll('.details-page h2').forEach(function (h) {
+      if (txt(h) !== 'Amenities') return;
+      h.classList.add('clc-hide');
+      let n = h.nextElementSibling;
+      while (n && n.tagName !== 'H2') { n.classList.add('clc-hide'); n = n.nextElementSibling; }
+    });
+    document.querySelectorAll('a[href*="/seller/valuation"]').forEach(function (a) {
+      (a.closest('li') || a).classList.add('clc-hide');
+    });
+  }
+
   function run() {
     ensureInjected();
     setTimeout(ensureInjected, 500);
     setTimeout(ensureInjected, 1500);
+    setTimeout(function () { if (document.querySelector('.details-page')) cleanDetailsPage(); }, 4000);
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', run);
@@ -286,4 +427,5 @@ console.log('CLC HEADER JS LOADED v1011');
   } else {
     run();
   }
+  console.log('[CLC Header] ready - v' + VERSION);
 })();

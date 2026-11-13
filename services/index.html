@@ -15,12 +15,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/header.css?v=1010">
-  <link rel="stylesheet" href="../assets/css/pages.css?v=1010">
+  <link rel="stylesheet" href="../assets/css/header.css?v=1012">
+  <link rel="stylesheet" href="../assets/css/pages.css?v=1012">
   <style>html { visibility: hidden; } html.clc-ready { visibility: visible; }</style>
   <script>setTimeout(function () { document.documentElement.classList.add('clc-ready'); }, 2500);</script>
+  <script src="../assets/js/site-config.js?v=1012"></script>
 </head>
-<body>
+<!-- Hero photo for this page: replace assets/images/hero-services.jpg (same file name) to change it -->
+<body style="--clc-page-hero: url('/assets/images/hero-services.jpg')">
 
 <main id="clc-page">
 
@@ -30,8 +32,8 @@
       <h1>Every side of a commercial deal, <em>one team.</em></h1>
       <p class="clc-sub">Whether you're buying, selling, leasing or looking for land, Cheri brings more than 30 years of Calgary commercial real estate experience to your side of the table.</p>
       <div class="clc-cta-row">
-        <a class="clc-btn clc-btn-red" href="../contact/">Talk to Our Team</a>
-        <a class="clc-btn clc-btn-ghost" href="tel:+14038609419">Call Cheri 403-860-9419</a>
+        <a class="clc-btn clc-btn-red" href="../contact/#inquiry">Talk to Our Team</a>
+        <a class="clc-btn clc-btn-ghost" href="tel:+14038609419">Call Cheri <span data-clc="phone">403-860-9419</span></a>
       </div>
     </div>
   </section>
@@ -55,7 +57,8 @@
           <span class="clc-num">01</span>
           <h2>Commercial &amp; Industrial Sales / Buying</h2>
           <p class="clc-who"><b>For:</b> owners, owner-users and investors buying or selling office, industrial, retail and investment property.</p>
-          <a class="clc-btn clc-btn-dark" href="../contact/">Discuss a sale or purchase</a>
+          <a class="clc-btn clc-btn-dark" href="../contact/?intent=sell#inquiry" data-intent="sell">Discuss a sale</a>
+          <a class="clc-btn clc-btn-outline" href="../contact/?intent=buy#inquiry" data-intent="buy" style="margin-left:8px">Discuss a purchase</a>
         </div>
         <div>
           <ul class="clc-checks">
@@ -73,7 +76,8 @@
           <span class="clc-num">02</span>
           <h2>Commercial Leasing</h2>
           <p class="clc-who"><b>For:</b> landlords filling space, and businesses looking for their first or next location.</p>
-          <a class="clc-btn clc-btn-dark" href="../contact/">Talk about leasing</a>
+          <a class="clc-btn clc-btn-dark" href="../contact/?intent=lease-space#inquiry" data-intent="lease-space">Find space to lease</a>
+          <a class="clc-btn clc-btn-outline" href="../contact/?intent=lease-out#inquiry" data-intent="lease-out" style="margin-left:8px">Lease out your space</a>
         </div>
         <div>
           <ul class="clc-checks">
@@ -90,7 +94,7 @@
           <span class="clc-num">03</span>
           <h2>Land &amp; Development Sites</h2>
           <p class="clc-who"><b>For:</b> landowners, builders and investors buying or selling raw land and development parcels in Calgary and the surrounding area.</p>
-          <a class="clc-btn clc-btn-dark" href="../contact/">Ask about land</a>
+          <a class="clc-btn clc-btn-dark" href="../contact/?type=land#inquiry" data-intent="" data-ptype="land">Ask about land</a>
         </div>
         <div>
           <ul class="clc-checks">
@@ -107,7 +111,7 @@
           <span class="clc-num">04</span>
           <h2>Business Brokerage &amp; Private Advisory</h2>
           <p class="clc-who"><b>For:</b> owners selling an operating business, buyers looking for one, and property owners who want a confidential second opinion.</p>
-          <a class="clc-btn clc-btn-dark" href="../contact/">Start a confidential conversation</a>
+          <a class="clc-btn clc-btn-dark" href="../contact/?intent=business-sale&amp;type=business#inquiry" data-intent="business-sale" data-ptype="business">Start a confidential conversation</a>
         </div>
         <div>
           <ul class="clc-checks">
@@ -145,7 +149,22 @@
         <span>Investment property</span><span>Raw land</span><span>Development sites</span><span>Operating businesses</span>
       </div>
       <div class="clc-cta-row">
-        <a class="clc-btn clc-btn-ghost" href="https://cherilongcommercial.com/index.php?advanced=1&amp;rtype=map&amp;display=Calgary&amp;pak=city%3Ag30_c3nfkdtg&amp;types%5B%5D=4&amp;types%5B%5D=5&amp;types%5B%5D=3&amp;types%5B%5D=12&amp;sortby=listings.listingdate+DESC#rslt">Browse current listings</a>
+        <a class="clc-btn clc-btn-ghost" data-listings href="https://www.cherilongcommercial.com/">Browse current listings</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS: hidden on the live site until real, approved quotes are added.
+       TODO(Kyle): replace each [quote] and [name], then delete data-todo from the <section>.
+       Preview with ?preview=1 at the end of the address. -->
+  <section class="clc-section clc-section--light" data-todo>
+    <div class="clc-wrap">
+      <span class="clc-eyebrow">Client words</span>
+      <h2>What clients say</h2>
+      <div class="clc-quotes">
+        <blockquote class="clc-quote"><p>[TODO: client quote, used with permission]</p><footer>[Client name, company]</footer></blockquote>
+        <blockquote class="clc-quote"><p>[TODO: client quote, used with permission]</p><footer>[Client name, company]</footer></blockquote>
+        <blockquote class="clc-quote"><p>[TODO: client quote, used with permission]</p><footer>[Client name, company]</footer></blockquote>
       </div>
     </div>
   </section>
@@ -156,7 +175,7 @@
         <h2>Not sure where to start?</h2>
         <p>Tell us what you're thinking about. We'll point you in the right direction.</p>
       </div>
-      <a class="clc-btn clc-btn-dark" href="../contact/">Talk to Our Team</a>
+      <a class="clc-btn clc-btn-dark" href="../contact/#inquiry">Talk to Our Team</a>
     </div>
   </section>
 
@@ -164,6 +183,6 @@
 
 <footer id="clc-site-footer"></footer>
 
-<script src="../assets/js/header.js?v=1010"></script>
+<script src="../assets/js/header.js?v=1012"></script>
 </body>
 </html>
