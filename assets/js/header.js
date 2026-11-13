@@ -148,7 +148,7 @@ console.log('CLC HEADER JS LOADED v1012');
         const t = document.getElementById(location.hash.slice(1));
         if (t) t.scrollIntoView();
       }
-      if (first) applyIntentFromUrl();
+      if (!intentApplied && document.querySelector('form.clc-inquiry')) { intentApplied = true; applyIntentFromUrl(); }
     });
   }
 
@@ -387,6 +387,7 @@ console.log('CLC HEADER JS LOADED v1012');
       setTimeout(function () { form.querySelector('[name="name"]').focus({ preventScroll: true }); }, 500);
     });
   }
+  let intentApplied = false;
   function applyIntentFromUrl() {
     const p = new URLSearchParams(location.search);
     if (p.get('intent') || p.get('type')) setIntent(p.get('intent'), p.get('type'));
