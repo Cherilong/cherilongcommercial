@@ -1,5 +1,5 @@
 /* =========================================================
-   Cheri Long Commercial - Subdomain page styles (v1006)
+   Cheri Long Commercial - Subdomain page styles (v1007)
    Used by info.cherilongcommercial.com pages (services, about,
    contact). Load AFTER header.css, which defines the --clc-* tokens.
    The /links/ page has its own small stylesheet inline.
@@ -13,7 +13,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--clc-red); outli
 h1, h2, h3, h4 { font-family: var(--clc-display); line-height: 1.15; margin: 0; text-wrap: balance; }
 p { margin: 0; }
 
-.clc-wrap { max-width: var(--clc-wrap); margin: 0 auto; padding: 0 24px; }
+.clc-wrap { max-width: var(--clc-wrap); margin: 0 auto; padding: 0 var(--clc-gutter); }
 .clc-section { padding: clamp(56px, 8vw, 96px) 0; }
 .clc-section--light { background: var(--clc-light); }
 .clc-section--dark { background: var(--clc-black); color: var(--clc-white); }

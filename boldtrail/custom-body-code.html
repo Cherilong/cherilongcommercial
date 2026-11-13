@@ -1,5 +1,5 @@
 <!-- ============================================================
-     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1006)
+     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1007)
      Same structure as the Royal LePage Solutions homepage code.
      Paste into: Web & IDX → Website Settings → Custom Body Code
      ============================================================ -->
@@ -78,7 +78,7 @@ div[class*="advanced-search"][style*="max-height"],
      2b) CLC SITE HEADER (built + injected by header.js)
      Loaded from GitHub Pages at info.cherilongcommercial.com.
      ========================================================== -->
-<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1006"></script>
+<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1007"></script>
 
 <!-- ==========================================================
      3) HOMEPAGE LAYOUT - SCOPED TO HOMEPAGE
@@ -100,8 +100,8 @@ div[class*="advanced-search"][style*="max-height"],
   --clc-light:   #EFEFEF;
   --clc-display: 'Raleway', 'Helvetica Neue', Arial, sans-serif;
   --clc-body:    'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  --clc-wrap:    1200px;
-  --clc-gutter:  24px;
+  --clc-wrap:    1920px;                  /* full width, capped for very large monitors */
+  --clc-gutter:  clamp(24px, 4vw, 72px);  /* side margins grow with the screen */
   /* Hero photo (Calgary skyline). Phones get a smaller copy — see the @media rule below. */
   --clc-hero-image: url('https://info.cherilongcommercial.com/assets/images/hero-calgary.jpg');
 }
@@ -901,7 +901,7 @@ body.page-home #clc-custom-homepage .clc-contact h4 { font: 700 13px var(--clc-d
      ========================================================== -->
 <script>
 (function () {
-  console.log('CLC Homepage Loaded v1006');
+  console.log('CLC Homepage Loaded v1007');
 
   /* ─── CONFIG ─── */
   // Every "all listings" link: all commercial listings in Calgary on the map.

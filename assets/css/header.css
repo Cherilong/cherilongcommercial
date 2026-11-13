@@ -1,5 +1,7 @@
 /* =========================================================
    Cheri Long Commercial - Custom Header
+   v1007 - Full-width layout: --clc-wrap 1920px, side margins scale
+           with the screen (--clc-gutter).
    v1006 - See-through header over hero photos (body.clc-overlay), solid
            black after scrolling (body.clc-scrolled). Logo only.
    v1005 - No header style changes (pages.css added for subdomain pages).
@@ -24,7 +26,8 @@
   --clc-light:   #EFEFEF;
   --clc-display: 'Raleway', 'Helvetica Neue', Arial, sans-serif;
   --clc-body:    'Roboto', 'Helvetica Neue', Arial, sans-serif;
-  --clc-wrap:    1200px;
+  --clc-wrap:    1920px;   /* full width, capped for very large monitors */
+  --clc-gutter:  clamp(24px, 4vw, 72px);
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -58,7 +61,7 @@ body.has-clc-header .kv-sticky-spacer {
 #clc-topbar *, #clc-header * { box-sizing: border-box; }
 #clc-topbar a, #clc-header a { color: inherit !important; text-decoration: none !important; }
 #clc-topbar a:focus-visible, #clc-header a:focus-visible { outline: 3px solid var(--clc-red); outline-offset: 3px; }
-#clc-topbar .clc-wrap, #clc-header .clc-wrap { max-width: var(--clc-wrap); margin: 0 auto; padding: 0 24px; }
+#clc-topbar .clc-wrap, #clc-header .clc-wrap { max-width: var(--clc-wrap); margin: 0 auto; padding: 0 var(--clc-gutter); }
 
 /* ─────────────────────────────────────────────────────────
    3) Utility bar
@@ -138,7 +141,7 @@ body.clc-overlay .clc-brand-row .clc-logo-light { display: block; }
   body.clc-overlay #clc-topbar .clc-wrap { height: 52px; padding-top: 0; padding-bottom: 0; }
   body.clc-overlay #clc-header {
     position: absolute; top: 52px; left: 0; right: 0; z-index: 9000;
-    max-width: calc(var(--clc-wrap) + 48px); margin: 0 auto; padding: 14px 24px;
+    max-width: none; margin: 0; padding: 14px var(--clc-gutter);
     display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px 28px;
     background: transparent; color: var(--clc-white);
     border-top: 1px solid rgba(255,255,255,.2); border-bottom: 1px solid rgba(255,255,255,.2);

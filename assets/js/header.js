@@ -1,5 +1,6 @@
 /* =========================================================
    Cheri Long Commercial - Header Injection & Behavior
+   v1007 - No script changes (full-width layout is CSS only).
    v1006 - See-through header over the hero photo on the homepage and
            the subdomain pages (body.clc-overlay); turns solid black
            after scrolling. Logo only (no "Cheri Long Commercial" text).
@@ -20,9 +21,9 @@
            the page; FOUC guard lives in Custom Header Code).
    Bump ?v= in BOTH BoldTrail Custom Code fields when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1006');
+console.log('CLC HEADER JS LOADED v1007');
 (function () {
-  const VERSION = '1006';
+  const VERSION = '1007';
 
   /* ─── CONFIG ─── */
   const BOLDTRAIL_BASE = 'https://cherilongcommercial.com';   // used only off BoldTrail (subdomain pages)
