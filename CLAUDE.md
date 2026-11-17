@@ -144,6 +144,10 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 - [x] Listings: BoldTrail feed works. Calgary filter needs `pak=city:g30_c3nfkdtg` (display= alone does nothing);
       sorted newest first. Types: 4 Commercial, 5 Land, 3 Multi-Family, 12 Farm.
 - [ ] `leadEndpoint`: deploy `apps-script/Code.gs` (see `apps-script/SETUP.md`), paste the /exec URL into site-config.js
+- [ ] Auto-update Cheri's photo: BoldTrail gives every new profile upload a NEW file name (e.g. profiles/1794930163.jpg),
+      so `photo` in site-config.js goes stale. Plan: daily GitHub Action that reads www.cherilongcommercial.com, finds the
+      `/profiles/<n>.jpg` image, and commits it to `photo` if it changed (does nothing if none found). Until then: copy the
+      image address from her BoldTrail profile into `photo` by hand.
 - [ ] Write the two checklist PDFs: Seller & Landlord Readiness, Buyer & Tenant Due Diligence
 - [ ] Own Privacy Policy page (legal links currently point to royallepage.ca privacy policy + notices)
 - [ ] YouTube channel link when live
