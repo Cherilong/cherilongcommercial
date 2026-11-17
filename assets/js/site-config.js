@@ -27,6 +27,10 @@ window.CLC_SITE = {
   },
 
   name:   'Cheri Long',
+  // Cheri's photo: her BoldTrail profile picture (by user id 233574), so a new photo uploaded in
+  // BoldTrail (My Profile -> Edit Profile) shows on the site automatically. Pages add ?d=<today>
+  // so browsers re-check it once a day. If BoldTrail ever changes this address, update it here only.
+  photo:  'https://d2td4dobkk213c.cloudfront.net/royallepagesolutions2034/profiles/233574.jpg',
   title:  'Associate Broker',
   phone:  '403-860-9419',                 // Cheri's cell
   cheriEmail: 'clong@royallepagecommercial.com',   // Cheri's direct email
@@ -93,6 +97,14 @@ window.CLC_SITE = {
       var url = k === 'listings' ? S.listingsUrl : k === 'home' ? S.mainSite + '/' : S.pages[k] || '';
       if (url) a.href = url;
     });
+    // Cheri's photo: always the current BoldTrail profile picture, re-checked daily
+    if (S.photo) {
+      var day = new Date().toISOString().slice(0, 10).replace(/-/g, '');   // e.g. 20261117
+      root.querySelectorAll('img[data-clc-photo]').forEach(function (img) {
+        var want = S.photo + (S.photo.indexOf('?') > -1 ? '&' : '?') + 'd=' + day;
+        if (img.getAttribute('src') !== want) img.setAttribute('src', want);
+      });
+    }
     root.querySelectorAll('iframe[data-clc-map]').forEach(function (f) {
       f.src = 'https://www.google.com/maps?q=' + S.mapQuery() + '&output=embed';
     });
