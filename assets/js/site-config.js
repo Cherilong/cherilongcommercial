@@ -27,10 +27,10 @@ window.CLC_SITE = {
   },
 
   name:   'Cheri Long',
-  // Cheri's photo: her BoldTrail profile picture (by user id 233574), so a new photo uploaded in
-  // BoldTrail (My Profile -> Edit Profile) shows on the site automatically. Pages add ?d=<today>
-  // so browsers re-check it once a day. If BoldTrail ever changes this address, update it here only.
-  photo:  'https://d2td4dobkk213c.cloudfront.net/royallepagesolutions2034/profiles/233574.jpg',
+  // Cheri's photo: her current BoldTrail profile picture. BoldTrail gives every NEW upload a new
+  // file name, so when she changes her photo: right-click it on her BoldTrail profile ->
+  // Copy image address -> paste it here, commit and push. Nothing else needs changing.
+  photo:  'https://dtzulyujzhqiu.cloudfront.net/royallepagesolutions2034/profiles/1794930163.jpg',
   title:  'Associate Broker',
   phone:  '403-860-9419',                 // Cheri's cell
   cheriEmail: 'clong@royallepagecommercial.com',   // Cheri's direct email
