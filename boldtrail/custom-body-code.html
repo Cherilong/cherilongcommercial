@@ -336,6 +336,40 @@ body.page-home #clc-featured-carousel .listing-box-title h3 {
   line-height: 1.1 !important;
   letter-spacing: -.01em !important;
 }
+/* Card fit (Nov 17): BoldTrail pulls the price up over the bottom of the photo, which clipped it.
+   Keep the text block below the photo and stack it: address, city, price. */
+body.page-home #clc-featured-carousel .listing-box-title {
+  position: relative !important; top: auto !important; margin: 0 !important; transform: none !important;
+  display: block !important; background: var(--clc-white) !important; z-index: 1;
+}
+body.page-home #clc-featured-carousel .listing-box-title h2 { order: 1; }
+body.page-home #clc-featured-carousel .listing-box-title .clc-card-city { order: 2; }
+body.page-home #clc-featured-carousel .listing-box-title h3 {
+  order: 3; position: static !important; top: auto !important; bottom: auto !important;
+  transform: none !important; margin-top: 2px !important; font-weight: 600 !important;
+  font-size: 22px !important; line-height: 1.2 !important; overflow: visible !important;
+  height: auto !important; white-space: nowrap !important;
+}
+body.page-home #clc-featured-carousel .listing-box-image { z-index: 0 !important; height: 210px !important; }
+/* Photo fills its frame without stretching, whatever size BoldTrail's image is */
+body.page-home #clc-featured-carousel .listing-box-image img,
+body.page-home #clc-featured-carousel .listing-box-image > div:not(.listing-box-image-label) {
+  width: 100% !important; height: 100% !important; object-fit: cover !important;
+  background-size: cover !important; background-position: center !important;
+}
+/* Price sits on its own line under the city, never on the photo */
+body.page-home #clc-featured-carousel .clc-card-price {
+  position: static !important; margin: 4px 0 0 !important; padding: 0 !important;
+  background: none !important; text-shadow: none !important;
+}
+body.page-home #clc-featured-carousel .listing-box-title { padding-top: 18px !important; }
+/* City (left) + price (right) on one line; title box grows to fit so nothing overlaps the address below */
+html body.page-home #clc-custom-homepage #clc-featured-carousel .listing-box .listing-box-title { height: auto !important; min-height: 0 !important; max-height: none !important; overflow: visible !important; padding-bottom: 14px !important; }
+body.page-home #clc-featured-carousel .clc-card-meta { display: flex !important; align-items: baseline; justify-content: space-between; gap: 12px; margin-top: 6px; }
+body.page-home #clc-featured-carousel .clc-card-meta .clc-card-city { margin: 0 !important; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+body.page-home #clc-featured-carousel .clc-card-meta .clc-card-price { margin: 0 !important; flex-shrink: 0; font-size: 20px !important; text-align: right; }
+html body.page-home #clc-custom-homepage #clc-featured-carousel .listing-box .listing-box-title { display: block !important; flex-direction: column !important; }
+html body.page-home #clc-custom-homepage #clc-featured-carousel .listing-box .listing-box-title > * { position: static !important; float: none !important; transform: none !important; }
 
 body.page-home #clc-featured-carousel .listing-box-content {
   padding: 0 22px 22px !important;
@@ -793,7 +827,7 @@ body.page-home .clc-news [data-clc-newsletter] { flex: 1; max-width: 560px; min-
     const carousel = document.getElementById('clc-featured-carousel');
     if (!carousel) return;
     carousel.querySelectorAll('.listing-box').forEach(function (card) {
-      if (card.dataset.clcEnhanced === 'v2') return;
+      if (card.dataset.clcEnhanced === 'v5') return;
       const url = (card.getAttribute('data-link') || '').trim();
       if (url) card.addEventListener('click', function (e) { if (!e.target.closest('a')) location.href = url; });
 
@@ -823,7 +857,33 @@ body.page-home .clc-news [data-clc-newsletter] { flex: 1; max-width: 560px; min-
           priceEl.textContent = '$' + num.toLocaleString('en-CA');
         }
       }
-      card.dataset.clcEnhanced = 'v2';
+      // Fit (Nov 17): move the price out of BoldTrail's photo overlay and put it under the city
+      // Price on the same line as the city: city left, price right
+      const titleBox = card.querySelector('.listing-box-title');
+      const cityP = card.querySelector('.clc-card-city');
+      const anchorEl = cityP || (titleBox && titleBox.querySelector('h2'));
+      if (priceEl && anchorEl && !card.querySelector('.clc-card-meta')) {
+        const row = document.createElement('div');
+        row.className = 'clc-card-meta';
+        anchorEl.insertAdjacentElement('afterend', row);
+        if (cityP) row.appendChild(cityP); else row.appendChild(document.createElement('span'));
+        row.appendChild(priceEl);
+      }
+      if (priceEl) priceEl.classList.add('clc-card-price');
+
+      // BoldTrail's red map-pin address repeats the title + city, so hide it.
+      // Finds the smallest block in the card body that has a pin/map icon and a postal code.
+      const content = card.querySelector('.listing-box-content') || card;
+      const postal = /[A-Z]\d[A-Z]\s?\d[A-Z]\d/i;
+      let addrBox = null;
+      content.querySelectorAll('i, svg, span[class*="icon"]').forEach(function (ic) {
+        if (addrBox || !/map|marker|location|pin/i.test(String(ic.getAttribute('class') || ''))) return;
+        let el = ic.parentElement;
+        while (el && el !== content && !postal.test(el.textContent || '')) el = el.parentElement;
+        if (el && el !== content) addrBox = el;
+      });
+      if (addrBox) addrBox.style.setProperty('display', 'none', 'important');
+      card.dataset.clcEnhanced = 'v5';
     });
   }
 

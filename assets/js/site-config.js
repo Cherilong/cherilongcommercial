@@ -29,12 +29,12 @@ window.CLC_SITE = {
   name:   'Cheri Long',
   title:  'Associate Broker',
   phone:  '403-860-9419',                 // Cheri's cell
-  cheriEmail: '[CHERI_EMAIL]',            // TODO(Kyle): Cheri's direct email. Hidden until filled in.
+  cheriEmail: 'clong@royallepagecommercial.com',   // Cheri's direct email
   assistant: { name: 'Victoria Stitt', title: 'Assistant', email: 'cladmin@royallepage.ca' },
   officePhone: '403-252-5900',            // brokerage office line (from BoldTrail's own footer)
 
   // OFFICE ADDRESS. Used by the footer, Contact page, map and links page.
-  // TODO(Kyle) CONFIRM POSTAL CODE: BoldTrail's footer says T2X 1J6, Google Maps shows T2X 1M2.
+  // Postal code confirmed by Kyle (Nov 17 2026): T2X 1J6
   office: {
     brokerage: 'Royal LePage\u00ae Solutions',
     unit: 'Unit 205',
