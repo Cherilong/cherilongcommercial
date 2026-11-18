@@ -208,3 +208,20 @@ body { background: var(--clc-light); }
 .ab-give-feed { min-width: 0; }
 .ab-give-feed behold-widget { display: block; width: 100%; }
 @media (max-width: 900px) { .ab-give { grid-template-columns: 1fr; gap: 32px; } }
+
+/* v1028: Contact page cards as profile cards: round photo / initials / logo on top, centred text */
+.clc-pcard { align-items: center; text-align: center; padding: 40px 28px 36px; gap: 8px; }
+.clc-pcard .clc-eyebrow { margin: 12px 0 0; }
+.clc-pcard-pic {
+  width: 132px; height: 132px; border-radius: 50%; overflow: hidden; flex: none;
+  background: var(--clc-light); border: 4px solid var(--clc-white); box-shadow: 0 0 0 1px var(--clc-stone), 0 10px 24px rgba(0,0,0,.08);
+  display: grid; place-items: center;
+}
+.clc-pcard-pic img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+.clc-pcard-initials { background: var(--clc-stone); font: 700 40px var(--clc-display); color: #57534E; letter-spacing: .02em; }
+.clc-pcard-logo { background: var(--clc-white); }
+.clc-pcard-logo img { width: 82%; height: auto; object-fit: contain; }
+.clc-pcard p { max-width: 34ch; }
+.clc-pcard .clc-btn, .clc-pcard .clc-social-dark { margin-top: auto; align-self: center; }
+.clc-pcard .clc-social-dark { padding-top: 8px; }
+.clc-pcard p a { color: var(--clc-red); }
