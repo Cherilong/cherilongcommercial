@@ -1,5 +1,7 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1019 - "Cheri Long / Associate Broker" signature beside the logo whenever the
+           header is solid black (scrolled, or pages without a hero photo).
    v1018 - Version bump only (homepage service cards link to the Services page).
    v1017 - Removed: the newsletter consent checkbox (typing an email and pressing
            Subscribe is the opt-in; one small sender/unsubscribe line stays),
@@ -28,9 +30,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1018');
+console.log('CLC HEADER JS LOADED v1019');
 (function () {
-  const VERSION = '1018';
+  const VERSION = '1019';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};
@@ -85,6 +87,7 @@ console.log('CLC HEADER JS LOADED v1018');
         <a class="clc-brand-row" data-home href="/" aria-label="Cheri Long Commercial home">
           <img class="clc-rlp-logo clc-logo-dark" src="${LOGO_URL}" alt="Royal LePage Commercial, Royal LePage Solutions" width="809" height="324">
           <img class="clc-rlp-logo clc-logo-light" src="${LOGO_URL_LIGHT}" alt="Royal LePage Commercial, Royal LePage Solutions" width="809" height="324">
+          <span class="clc-head-sig" aria-hidden="true"><span class="clc-head-sig-name">${esc(S.name || 'Cheri Long')}</span><span class="clc-head-sig-title">${esc(S.title || 'Associate Broker')}</span></span>
         </a>
         <div class="clc-head-contact">
           <a class="clc-call" href="${TEL}">Call Cheri <span class="clc-tel">${PHONE}</span></a>

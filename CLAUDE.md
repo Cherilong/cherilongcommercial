@@ -37,6 +37,8 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > card max 980px right-aligned).
 > **v1018 (Nov 18 2026):** homepage service cards are links (`a.clc-svc`) to services/#sales, #leasing, #land, #business,
 > each with a black-outline "Learn more" button; the red text links are gone.
+> **v1019 (Nov 18 2026):** "Cheri Long / Associate Broker" signature (`.clc-head-sig`, Great Vibes) beside the logo when the
+> header is solid black (scrolled, or no hero); desktop/tablet only. Great Vibes added to the subdomain pages font link.
 > **Lead capture (v1013, live Nov 18 2026):** forms POST (text/plain JSON) to `leadEndpoint` = the Google Apps Script
 > web app "CLC Website Leads" (`apps-script/Code.gs`, setup + campaign map in `apps-script/SETUP.md`). It creates or
 > finds the contact in Cheri's rlpSPHERE (dedupes by email), adds hashtags (`clcwebsite`, `clcinquiry`, one intent tag
@@ -110,7 +112,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 1. Edit the file(s) and commit to `main`. GitHub Pages ignores `?v=`, so the commit is what updates the file.
 2. If `clc.css` or `clc.js` changed, bump the version: `VERSION` in the file header, then every `?v=` in
    `boldtrail/custom-header-code.html`, `boldtrail/custom-body-code.html` and every `pages/*/index.html`.
-   Keep all of them on the same number. Current: **1018**.
+   Keep all of them on the same number. Current: **1019**.
 3. Tell Kyle which BoldTrail field(s) to re-paste. Always give the complete file, never a partial diff.
 4. Check the live BoldTrail homepage, one BoldTrail inner page (e.g. a search page) and one subdomain page.
 
