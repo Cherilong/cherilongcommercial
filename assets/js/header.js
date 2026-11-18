@@ -1,5 +1,6 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1027 - Footer: "Cheri Long Commercial" text removed (logo stays).
    v1026 - Version bump only (About: Behold Instagram feed).
    v1025 - Inquiry form: "Prefer to talk? Call Cheri" line removed.
    v1024 - Version bump only (About: Giving back section + Instagram embed).
@@ -38,9 +39,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1026');
+console.log('CLC HEADER JS LOADED v1027');
 (function () {
-  const VERSION = '1026';
+  const VERSION = '1027';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};
@@ -266,7 +267,6 @@ console.log('CLC HEADER JS LOADED v1026');
       <div class="clc-wrap">
         <div class="clc-foot-grid">
           <div>
-            <div class="clc-foot-brand"><b>Cheri Long <i>Commercial</i></b></div>
             <img class="clc-foot-logo" src="${LOGO_URL_LIGHT}" alt="Royal LePage Commercial, Royal LePage Solutions" width="809" height="324" loading="lazy">
             ${social()}
           </div>

@@ -437,3 +437,6 @@ body.has-clc-header #footer .footer-top-right * { color: #BDB6AD !important; }
 }
 @keyframes clc-sig-in { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { #clc-header .clc-head-sig { animation: none !important; } }
+
+/* v1027: footer brand text removed; the logo now sits at the top of its column */
+#clc-site-footer .clc-foot-logo { margin-top: 0; }
