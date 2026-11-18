@@ -50,6 +50,9 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > with Instagram's native profile embed of @artemisshelter2024 (embed.js) + Follow button.
 > **v1026:** that embed replaced by a Behold.so widget (`<behold-widget feed-id="XySSJgzwW6YxMca1rHPR">`, Kyle's Behold
 > account; free plan = 6 posts, daily refresh, 1,200 views/mo then paused until next month).
+> **Links page (Nov 18 2026):** `/links/` restyled as a link-in-bio card: name bar, "Welcome" in Great Vibes, Calgary photo +
+> Cheri photo, black "Check out my resources" bar, outline buttons (Cheri's listings, all listings, services, about, inquiry)
+> and a solid black Call button.
 > **Lead capture (v1013, live Nov 18 2026):** forms POST (text/plain JSON) to `leadEndpoint` = the Google Apps Script
 > web app "CLC Website Leads" (`apps-script/Code.gs`, setup + campaign map in `apps-script/SETUP.md`). It creates or
 > finds the contact in Cheri's rlpSPHERE (dedupes by email), adds hashtags (`clcwebsite`, `clcinquiry`, one intent tag
