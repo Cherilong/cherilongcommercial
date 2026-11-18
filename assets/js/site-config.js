@@ -9,16 +9,19 @@
    showing a placeholder is hidden on the live site, never shown.
    ========================================================= */
 window.CLC_SITE = {
-  version: '1012',
+  version: '1019',
 
   // Main BoldTrail site. Always the www address.
   mainSite: 'https://www.cherilongcommercial.com',
   subSite:  'https://info.cherilongcommercial.com',
 
-  // LISTINGS: every "Listings", "Browse Listings", "View all listings" link uses this.
-  // Today: all commercial/land listings in the City of Calgary, newest first.
-  // TODO(Kyle): swap in the BoldTrail page that shows Cheri's OWN listings once it exists.
+  // ALL LISTINGS: "Listings" (menu), "Browse Listings" and "Search all listings" use this.
+  // All commercial/land listings in the City of Calgary, newest first.
   listingsUrl: 'https://www.cherilongcommercial.com/index.php?advanced=1&rtype=map&display=Calgary&pak=city%3Ag30_c3nfkdtg&types%5B%5D=4&types%5B%5D=5&types%5B%5D=3&types%5B%5D=12&sortby=listings.listingdate+DESC#rslt',
+
+  // CHERI'S LISTINGS: BoldTrail's built-in "My Listings" search (her Agent MLS ID), shown on the map.
+  // Used by the homepage "Cheri's listings on the map" button.
+  myListingsUrl: 'https://www.cherilongcommercial.com/index.php?showagent=1&rtype=map#rslt',
 
   pages: {
     services: 'https://info.cherilongcommercial.com/services/',
@@ -54,12 +57,12 @@ window.CLC_SITE = {
     youtube:   ''                          // add when her channel exists ('' hides the icon)
   },
 
-  // LEAD CAPTURE: where the inquiry + newsletter forms send data.
-  // PLACEHOLDER: no endpoint yet. While this is '', forms open the visitor's email app
-  // with everything filled in, addressed to the assistant email above, so no lead is lost.
-  // Set to the Google Apps Script Web app URL (ends in /exec) to switch over. It adds the lead to
-  // Cheri's rlpSPHERE contacts with hashtags (see apps-script/SETUP.md).
-  leadEndpoint: ''
+  // LEAD CAPTURE: where the inquiry, newsletter and checklist forms send data.
+  // The Google Apps Script web app "CLC Website Leads" (apps-script/Code.gs). It creates the
+  // contact in Cheri's BoldTrail, adds hashtags from the answers (they start her Smart
+  // Campaigns) and emails Victoria a backup copy. See apps-script/SETUP.md.
+  // Set to '' to fall back to opening the visitor's email app addressed to the assistant.
+  leadEndpoint: 'https://script.google.com/macros/s/AKfycbzarLrwie3DPobnmxEu-uV52RfCUQtnM9Ky85GnBy_DbktUB0Nv-DMr8tW9mktX8KhR/exec'
 };
 
 /* ---- helpers (no need to edit below) ---- */
@@ -94,7 +97,7 @@ window.CLC_SITE = {
     });
     root.querySelectorAll('a[data-clc-link]').forEach(function (a) {
       var k = a.getAttribute('data-clc-link');
-      var url = k === 'listings' ? S.listingsUrl : k === 'home' ? S.mainSite + '/' : S.pages[k] || '';
+      var url = k === 'listings' ? S.listingsUrl : k === 'myListings' ? S.myListingsUrl : k === 'home' ? S.mainSite + '/' : S.pages[k] || '';
       if (url) a.href = url;
     });
     // Cheri's photo: always the current BoldTrail profile picture, re-checked daily

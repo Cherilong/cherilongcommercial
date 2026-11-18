@@ -26,9 +26,27 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > `boldtrail/custom-body-code.html` hold the homepage. `assets/js/clc.js`, `assets/css/clc.css` and `preview/` are an
 > earlier draft and are NOT loaded anywhere. Sections below that mention clc.js describe that draft.
 > Main domain: cherilongcommercial.com. Subdomain: info.cherilongcommercial.com.
-> **Lead capture:** forms POST (text/plain JSON) to `leadEndpoint` = a Google Apps Script web app (`apps-script/Code.gs`,
-> setup in `apps-script/SETUP.md`) that logs to the "Cheri Website Signups" Sheet and adds the contact to Cheri's
-> rlpSPHERE (assigned to user 233574) with hashtags `web-lead`, `web-inquiry`, `web-newsletter`. Token lives only in Script Properties.
+> **v1014 (Nov 18 2026):** homepage listings section has two buttons: "Cheri's listings on the map"
+> (`myListingsUrl` in site-config.js = BoldTrail's My Listings, `index.php?showagent=1&rtype=map`) and "Search all listings"
+> (`listingsUrl`). Recent transactions section and the "4 sectors" stat removed. Map script (section 6) skips the
+> Calgary re-centre and the auto "Redo Search" on `showagent=1` pages.
+> **v1015 (Nov 18 2026):** newsletter is a white card (red top rule) instead of the red band; consent labels forced to
+> sentence case (BoldTrail uppercases every <label>); listing cards lose the 200px blank band; Nov 18 HERO LAYOUT block
+> (centred signature, stats hidden) merged in from the live BoldTrail field.
+> **v1016 (Nov 18 2026):** homepage inquiry form compact (smaller fields, sentence-case labels, Name/Email/Phone on one row,
+> card max 980px right-aligned).
+> **v1018 (Nov 18 2026):** homepage service cards are links (`a.clc-svc`) to services/#sales, #leasing, #land, #business,
+> each with a black-outline "Learn more" button; the red text links are gone.
+> **v1019 (Nov 18 2026):** "Cheri Long / Associate Broker" signature (`.clc-head-sig`, Great Vibes) beside the logo when the
+> header is solid black (scrolled, or no hero); desktop/tablet only. Great Vibes added to the subdomain pages font link.
+> **Lead capture (v1013, live Nov 18 2026):** forms POST (text/plain JSON) to `leadEndpoint` = the Google Apps Script
+> web app "CLC Website Leads" (`apps-script/Code.gs`, setup + campaign map in `apps-script/SETUP.md`). It creates or
+> finds the contact in Cheri's rlpSPHERE (dedupes by email), adds hashtags (`clcwebsite`, `clcinquiry`, one intent tag
+> `clcbuy`/`clcsell`/`clcleasespace`/`clcleaseout`/`clcbusiness`/`clcother`, property-type tags, `clcnewsletter`,
+> `clcguideseller`/`clcguidebuyer`, `clcoptin` for CASL consent), adds a note (PUT `/contact/{id}/action/note`, text in
+> `details`) and emails cladmin@ a backup. Trigger hashtags start Smart Campaigns ("Hashtag is", Designed For ALL).
+> Token lives only in Script Properties (`BOLDTRAIL_TOKEN`). Checklist form `[data-clc-guide]` is built but hidden
+> (`SHOW_GUIDES = false`) until the PDFs exist.
 > **Subdomain pages (v1005):** `/services/`, `/about/`, `/contact/` (site header + footer, styles in
 > `assets/css/pages.css`; header.js fills `<footer id="clc-site-footer">`) and `/links/` (stand-alone Instagram
 > link-in-bio page, own inline styles). New pages: copy `/_template/` to `/<page-name>/`. The old `pages/` folder
@@ -94,7 +112,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 1. Edit the file(s) and commit to `main`. GitHub Pages ignores `?v=`, so the commit is what updates the file.
 2. If `clc.css` or `clc.js` changed, bump the version: `VERSION` in the file header, then every `?v=` in
    `boldtrail/custom-header-code.html`, `boldtrail/custom-body-code.html` and every `pages/*/index.html`.
-   Keep all of them on the same number. Current: **1012**.
+   Keep all of them on the same number. Current: **1019**.
 3. Tell Kyle which BoldTrail field(s) to re-paste. Always give the complete file, never a partial diff.
 4. Check the live BoldTrail homepage, one BoldTrail inner page (e.g. a search page) and one subdomain page.
 
@@ -115,7 +133,11 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 - ® on the first "Royal LePage" on every page.
 - Every public page needs the legal block: rlp.ca/notices, "independently owned and operated",
   "not intended to solicit buyers or sellers currently under contract". `clc.js` adds it.
+  v1017 (Nov 18 2026): Kyle (Broker Delegate) chose to REMOVE the legal block from our footer (header.js). BoldTrail's
+  own footer still carries rlp.ca/notices + "independently owned and operated" on BoldTrail pages; subdomain pages carry none.
 - Email capture must state CASL consent; newsletter opt-in is a separate, unticked checkbox.
+  v1017: newsletter has no checkbox (entering an email + Subscribe is the opt-in) and keeps one line naming the sender +
+  "Unsubscribe anytime" (`.clc-news-note`). Inquiry form no longer offers the newsletter opt-in.
 - Broker/manager sign-off before anything with brand, team/roster or recruiting claims goes live (RECA advertising rules).
 - Never use Royal LePage Solutions brokerage-site elements (Deposit Instructions, Agent Hub, brokerage menu) on Cheri's site,
   and never mix in Duiker Properties content.
@@ -143,7 +165,8 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 - [ ] Hero photo, Cheri's direct line (if any)
 - [x] Listings: BoldTrail feed works. Calgary filter needs `pak=city:g30_c3nfkdtg` (display= alone does nothing);
       sorted newest first. Types: 4 Commercial, 5 Land, 3 Multi-Family, 12 Farm.
-- [ ] `leadEndpoint`: deploy `apps-script/Code.gs` (see `apps-script/SETUP.md`), paste the /exec URL into site-config.js
+- [x] `leadEndpoint`: Apps Script deployed and tested Nov 18 2026 (contact, hashtags, note, dedupe all confirmed)
+- [ ] Build the Smart Campaigns in Cheri's BoldTrail (list in `apps-script/SETUP.md`)
 - [ ] Auto-update Cheri's photo: BoldTrail gives every new profile upload a NEW file name (e.g. profiles/1794930163.jpg),
       so `photo` in site-config.js goes stale. Plan: daily GitHub Action that reads www.cherilongcommercial.com, finds the
       `/profiles/<n>.jpg` image, and commits it to `photo` if it changed (does nothing if none found). Until then: copy the
@@ -153,5 +176,5 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 - [ ] YouTube channel link when live
 - [x] Domain: cherilongcommercial.com (always link the www version)
 - [ ] Confirm office postal code (T2X 1J6 per BoldTrail vs T2X 1M2 per Google Maps) in site-config.js
-- [ ] Fill placeholders: [CHERI_EMAIL], stats, transactions, testimonials, About proof points/deals/specialties/designations/community
+- [ ] Fill placeholders: [CHERI_EMAIL], stats (Kyle to find a second stat), testimonials, About proof points/deals/specialties/designations/community
 - [ ] Broker sign-off before launch

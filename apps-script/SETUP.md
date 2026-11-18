@@ -1,52 +1,85 @@
-# Cheri signup: Google Apps Script setup (about 15 minutes)
+# Cheri's website leads → BoldTrail + Smart Campaigns
 
-## 1. Create the Sheet and script
-1. In Google Drive, create a new Google Sheet named **Cheri Website Signups**. Every signup is logged here as a backup.
-2. In the Sheet, open **Extensions → Apps Script**.
-3. Delete what's in `Code.gs` and paste in the contents of **Code.gs**. Name the project "Cheri Website Signups" and save.
+**How it works:** a visitor submits a form → `header.js` sends the answers to a Google Apps Script → the script creates the contact in **Cheri's** BoldTrail (source "Cheri Long Commercial Website", status New Lead), adds hashtags based on the answers, adds a note with everything they typed, and emails Victoria a backup copy. In BoldTrail, each **trigger hashtag** starts its own Smart Campaign.
 
-## 2. Add the settings (the token never goes in code)
-In Apps Script, open **Project Settings (gear) → Script Properties → Add script property**:
+Cost: $0 (Google Apps Script + BoldTrail API, both free).
 
-| Property | Value |
-|---|---|
-| `BT_TOKEN` | Cheri's API token |
-| `AGENT_ID` | `233574` |
-| `NOTIFY_EMAIL` | Victoria's email (optional) |
+---
 
-## 3. Test the token
-In the editor, pick **testConnection** from the function menu and click **Run**. Approve the Google permissions. The log should say "Token works."
+## 1. Get Cheri's API token (in Cheri's BoldTrail login)
 
-## 4. Deploy
-1. Click **Deploy → New deployment → Select type: Web app**.
-2. Set **Execute as: Me** and **Who has access: Anyone**.
-3. Click **Deploy** and copy the **Web app URL** (it ends in `/exec`).
-4. Paste that URL into `signup.js` as `ENDPOINT`.
+Lead Engine → Lead Dropbox → scroll to **My API Tokens** → tick **Contacts** → **Generate** → copy it.
 
-> After any later code change, use **Deploy → Manage deployments → Edit → New version**. That keeps the same URL.
+- It must be generated in **Cheri's own** account. A token from your login or the office puts her leads in your database or the office rotation.
+- Each account can have only 3 tokens.
 
-## 5. Website (cherilongcommercial repo)
-- Put `signup.js` in `assets/js/signup.js`.
-- Put the two PDFs in `assets/pdf/`:
-  - `seller-landlord-readiness-checklist.pdf`
-  - `buyer-tenant-due-diligence-guide.pdf`
-- Place the forms from `forms.html`: checklists in **Resources & Guides**, and the newsletter form in the header button and footer.
-- Commit and push.
+## 2. Create the Apps Script (in the Google account that should own it)
 
-## 6. rlpSPHERE Smart Campaigns (after Cheri/Victoria approve the email drafts)
-Go to **Marketing → Smart Campaigns → + Add Campaign**. For each campaign, set **Start Campaign When → Hashtag is** to:
-- `checklist-seller-landlord`
-- `checklist-buyer-tenant`
-- `web-newsletter`
+1. Go to script.google.com → **New project** → name it `CLC Website Leads`.
+2. Paste `Code.gs` over the default code. Check `NOTIFY_EMAIL` (Victoria by default).
+3. **Project Settings** (gear icon) → **Script properties** → Add: `BOLDTRAIL_TOKEN` = the token from step 1.
+4. Run **`testBoldTrail`** (choose it in the function dropdown → Run). Approve the permissions. The log should say "Token works".
+5. Run **`testLead`**. Check Cheri's BoldTrail: a "Test Lead" contact should appear with the hashtags `#clcwebsite #clcinquiry #clcsell #clcindustrial #clcoptin` and a note. Delete it afterwards.
+   - If the contact appears but hashtags or the note are missing, the API field names changed: tell me the error from the Execution log and I'll adjust `sendToBoldTrail()`.
+6. **Deploy → New deployment** → type **Web app** → Execute as **Me** → Who has access **Anyone** → Deploy → copy the URL ending in `/exec`.
+7. Paste that URL into `site-config.js` → `leadEndpoint`, push to GitHub, bump `?v=1013` in both BoldTrail Custom Code fields.
 
-The hashtags are created automatically by the first signup. Do one test signup per form before building the campaigns so each hashtag exists to select.
+> After any later change to Code.gs: **Deploy → Manage deployments → Edit (pencil) → Version: New version → Deploy.** That keeps the same /exec URL.
 
-## 7. Test
-- [ ] Submit each form with a test email. A row appears in the Sheet with CRM status `ok`.
-- [ ] The contact is in **Cheri's** contacts with the hashtags, the `web-lead` tag and a note.
-- [ ] Victoria gets the notification email.
-- [ ] The campaign starts and email 1 arrives.
-- [ ] Submit again with the same email: no duplicate contact.
-- [ ] Delete the test contacts.
+## 3. Hashtags the script adds
 
-If the CRM status shows an error, the lead is still in the Sheet. Send me the error text.
+| Form answer | Hashtag | Starts a campaign? |
+|---|---|---|
+| Every website lead | `clcwebsite` | No (filter) |
+| Inquiry form | `clcinquiry` | No (filter) |
+| Looking to: Buy a property | `clcbuy` | **Yes** |
+| Looking to: Sell a property | `clcsell` | **Yes** |
+| Looking to: Lease space for my business | `clcleasespace` | **Yes** |
+| Looking to: Lease out space I own | `clcleaseout` | **Yes** |
+| Looking to: Buy or sell a business | `clcbusiness` | **Yes** |
+| Looking to: Something else / left blank | `clcother` | **Yes** |
+| Property type: Office / Industrial / Retail / Land / Business | `clcoffice` `clcindustrial` `clcretail` `clcland` `clcbusinessproperty` | No (filter) |
+| Newsletter form | `clcnewsletter` | **Yes** |
+| Checklist form | `clcguide` | No (filter) |
+| Checklist: Seller & Landlord Readiness | `clcguideseller` | **Yes (Always Run)** |
+| Checklist: Buyer & Tenant Due Diligence | `clcguidebuyer` | **Yes (Always Run)** |
+| Ticked the email-updates box (CASL consent) | `clcoptin` | No (use for mass emails) |
+
+Every inquiry gets exactly **one** intent hashtag, so exactly one inquiry campaign starts.
+
+## 4. Build the campaigns (Cheri's BoldTrail → Marketing → Smart Campaigns)
+
+For each campaign: **Campaign Logic → Hashtag is →** the tag below. **Designed For → ALL** (otherwise the campaign won't attach to website leads with no Buyer/Seller type).
+
+| Campaign | Trigger hashtag | Suggested first step |
+|---|---|---|
+| CLC – Buyer inquiry | `clcbuy` | Email now: "Thanks, here's how we'll find the right property" + task for Cheri to call |
+| CLC – Seller inquiry | `clcsell` | Email now + call task (same day) |
+| CLC – Tenant inquiry | `clcleasespace` | Email now: what we need to start a space search |
+| CLC – Landlord inquiry | `clcleaseout` | Email now + call task |
+| CLC – Business brokerage | `clcbusiness` | Personal email from Cheri, confidentiality note, call task |
+| CLC – General inquiry | `clcother` | Email now + call task |
+| CLC – Newsletter welcome | `clcnewsletter` | Welcome email (don't use a first-name merge field: newsletter sign-ups only give an email, so the name is "Website Lead") |
+| CLC – Seller/Landlord checklist | `clcguideseller` | **Turn on Always Run.** Email at 0 minutes with the PDF link, then light follow-up |
+| CLC – Buyer/Tenant checklist | `clcguidebuyer` | **Turn on Always Run.** Email at 0 minutes with the PDF link, then light follow-up |
+
+Rules worth knowing:
+- **A contact has one main campaign.** If two match, BoldTrail keeps the one matching the most triggers. That's why the two checklist campaigns use **Always Run**: the PDF always sends, even if the person already sits in an inquiry campaign.
+- **Concierge:** leads with Concierge turned ON don't get campaigns automatically. Check that Concierge is off for these leads in Cheri's account.
+- A campaign that's toggled off is never assigned. Turn each one on after building it.
+- Put the checklist PDFs on `info.cherilongcommercial.com/assets/guides/` and link them in the emails.
+
+## 5. CASL
+
+- Inquiries: following up on what they asked about is fine (implied consent from their inquiry). Keep inquiry campaigns about their request.
+- Market updates / mass emails: only send to contacts with `#clcoptin` (they ticked the box). The note on each contact records the answer.
+
+## 6. Test end to end (after deploy)
+
+1. Submit the homepage inquiry form with your own `+test` email and "Sell a property".
+2. Within a minute: contact in Cheri's BoldTrail with `#clcsell`, the note, the Seller campaign attached, and Victoria gets the backup email.
+3. If the backup email subject starts with **"⚠ NOT IN BOLDTRAIL"**, the email has the error and the hashtags to add by hand.
+
+## Turning on the checklists
+
+When the two PDFs are ready: set `SHOW_GUIDES = true` in `header.js`, add a section with `id="clc-guides"` containing `<div data-clc-guide></div>` (and optional buttons with `data-guide="seller"` / `data-guide="buyer"`), and build the two Always Run campaigns.
