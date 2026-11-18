@@ -183,3 +183,22 @@ p { margin: 0; }
   .clc-page-hero > .clc-wrap { width: 100%; }
   .clc-page-hero h1 { max-width: 24ch; }
 }
+/* v1023: the same light grey right through every page, like the homepage. White cards sit on top;
+   the old black "Property types" section and red closing band now match the grey. */
+body { background: var(--clc-light); }
+.clc-section, .clc-section--light, .clc-section--dark { background: var(--clc-light); color: var(--clc-black); }
+.clc-section--dark .clc-lede { color: #57534E; }
+.clc-section--dark .clc-types span { background: var(--clc-white); color: var(--clc-black); border: 1px solid var(--clc-stone); }
+.clc-section--dark .clc-btn-ghost { border-color: var(--clc-black); color: var(--clc-black); }
+.clc-section--dark .clc-btn-ghost:hover { background: var(--clc-black); color: var(--clc-white); border-color: var(--clc-black); }
+.clc-jump { background: var(--clc-light); }
+.clc-jump a { background: var(--clc-white); }
+.clc-person { background: var(--clc-white); }
+.clc-band { background: var(--clc-light); color: var(--clc-black); padding: 0 0 clamp(56px, 7vw, 88px); }
+.clc-band .clc-wrap {
+  box-sizing: border-box; width: calc(100% - 2 * var(--clc-gutter)); max-width: calc(var(--clc-wrap) - 2 * var(--clc-gutter));
+  margin: 0 auto; padding: clamp(28px, 4vw, 48px);
+  background: var(--clc-white); border: 1px solid var(--clc-stone); border-top: 4px solid var(--clc-red);
+}
+.clc-band p { color: #57534E; }
+.clc-band .clc-btn-dark:hover { background: var(--clc-warm); color: var(--clc-white); }
