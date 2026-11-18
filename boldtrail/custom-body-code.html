@@ -1,5 +1,5 @@
 <!-- ============================================================
-     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1017)
+     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1018)
      Paste into: Web & IDX &#8594; Website Settings &#8594; Custom Body Code
      - Section 1 is intentionally site-wide: it fixes BoldTrail's own search
        filters and modals (CREA "Accept" button reachable on phones).
@@ -11,6 +11,7 @@
      - v1014/v1015: two listings buttons, Recent transactions removed,
        newsletter on a white card (no red band).
      - v1016: homepage inquiry form made more compact.
+     - v1018: service cards are links to the Services page with a Learn more button.
      - v1017: version bump (consent boxes + footer legal removed in header.js).
      ============================================================ -->
 
@@ -88,7 +89,7 @@ div[class*="advanced-search"][style*="max-height"],
      2b) SITE HEADER + FOOTER + FORMS (header.js, from GitHub Pages)
      site-config.js is loaded by the Custom Header Code.
      ========================================================== -->
-<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1017"></script>
+<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1018"></script>
 
 <!-- ==========================================================
      3) HOMEPAGE STYLES. Every rule is scoped to body.page-home
@@ -223,13 +224,19 @@ body.page-home .clc-cred.is-todo { outline: 2px dashed var(--clc-red); }
 /* ---- SERVICES ---- */
 body.page-home .clc-services { background: var(--clc-light); }
 body.page-home .clc-svc-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-top: 44px; }
-body.page-home .clc-svc { background: var(--clc-white); border-top: 4px solid var(--clc-red); padding: 30px 26px 32px; display: flex; flex-direction: column; gap: 12px; }
+/* v1018: each card is one link to its section of the Services page, with a "Learn more" button */
+body.page-home a.clc-svc { background: var(--clc-white); border-top: 4px solid var(--clc-red); padding: 30px 26px 30px; display: flex; flex-direction: column; gap: 12px;
+  color: var(--clc-black) !important; text-decoration: none !important; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; }
+body.page-home a.clc-svc:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,.10); }
 body.page-home .clc-svc svg { width: 38px; height: 38px; stroke: var(--clc-black); fill: none; stroke-width: 1.6; }
 body.page-home .clc-svc h3 { font-size: 21px !important; font-weight: 700 !important; }
 body.page-home .clc-svc p { color: #57534E; font-size: 17px; }
-body.page-home .clc-svc-links { margin-top: auto; display: grid; gap: 0; padding-top: 4px; }
-body.page-home .clc-svc-links a { font: 700 15px var(--clc-display); color: var(--clc-red) !important; min-height: 44px; display: inline-flex; align-items: center; }
-body.page-home .clc-svc-links a:hover { text-decoration: underline !important; }
+body.page-home .clc-svc-btn {
+  margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 8px;
+  min-height: 46px; padding: 0 22px; border: 2px solid var(--clc-black); border-radius: 4px;
+  font: 700 15px var(--clc-display); letter-spacing: .04em; color: var(--clc-black); transition: background .2s, color .2s;
+}
+body.page-home a.clc-svc:hover .clc-svc-btn, body.page-home a.clc-svc:focus-visible .clc-svc-btn { background: var(--clc-black); color: var(--clc-white); }
 
 /* ---- LISTINGS: BoldTrail's carousel moved in and restyled ---- */
 body.page-home .clc-listings { background: var(--clc-white); overflow: hidden; }
@@ -659,40 +666,30 @@ html body.page-home .cover .clc-hero-inner { padding-bottom: clamp(48px, 7vh, 80
         <a class="clc-btn clc-btn-dark" href="https://info.cherilongcommercial.com/services/">See all services</a>
       </div>
       <div class="clc-svc-grid">
-        <article class="clc-svc">
+        <a class="clc-svc" href="https://info.cherilongcommercial.com/services/#sales">
           <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 36V16l10-6v8l10-6v8l10-6v22z"/><path d="M10 28h4M18 28h4M26 28h4"/></svg>
           <h3>Commercial &amp; Industrial Sales / Buying</h3>
           <p>Pricing, marketing and negotiation for owners, plus search and due diligence for buyers and investors.</p>
-          <div class="clc-svc-links">
-            <a href="#clc-inquiry" data-intent="sell">Discuss a sale &rarr;</a>
-            <a href="#clc-inquiry" data-intent="buy">Discuss a purchase &rarr;</a>
-          </div>
-        </article>
-        <article class="clc-svc">
+          <span class="clc-svc-btn">Learn more &rarr;</span>
+        </a>
+        <a class="clc-svc" href="https://info.cherilongcommercial.com/services/#leasing">
           <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="6" width="28" height="30"/><path d="M12 12h6M22 12h6M12 19h6M22 19h6M12 26h6M22 26h6"/></svg>
           <h3>Commercial Leasing</h3>
           <p>Landlord and tenant representation: finding space, filling vacancies and negotiating lease terms.</p>
-          <div class="clc-svc-links">
-            <a href="#clc-inquiry" data-intent="lease-space">Find space to lease &rarr;</a>
-            <a href="#clc-inquiry" data-intent="lease-out">Lease out your space &rarr;</a>
-          </div>
-        </article>
-        <article class="clc-svc">
+          <span class="clc-svc-btn">Learn more &rarr;</span>
+        </a>
+        <a class="clc-svc" href="https://info.cherilongcommercial.com/services/#land">
           <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 32l10-14 8 9 6-6 8 11z"/><circle cx="29" cy="11" r="4"/></svg>
           <h3>Land &amp; Development Sites</h3>
           <p>Acquisition and sale of raw land and development parcels across Calgary and the surrounding area.</p>
-          <div class="clc-svc-links">
-            <a href="#clc-inquiry" data-intent="" data-ptype="land">Ask about land &rarr;</a>
-          </div>
-        </article>
-        <article class="clc-svc">
+          <span class="clc-svc-btn">Learn more &rarr;</span>
+        </a>
+        <a class="clc-svc" href="https://info.cherilongcommercial.com/services/#business">
           <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="13" width="30" height="21" rx="2"/><path d="M15 13V8h10v5M5 22h30"/></svg>
           <h3>Business Brokerage &amp; Private Advisory</h3>
           <p>Confidential sale of operating businesses and private advice on property and portfolio decisions.</p>
-          <div class="clc-svc-links">
-            <a href="#clc-inquiry" data-intent="business-sale" data-ptype="business">Start a confidential conversation &rarr;</a>
-          </div>
-        </article>
+          <span class="clc-svc-btn">Learn more &rarr;</span>
+        </a>
       </div>
     </div>
   </section>

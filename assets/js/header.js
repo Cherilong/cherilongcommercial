@@ -1,5 +1,6 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1018 - Version bump only (homepage service cards link to the Services page).
    v1017 - Removed: the newsletter consent checkbox (typing an email and pressing
            Subscribe is the opt-in; one small sender/unsubscribe line stays),
            the inquiry form's newsletter checkbox, and the footer legal block.
@@ -27,9 +28,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1017');
+console.log('CLC HEADER JS LOADED v1018');
 (function () {
-  const VERSION = '1017';
+  const VERSION = '1018';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};
