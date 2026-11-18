@@ -1,5 +1,6 @@
 /* =========================================================
    Cheri Long Commercial - Custom Header
+   v1017 - .clc-news-note (sender + unsubscribe line under the newsletter field).
    v1015 - Newsletter + inquiry consent labels: sentence case (BoldTrail made them uppercase).
    v1011 - Map search pages no longer scroll behind the pinned map/results.
    v1010 - No top strip or header button: "Call Cheri" + social icons at the
@@ -401,6 +402,7 @@ body.has-clc-header #footer .footer-top-right * { color: #BDB6AD !important; }
   font: 400 15px/1.45 var(--clc-body) !important; text-transform: none !important; letter-spacing: normal !important;
 }
 .clc-news-consent input { width: 22px; height: 22px; margin: 1px 0 0; flex: none; accent-color: var(--clc-black); }
+.clc-news-note { grid-column: 1 / -1; margin: 0; font: 400 13px/1.4 var(--clc-body); color: #6B6660; }
 .clc-news-msg { grid-column: 1 / -1; margin: 0; min-height: 1.4em; font-weight: 500; }
 @media (max-width: 560px) { .clc-news-form { grid-template-columns: 1fr; } .clc-news-form button { width: 100%; } }
 

@@ -1,5 +1,8 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1017 - Removed: the newsletter consent checkbox (typing an email and pressing
+           Subscribe is the opt-in; one small sender/unsubscribe line stays),
+           the inquiry form's newsletter checkbox, and the footer legal block.
    v1016 - Version bump only (homepage inquiry form made compact).
    v1015 - Version bump only (homepage newsletter redesign; header.css
            consent labels in sentence case).
@@ -24,9 +27,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1016');
+console.log('CLC HEADER JS LOADED v1017');
 (function () {
-  const VERSION = '1016';
+  const VERSION = '1017';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};
@@ -272,12 +275,6 @@ console.log('CLC HEADER JS LOADED v1016');
             ${S.officePhone ? `<p>Office <a class="clc-tel" href="tel:+1${String(S.officePhone).replace(/[^0-9]/g, '')}">${esc(S.officePhone)}</a></p>` : ''}
           </div>
         </div>
-        <div class="clc-legal">
-          <p>&copy; ${year} Cheri Long Commercial. Royal LePage&reg; is a registered trademark of Bridgemarq Real Estate Services Inc. Each office is independently owned and operated. Not intended to solicit buyers or sellers currently under contract. See <a href="https://rlp.ca/notices" target="_blank" rel="noopener">rlp.ca/notices</a>.</p>
-          <p>We respect your inbox. Marketing emails are sent only with your consent under Canada's Anti-Spam Legislation (CASL), and every message includes an unsubscribe link.</p>
-          <p>Listing information is deemed reliable but not guaranteed and should be independently verified.${S.officePhone ? ` Need help using this website? Call our office at ${esc(S.officePhone)}.` : ''}</p>
-          <nav aria-label="Legal"><a href="https://www.royallepage.ca/en/realestate/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a><a href="https://www.royallepage.ca/en/realestate/noticesanddisclaimers" target="_blank" rel="noopener">Notices &amp; Disclaimers</a></nav>
-        </div>
       </div>`;
     slot.dataset.built = 'true';
   }
@@ -332,7 +329,6 @@ console.log('CLC HEADER JS LOADED v1016');
           <div class="clc-q-field clc-q-wide"><label for="${id('details')}">Size, budget or timeline <span class="clc-q-opt">(optional)</span></label><input id="${id('details')}" name="size_budget_timeline" placeholder="e.g. 2,000\u20133,000 sq ft, by spring"></div>`}
           <div class="clc-q-field clc-q-wide"><label for="${id('msg')}">Message</label><textarea id="${id('msg')}" name="message" rows="${compact ? 3 : 5}"></textarea></div>
         </div>
-        <label class="clc-q-check"><input type="checkbox" name="marketing_consent" value="yes"> Yes, also send me Cheri\u2019s Calgary commercial market updates by email. I can unsubscribe at any time.</label>
         <div class="clc-q-actions">
           <button class="clc-q-submit" type="submit">Send to Cheri\u2019s team</button>
           <p class="clc-q-msg" role="status" aria-live="polite"></p>
@@ -360,7 +356,7 @@ console.log('CLC HEADER JS LOADED v1016');
         }
         data[k] = typeof v === 'string' ? v.trim() : v;
       });
-      data.marketing_consent = fld(form, 'marketing_consent').checked ? 'yes' : 'no';
+      data.marketing_consent = 'no';   // v1017: no newsletter opt-in on the inquiry form
       sendLead(data, msg, 'Thanks, ' + name + '. Cheri\u2019s team will be in touch shortly.').then(function (ok) { if (ok && S.leadEndpoint) form.reset(); });
     });
   }
@@ -374,7 +370,7 @@ console.log('CLC HEADER JS LOADED v1016');
         <label class="clc-sr" for="clc-n${n}-email">Email address</label>
         <input id="clc-n${n}-email" name="email" type="email" placeholder="Your email address" autocomplete="email" required>
         <button type="submit">Subscribe</button>
-        <label class="clc-news-consent"><input type="checkbox" name="consent" required> I agree to receive Calgary commercial market updates by email from Cheri Long, ${esc(OFFICE.brokerage)}. Unsubscribe at any time.</label>
+        <p class="clc-news-note">From Cheri Long, ${esc(OFFICE.brokerage)}. Unsubscribe anytime.</p>
         <p class="clc-news-msg" role="status" aria-live="polite"></p>
       </form>`;
     slot.dataset.built = 'true';
@@ -383,7 +379,6 @@ console.log('CLC HEADER JS LOADED v1016');
       e.preventDefault();
       const msg = form.querySelector('.clc-news-msg');
       if (!fld(form, 'email').value || !fld(form, 'email').checkValidity()) { msg.textContent = 'Please enter a valid email address.'; fld(form, 'email').focus(); return; }
-      if (!fld(form, 'consent').checked) { msg.textContent = 'Please tick the box to confirm you\u2019d like to receive emails.'; fld(form, 'consent').focus(); return; }
       sendLead({ type: 'newsletter', email: fld(form, 'email').value.trim(), marketing_consent: 'yes', website: fld(form, 'website').value }, msg, 'You\u2019re subscribed. Thank you!')
         .then(function (ok) { if (ok && S.leadEndpoint) form.reset(); });
     });

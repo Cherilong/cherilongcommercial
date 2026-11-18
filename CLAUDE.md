@@ -108,7 +108,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 1. Edit the file(s) and commit to `main`. GitHub Pages ignores `?v=`, so the commit is what updates the file.
 2. If `clc.css` or `clc.js` changed, bump the version: `VERSION` in the file header, then every `?v=` in
    `boldtrail/custom-header-code.html`, `boldtrail/custom-body-code.html` and every `pages/*/index.html`.
-   Keep all of them on the same number. Current: **1016**.
+   Keep all of them on the same number. Current: **1017**.
 3. Tell Kyle which BoldTrail field(s) to re-paste. Always give the complete file, never a partial diff.
 4. Check the live BoldTrail homepage, one BoldTrail inner page (e.g. a search page) and one subdomain page.
 
@@ -129,7 +129,11 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 - ® on the first "Royal LePage" on every page.
 - Every public page needs the legal block: rlp.ca/notices, "independently owned and operated",
   "not intended to solicit buyers or sellers currently under contract". `clc.js` adds it.
+  v1017 (Nov 18 2026): Kyle (Broker Delegate) chose to REMOVE the legal block from our footer (header.js). BoldTrail's
+  own footer still carries rlp.ca/notices + "independently owned and operated" on BoldTrail pages; subdomain pages carry none.
 - Email capture must state CASL consent; newsletter opt-in is a separate, unticked checkbox.
+  v1017: newsletter has no checkbox (entering an email + Subscribe is the opt-in) and keeps one line naming the sender +
+  "Unsubscribe anytime" (`.clc-news-note`). Inquiry form no longer offers the newsletter opt-in.
 - Broker/manager sign-off before anything with brand, team/roster or recruiting claims goes live (RECA advertising rules).
 - Never use Royal LePage Solutions brokerage-site elements (Deposit Instructions, Agent Hub, brokerage menu) on Cheri's site,
   and never mix in Duiker Properties content.
