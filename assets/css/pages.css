@@ -225,3 +225,6 @@ body { background: var(--clc-light); }
 .clc-pcard .clc-btn, .clc-pcard .clc-social-dark { margin-top: auto; align-self: center; }
 .clc-pcard .clc-social-dark { padding-top: 8px; }
 .clc-pcard p a { color: var(--clc-red); }
+.clc-pcard-ig { background: var(--clc-black); color: var(--clc-white); text-decoration: none; transition: background .2s; }
+.clc-pcard-ig:hover { background: var(--clc-red); }
+.clc-pcard-ig svg { width: 56px; height: 56px; fill: currentColor; }

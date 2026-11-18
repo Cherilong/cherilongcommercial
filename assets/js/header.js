@@ -1,5 +1,6 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1029 - Version bump only (Contact: Instagram badge on the social card).
    v1028 - Version bump only (Contact page profile cards).
    v1027 - Footer: "Cheri Long Commercial" text removed (logo stays).
    v1026 - Version bump only (About: Behold Instagram feed).
@@ -40,9 +41,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1028');
+console.log('CLC HEADER JS LOADED v1029');
 (function () {
-  const VERSION = '1028';
+  const VERSION = '1029';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};
