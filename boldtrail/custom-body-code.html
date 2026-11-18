@@ -1,5 +1,5 @@
 <!-- ============================================================
-     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1013)
+     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1014)
      Paste into: Web & IDX &#8594; Website Settings &#8594; Custom Body Code
      - Section 1 is intentionally site-wide: it fixes BoldTrail's own search
        filters and modals (CREA "Accept" button reachable on phones).
@@ -82,7 +82,7 @@ div[class*="advanced-search"][style*="max-height"],
      2b) SITE HEADER + FOOTER + FORMS (header.js, from GitHub Pages)
      site-config.js is loaded by the Custom Header Code.
      ========================================================== -->
-<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1013"></script>
+<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1014"></script>
 
 <!-- ==========================================================
      3) HOMEPAGE STYLES. Every rule is scoped to body.page-home
@@ -162,6 +162,9 @@ body.page-home .clc-btn-ghost { border-color: var(--clc-white) !important; color
 body.page-home .clc-btn-ghost:hover { background: var(--clc-white) !important; color: var(--clc-black) !important; }
 body.page-home .clc-btn-dark { background: var(--clc-black) !important; color: var(--clc-white) !important; }
 body.page-home .clc-btn-dark:hover { background: #3a3633 !important; }
+body.page-home .clc-btn-outline { border-color: var(--clc-black) !important; color: var(--clc-black) !important; background: transparent !important; }
+body.page-home .clc-btn-outline:hover { background: var(--clc-black) !important; color: var(--clc-white) !important; }
+body.page-home .clc-head-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
 /* ---- HERO: BoldTrail's .cover restyled ---- */
 body.page-home .cover, body.page-home .cover-pull-top {
@@ -501,15 +504,6 @@ body.page-home #clc-featured-carousel .owl-nav .owl-next:hover {
 
 #clc-carousel-loading p { margin: 0; }
 
-/* ---- RECENT TRANSACTIONS (hidden until TRANSACTIONS has real entries) ---- */
-body.page-home .clc-deals { background: var(--clc-light); }
-body.page-home .clc-deal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-body.page-home .clc-deal { background: var(--clc-white); border-top: 4px solid var(--clc-black); padding: 26px; display: grid; gap: 8px; }
-body.page-home .clc-deal-tag { justify-self: start; font: 700 12px var(--clc-display); letter-spacing: .18em; text-transform: uppercase; color: var(--clc-white); background: var(--clc-red); padding: 5px 10px; }
-body.page-home .clc-deal b { font: 700 20px/1.25 var(--clc-display); }
-body.page-home .clc-deal span { color: #57534E; font-size: 16px; }
-body.page-home .clc-deal.is-todo { outline: 2px dashed var(--clc-red); }
-
 /* ---- MEET CHERI ---- */
 body.page-home .clc-team { background: var(--clc-white); }
 body.page-home .clc-bio { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; }
@@ -558,6 +552,8 @@ body.page-home .clc-news [data-clc-newsletter] { flex: 1; max-width: 560px; min-
   body.page-home .clc-bio { gap: 32px; }
   body.page-home .clc-portrait { max-width: 320px; }
   body.page-home .clc-hero-ctas .clc-btn { flex: 1 1 100%; }
+  body.page-home .clc-head-actions { width: 100%; }
+  body.page-home .clc-head-actions .clc-btn { flex: 1 1 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
   body.page-home #clc-custom-homepage *, body.page-home .clc-hero-inner * { transition: none !important; }
@@ -650,21 +646,14 @@ body.page-home .clc-news [data-clc-newsletter] { flex: 1; max-width: 560px; min-
           <span class="clc-eyebrow">Currently Available</span>
           <h2>Active properties</h2>
         </div>
-        <a class="clc-btn clc-btn-dark" data-all-listings href="#">View all listings</a>
+        <div class="clc-head-actions">
+          <a class="clc-btn clc-btn-dark" data-my-listings href="#">Cheri&#8217;s listings on the map</a>
+          <a class="clc-btn clc-btn-outline" data-all-listings href="#">Search all listings</a>
+        </div>
       </div>
     </div>
     <div id="clc-featured-carousel" style="position: relative;">
       <div id="clc-carousel-loading"><p>Loading current listings&hellip;</p></div>
-    </div>
-  </section>
-
-  <!-- RECENT TRANSACTIONS: built from TRANSACTIONS in the script; hidden until there are real entries -->
-  <section class="clc-section clc-deals" id="clc-deals" hidden>
-    <div class="clc-wrap">
-      <span class="clc-eyebrow">Track record</span>
-      <h2>Recent transactions</h2>
-      <p class="clc-lede">A few of the deals Cheri has completed for her clients.</p>
-      <div class="clc-deal-grid" id="clc-deal-grid" style="margin-top:36px"></div>
     </div>
   </section>
 
@@ -740,18 +729,10 @@ body.page-home .clc-news [data-clc-newsletter] { flex: 1; max-width: 560px; min-
   // Stats strip under the hero (2\u20134 items). Only real numbers. TODO(Kyle): fill in or delete the placeholders.
   const STATS = [
     ['30+', 'years in Calgary commercial real estate'],
-    ['4', 'sectors: commercial, industrial, retail, land'],
     ['[## deals closed]', 'transactions completed'],                 // TODO
     ['[## sq ft leased or sold]', 'square feet leased or sold']      // TODO
   ];
 
-  // Recent transactions. TODO(Kyle): replace with real deals Cheri is allowed to publicize.
-  // { tag: 'Sold' | 'Leased', title: 'property or use', detail: 'area \u00b7 size', role: 'Represented the seller' }
-  const TRANSACTIONS = [
-    { tag: '[Sold/Leased]', title: '[Property type or address]', detail: '[Area \u00b7 size]', role: '[Who Cheri represented]' },
-    { tag: '[Sold/Leased]', title: '[Property type or address]', detail: '[Area \u00b7 size]', role: '[Who Cheri represented]' },
-    { tag: '[Sold/Leased]', title: '[Property type or address]', detail: '[Area \u00b7 size]', role: '[Who Cheri represented]' }
-  ];
   /* \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
 
   const S = window.CLC_SITE || {};
@@ -759,6 +740,7 @@ body.page-home .clc-news [data-clc-newsletter] { flex: 1; max-width: 560px; min-
   const hasPh = function (v) { return /\[[^\]]*\]/.test(String(v)); };
   const preview = !!S.preview;
   const ALL_LISTINGS_URL = S.listingsUrl || '/';
+  const MY_LISTINGS_URL = S.myListingsUrl || '/index.php?showagent=1&rtype=map#rslt';
   const esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
 
   const path = location.pathname;
@@ -913,20 +895,9 @@ body.page-home .clc-news [data-clc-newsletter] { flex: 1; max-width: 560px; min-
     }).join('');
   }
 
-  function buildDeals() {
-    const sec = document.getElementById('clc-deals'), grid = document.getElementById('clc-deal-grid');
-    if (!sec || !grid || grid.childElementCount) return;
-    const items = TRANSACTIONS.filter(function (d) { return preview || !hasPh(d.tag + d.title + d.detail + d.role); });
-    if (!items.length) { sec.hidden = true; return; }
-    grid.innerHTML = items.map(function (d) {
-      const todo = hasPh(d.tag + d.title + d.detail + d.role);
-      return '<article class="clc-deal' + (todo ? ' is-todo' : '') + '"><span class="clc-deal-tag">' + esc(d.tag) + '</span><b>' + esc(d.title) + '</b><span>' + esc(d.detail) + '</span><span>' + esc(d.role) + '</span></article>';
-    }).join('');
-    sec.hidden = false;
-  }
-
   function setListingLinks() {
     document.querySelectorAll('a[data-all-listings]').forEach(function (a) { a.setAttribute('href', ALL_LISTINGS_URL); });
+    document.querySelectorAll('a[data-my-listings]').forEach(function (a) { a.setAttribute('href', MY_LISTINGS_URL); });
   }
 
   function runAll() {
@@ -935,7 +906,6 @@ body.page-home .clc-news [data-clc-newsletter] { flex: 1; max-width: 560px; min-
     moveHeroIntoCover();
     injectFeaturedCarousel();
     buildStats();
-    buildDeals();
     demoteHeadings();
   }
 
@@ -989,7 +959,11 @@ body.page-home .clc-news [data-clc-newsletter] { flex: 1; max-width: 560px; min-
   // Leave the map alone if the visitor searched a place, or has already moved the map this visit
   var params = new URLSearchParams(location.search);
   var searchedPlace = (params.get('display') || '').trim() !== '';
-  var shouldCenter = CENTER_ON_CALGARY && !searchedPlace && !store(true);
+  // Cheri's own listings (showagent=1): keep BoldTrail's fit-to-results view (her listings reach
+  // Strathmore and Claresholm) and never auto-run "Redo Search in Map", which would swap them
+  // for every listing in the map area.
+  var myListings = params.get('showagent') === '1';
+  var shouldCenter = CENTER_ON_CALGARY && !searchedPlace && !myListings && !store(true);
 
   var tries = 0;
   (function hook() {
@@ -1042,7 +1016,7 @@ body.page-home .clc-news [data-clc-newsletter] { flex: 1; max-width: 560px; min-
 
     m.on('movestart', function () { clearTimeout(t); });
     m.on('moveend', function () {
-      if (!user || drawing) return;
+      if (!user || drawing || myListings) return;
       clearTimeout(t);
       t = setTimeout(function () {
         var b = document.getElementById('search-area-link');

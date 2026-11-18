@@ -9,16 +9,19 @@
    showing a placeholder is hidden on the live site, never shown.
    ========================================================= */
 window.CLC_SITE = {
-  version: '1013',
+  version: '1014',
 
   // Main BoldTrail site. Always the www address.
   mainSite: 'https://www.cherilongcommercial.com',
   subSite:  'https://info.cherilongcommercial.com',
 
-  // LISTINGS: every "Listings", "Browse Listings", "View all listings" link uses this.
-  // Today: all commercial/land listings in the City of Calgary, newest first.
-  // TODO(Kyle): swap in the BoldTrail page that shows Cheri's OWN listings once it exists.
+  // ALL LISTINGS: "Listings" (menu), "Browse Listings" and "Search all listings" use this.
+  // All commercial/land listings in the City of Calgary, newest first.
   listingsUrl: 'https://www.cherilongcommercial.com/index.php?advanced=1&rtype=map&display=Calgary&pak=city%3Ag30_c3nfkdtg&types%5B%5D=4&types%5B%5D=5&types%5B%5D=3&types%5B%5D=12&sortby=listings.listingdate+DESC#rslt',
+
+  // CHERI'S LISTINGS: BoldTrail's built-in "My Listings" search (her Agent MLS ID), shown on the map.
+  // Used by the homepage "Cheri's listings on the map" button.
+  myListingsUrl: 'https://www.cherilongcommercial.com/index.php?showagent=1&rtype=map#rslt',
 
   pages: {
     services: 'https://info.cherilongcommercial.com/services/',
@@ -94,7 +97,7 @@ window.CLC_SITE = {
     });
     root.querySelectorAll('a[data-clc-link]').forEach(function (a) {
       var k = a.getAttribute('data-clc-link');
-      var url = k === 'listings' ? S.listingsUrl : k === 'home' ? S.mainSite + '/' : S.pages[k] || '';
+      var url = k === 'listings' ? S.listingsUrl : k === 'myListings' ? S.myListingsUrl : k === 'home' ? S.mainSite + '/' : S.pages[k] || '';
       if (url) a.href = url;
     });
     // Cheri's photo: always the current BoldTrail profile picture, re-checked daily
