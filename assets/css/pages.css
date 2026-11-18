@@ -205,6 +205,6 @@ body { background: var(--clc-light); }
 
 /* About: "Giving back" section with the Instagram profile embed */
 .ab-give { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; }
-.ab-give-feed { display: flex; justify-content: center; min-width: 0; }
-.ab-give-feed .instagram-media { margin: 0 !important; width: 100% !important; max-width: 540px !important; min-width: 0 !important; background: var(--clc-white); border: 1px solid var(--clc-stone) !important; border-radius: 4px !important; }
+.ab-give-feed { min-width: 0; }
+.ab-give-feed behold-widget { display: block; width: 100%; }
 @media (max-width: 900px) { .ab-give { grid-template-columns: 1fr; gap: 32px; } }

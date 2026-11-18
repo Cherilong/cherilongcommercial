@@ -15,11 +15,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Raleway:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/header.css?v=1025">
-  <link rel="stylesheet" href="../assets/css/pages.css?v=1025">
+  <link rel="stylesheet" href="../assets/css/header.css?v=1026">
+  <link rel="stylesheet" href="../assets/css/pages.css?v=1026">
   <style>html { visibility: hidden; } html.clc-ready { visibility: visible; }</style>
   <script>setTimeout(function () { document.documentElement.classList.add('clc-ready'); }, 2500);</script>
-  <script src="../assets/js/site-config.js?v=1025"></script>
+  <script src="../assets/js/site-config.js?v=1026"></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -156,7 +156,7 @@
     </div>
   </section>
 
-  <!-- Giving back: Instagram's own profile embed (shows the account's latest posts, updates itself) -->
+  <!-- Giving back: Artemis Shelter Instagram feed via Behold.so (updates itself) -->
   <section class="clc-section" id="giving-back">
     <div class="clc-wrap ab-give">
       <div>
@@ -168,9 +168,8 @@
         </div>
       </div>
       <div class="ab-give-feed">
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/artemisshelter2024/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14">
-          <a href="https://www.instagram.com/artemisshelter2024/" target="_blank" rel="noopener">View Artemis Shelter on Instagram</a>
-        </blockquote>
+        <!-- Behold.so widget (feed of @artemisshelter2024; manage it in the Behold dashboard) -->
+        <behold-widget feed-id="XySSJgzwW6YxMca1rHPR"></behold-widget>
       </div>
     </div>
   </section>
@@ -199,7 +198,13 @@
 
 <footer id="clc-site-footer"></footer>
 
-<script src="../assets/js/header.js?v=1025"></script>
-<script async src="https://www.instagram.com/embed.js"></script>
+<script src="../assets/js/header.js?v=1026"></script>
+<script>
+  (() => {
+    if (window.__bhldScript) return; window.__bhldScript = true;
+    const d = document, s = d.createElement("script"); s.type = "module";
+    s.src = "https://w.behold.so/widget.js"; setTimeout(() => { d.head.append(s); }, 0);
+  })();
+</script>
 </body>
 </html>
