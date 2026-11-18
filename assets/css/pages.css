@@ -228,3 +228,6 @@ body { background: var(--clc-light); }
 .clc-pcard-ig { background: var(--clc-black); color: var(--clc-white); text-decoration: none; transition: background .2s; }
 .clc-pcard-ig:hover { background: var(--clc-red); }
 .clc-pcard-ig svg { width: 56px; height: 56px; fill: currentColor; }
+/* Empty line in Victoria's card (no phone) so both emails sit at the same height; not needed once cards stack */
+.clc-pcard-spacer { visibility: hidden; }
+@media (max-width: 860px) { .clc-pcard-spacer { display: none !important; } }
