@@ -1,5 +1,6 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1025 - Inquiry form: "Prefer to talk? Call Cheri" line removed.
    v1024 - Version bump only (About: Giving back section + Instagram embed).
    v1023 - Version bump only (subdomain pages: grey background right through).
    v1022 - Version bump only (homepage grey background; equal-height subdomain heroes).
@@ -36,9 +37,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1024');
+console.log('CLC HEADER JS LOADED v1025');
 (function () {
-  const VERSION = '1024';
+  const VERSION = '1025';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};
@@ -345,7 +346,6 @@ console.log('CLC HEADER JS LOADED v1024');
           <button class="clc-q-submit" type="submit">Send to Cheri\u2019s team</button>
           <p class="clc-q-msg" role="status" aria-live="polite"></p>
         </div>
-        <p class="clc-q-note">Prefer to talk? Call Cheri at <a href="${TEL}">${esc(PHONE)}</a>.</p>
       </form>`;
     slot.dataset.built = 'true';
     const form = slot.querySelector('form');
