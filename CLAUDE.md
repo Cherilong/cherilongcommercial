@@ -42,6 +42,8 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > **v1020 (Nov 18 2026):** subdomain pages no longer get `body.clc-overlay`: solid black header (with signature) from the top;
 > only the homepage keeps the see-through header.
 > **v1021 (Nov 18 2026):** Victoria's assistant card removed from the homepage Meet Cheri section (still on About + Contact).
+> **v1022 (Nov 18 2026):** homepage background light grey (#EFEFEF) right through (white cards on top). Subdomain heroes
+> (`.clc-page-hero`, pages.css) are one fixed height on tablet/desktop (min-height clamp(520px, 38vw, 660px), text centred).
 > **Lead capture (v1013, live Nov 18 2026):** forms POST (text/plain JSON) to `leadEndpoint` = the Google Apps Script
 > web app "CLC Website Leads" (`apps-script/Code.gs`, setup + campaign map in `apps-script/SETUP.md`). It creates or
 > finds the contact in Cheri's rlpSPHERE (dedupes by email), adds hashtags (`clcwebsite`, `clcinquiry`, one intent tag
@@ -115,7 +117,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 1. Edit the file(s) and commit to `main`. GitHub Pages ignores `?v=`, so the commit is what updates the file.
 2. If `clc.css` or `clc.js` changed, bump the version: `VERSION` in the file header, then every `?v=` in
    `boldtrail/custom-header-code.html`, `boldtrail/custom-body-code.html` and every `pages/*/index.html`.
-   Keep all of them on the same number. Current: **1021**.
+   Keep all of them on the same number. Current: **1022**.
 3. Tell Kyle which BoldTrail field(s) to re-paste. Always give the complete file, never a partial diff.
 4. Check the live BoldTrail homepage, one BoldTrail inner page (e.g. a search page) and one subdomain page.
 

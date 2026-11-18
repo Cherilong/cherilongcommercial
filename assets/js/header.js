@@ -1,5 +1,6 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1022 - Version bump only (homepage grey background; equal-height subdomain heroes).
    v1021 - Version bump only (homepage: assistant card removed).
    v1020 - Subdomain pages always use the solid black header (no see-through
            header over their hero), so the logo + signature shows from the top.
@@ -33,9 +34,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1021');
+console.log('CLC HEADER JS LOADED v1022');
 (function () {
-  const VERSION = '1021';
+  const VERSION = '1022';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};

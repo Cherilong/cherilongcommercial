@@ -1,5 +1,5 @@
 <!-- ============================================================
-     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1021)
+     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1022)
      Paste into: Web & IDX &#8594; Website Settings &#8594; Custom Body Code
      - Section 1 is intentionally site-wide: it fixes BoldTrail's own search
        filters and modals (CREA "Accept" button reachable on phones).
@@ -11,6 +11,7 @@
      - v1014/v1015: two listings buttons, Recent transactions removed,
        newsletter on a white card (no red band).
      - v1016: homepage inquiry form made more compact.
+     - v1022: light grey (#EFEFEF) background right through the homepage; white cards on top.
      - v1021: Victoria's assistant card removed from the homepage (still on About + Contact).
      - v1020: version bump (subdomain pages: solid black header).
      - v1019: version bump (header signature in header.js/header.css).
@@ -92,7 +93,7 @@ div[class*="advanced-search"][style*="max-height"],
      2b) SITE HEADER + FOOTER + FORMS (header.js, from GitHub Pages)
      site-config.js is loaded by the Custom Header Code.
      ========================================================== -->
-<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1021"></script>
+<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1022"></script>
 
 <!-- ==========================================================
      3) HOMEPAGE STYLES. Every rule is scoped to body.page-home
@@ -131,7 +132,7 @@ body.page-home #horizontal-search { display: none !important; }
 body.page-home .cover-image, body.page-home .cover-overlay, body.page-home div[class*="cover-image"],
 body.page-home div[data-opacity], body.page-home .cover-center.agent > div[style*="background-image"],
 body.page-home .cover .cover-center.agent.video { background-image: none !important; display: none !important; }
-body.page-home { overflow-x: hidden !important; background-color: #FFFFFF !important; }
+body.page-home { overflow-x: hidden !important; background-color: var(--clc-light) !important; }
 body.page-home .page-wrapper, body.page-home .main-wrapper, body.page-home div.main, body.page-home .main { padding-top: 0 !important; margin-top: 0 !important; }
 
 /* ---- Page scaffold: full-width breakout from BoldTrail's container ---- */
@@ -242,8 +243,8 @@ body.page-home .clc-svc-btn {
 body.page-home a.clc-svc:hover .clc-svc-btn, body.page-home a.clc-svc:focus-visible .clc-svc-btn { background: var(--clc-black); color: var(--clc-white); }
 
 /* ---- LISTINGS: BoldTrail's carousel moved in and restyled ---- */
-body.page-home .clc-listings { background: var(--clc-white); overflow: hidden; }
-/* Meet Cheri (also white) follows straight after: no double-height gap between them */
+body.page-home .clc-listings { background: var(--clc-light); overflow: hidden; }
+/* Meet Cheri (same background) follows straight after: no double-height gap between them */
 body.page-home .clc-section.clc-listings { padding-bottom: 16px; }
 body.page-home .clc-listings-empty { padding: 48px 24px; text-align: center; border: 1px dashed var(--clc-stone); color: #57534E; }
 body.page-home .clc-listings-empty a { color: var(--clc-red) !important; font-weight: 700; }
@@ -524,7 +525,7 @@ body.page-home #clc-featured-carousel .owl-nav .owl-next:hover {
 #clc-carousel-loading p { margin: 0; }
 
 /* ---- MEET CHERI ---- */
-body.page-home .clc-team { background: var(--clc-white); }
+body.page-home .clc-team { background: var(--clc-light); }
 body.page-home .clc-bio { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; }
 body.page-home .clc-portrait { aspect-ratio: 3 / 4; width: 100%; max-width: 420px; border-radius: 8px; overflow: hidden; background: linear-gradient(170deg, var(--clc-taupe), var(--clc-warm)); }
 body.page-home #clc-custom-homepage .clc-portrait img { width: 100% !important; height: 100% !important; max-width: none !important; object-fit: cover; object-position: center top; display: block; }
@@ -578,10 +579,10 @@ body.page-home .clc-ask-form .clc-q-note { margin-top: 10px; font-size: 14px; }
 }
 
 /* ---- NEWSLETTER (form built by header.js): white band, card like the service cards ---- */
-body.page-home .clc-news { background: var(--clc-white); color: var(--clc-black); padding: clamp(56px, 7vw, 88px) 0; }
+body.page-home .clc-news { background: var(--clc-light); color: var(--clc-black); padding: clamp(56px, 7vw, 88px) 0; }
 body.page-home .clc-news-card {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 64px); align-items: center;
-  border: 1px solid var(--clc-stone); border-top: 4px solid var(--clc-red); padding: clamp(28px, 4vw, 48px);
+  background: var(--clc-white); border: 1px solid var(--clc-stone); border-top: 4px solid var(--clc-red); padding: clamp(28px, 4vw, 48px);
 }
 body.page-home .clc-news h2 { font-size: clamp(26px, 2.8vw, 34px) !important; font-weight: 700 !important; color: var(--clc-black) !important; }
 body.page-home .clc-news-card > div > p { margin-top: 10px !important; color: #57534E; font-size: 18px; }

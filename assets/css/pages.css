@@ -1,5 +1,5 @@
 /* =========================================================
-   Cheri Long Commercial - Subdomain page styles (v1012)
+   Cheri Long Commercial - Subdomain page styles (v1022: equal-height heroes)
    Used by info.cherilongcommercial.com pages (services, about,
    contact). Load AFTER header.css, which defines the --clc-* tokens.
    The /links/ page has its own small stylesheet inline.
@@ -46,6 +46,7 @@ p { margin: 0; }
     linear-gradient(160deg, #3a3633 0%, #6B6660 55%, #A89E92 100%);
   padding: clamp(64px, 9vw, 112px) 0 clamp(56px, 7vw, 88px);
 }
+
 /* Room for the see-through header sitting on top of the hero */
 @media (min-width: 761px) { body.clc-overlay .clc-page-hero { padding-top: calc(clamp(64px, 9vw, 112px) + 110px); } }
 @media (min-width: 761px) and (max-width: 1080px) { body.clc-overlay .clc-page-hero { padding-top: calc(clamp(64px, 9vw, 112px) + 160px); } }
@@ -175,3 +176,10 @@ p { margin: 0; }
   .clc-ccard .clc-big { font-size: 20px; overflow-wrap: normal; word-break: normal; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* v1022: every subdomain hero is the same height (text centred in it), whatever its wording */
+@media (min-width: 761px) {
+  .clc-page-hero { min-height: clamp(520px, 38vw, 660px); display: flex; flex-direction: column; justify-content: center; padding: 56px 0; box-sizing: border-box; }
+  .clc-page-hero > .clc-wrap { width: 100%; }
+  .clc-page-hero h1 { max-width: 24ch; }
+}
