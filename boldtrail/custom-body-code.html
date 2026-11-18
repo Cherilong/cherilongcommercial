@@ -1,11 +1,15 @@
 <!-- ============================================================
-     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1014)
+     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1015)
      Paste into: Web & IDX &#8594; Website Settings &#8594; Custom Body Code
      - Section 1 is intentionally site-wide: it fixes BoldTrail's own search
        filters and modals (CREA "Accept" button reachable on phones).
      - Everything else is scoped to body.page-home (homepage only).
      - Header, footer, inquiry + newsletter forms come from header.js.
      - Phone, address, listings link, lead endpoint: assets/js/site-config.js.
+     - Nov 18 2026: hero layout - signature centred under the menu,
+       headline + buttons at the bottom-left, stats strip hidden.
+     - v1014/v1015: two listings buttons, Recent transactions removed,
+       newsletter on a white card (no red band).
      ============================================================ -->
 
 <!-- ==========================================================
@@ -82,7 +86,7 @@ div[class*="advanced-search"][style*="max-height"],
      2b) SITE HEADER + FOOTER + FORMS (header.js, from GitHub Pages)
      site-config.js is loaded by the Custom Header Code.
      ========================================================== -->
-<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1014"></script>
+<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1015"></script>
 
 <!-- ==========================================================
      3) HOMEPAGE STYLES. Every rule is scoped to body.page-home
@@ -227,6 +231,8 @@ body.page-home .clc-svc-links a:hover { text-decoration: underline !important; }
 
 /* ---- LISTINGS: BoldTrail's carousel moved in and restyled ---- */
 body.page-home .clc-listings { background: var(--clc-white); overflow: hidden; }
+/* Meet Cheri (also white) follows straight after: no double-height gap between them */
+body.page-home .clc-section.clc-listings { padding-bottom: 16px; }
 body.page-home .clc-listings-empty { padding: 48px 24px; text-align: center; border: 1px dashed var(--clc-stone); color: #57534E; }
 body.page-home .clc-listings-empty a { color: var(--clc-red) !important; font-weight: 700; }
 /* No grey border box around the carousel */
@@ -265,7 +271,7 @@ body.page-home #clc-featured-carousel .listing-box {
   transition: transform .5s ease, box-shadow .5s ease !important;
   margin: 0 12px !important;
   cursor: pointer !important;
-  min-height: 360px !important;
+  min-height: 0 !important;
   height: auto !important;
   display: flex !important;
   flex-direction: column !important;
@@ -375,6 +381,7 @@ html body.page-home #clc-custom-homepage #clc-featured-carousel .listing-box .li
 html body.page-home #clc-custom-homepage #clc-featured-carousel .listing-box .listing-box-title > * { position: static !important; float: none !important; transform: none !important; }
 
 body.page-home #clc-featured-carousel .listing-box-content {
+  min-height: 0 !important;   /* BoldTrail sets 200px, which left a blank band in every card */
   padding: 0 22px 22px !important;
   text-decoration: none !important;
   color: inherit !important;
@@ -531,12 +538,21 @@ body.page-home .clc-ask-side .clc-ask-call { display: inline-flex; align-items: 
 body.page-home .clc-ask-side .clc-ask-call:hover { color: var(--clc-red) !important; }
 body.page-home .clc-ask-form { background: var(--clc-white); padding: clamp(24px, 3vw, 40px); border-top: 4px solid var(--clc-red); }
 
-/* ---- NEWSLETTER STRIP (form built by header.js) ---- */
-body.page-home .clc-news { background: var(--clc-red); color: var(--clc-white); padding: 56px 0; }
-body.page-home .clc-news .clc-wrap { display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; }
-body.page-home .clc-news h2 { font-size: clamp(24px, 2.6vw, 32px) !important; font-weight: 700 !important; color: var(--clc-white) !important; }
-body.page-home .clc-news p { margin-top: 8px !important; }
-body.page-home .clc-news [data-clc-newsletter] { flex: 1; max-width: 560px; min-width: min(100%, 320px); }
+/* ---- NEWSLETTER (form built by header.js): white band, card like the service cards ---- */
+body.page-home .clc-news { background: var(--clc-white); color: var(--clc-black); padding: clamp(56px, 7vw, 88px) 0; }
+body.page-home .clc-news-card {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 64px); align-items: center;
+  border: 1px solid var(--clc-stone); border-top: 4px solid var(--clc-red); padding: clamp(28px, 4vw, 48px);
+}
+body.page-home .clc-news h2 { font-size: clamp(26px, 2.8vw, 34px) !important; font-weight: 700 !important; color: var(--clc-black) !important; }
+body.page-home .clc-news-card > div > p { margin-top: 10px !important; color: #57534E; font-size: 18px; }
+body.page-home .clc-news [data-clc-newsletter] { min-width: 0; }
+body.page-home .clc-news .clc-news-form { max-width: none; }
+body.page-home .clc-news .clc-news-form input[type=email] { border: 1px solid var(--clc-stone) !important; }
+body.page-home .clc-news .clc-news-form input[type=email]:focus { border-color: var(--clc-black) !important; outline: 3px solid rgba(234,0,42,.25); outline-offset: 0; }
+body.page-home .clc-news .clc-news-consent { color: #57534E; }
+body.page-home .clc-news .clc-news-consent input { accent-color: var(--clc-red); }
+@media (max-width: 860px) { body.page-home .clc-news-card { grid-template-columns: 1fr; } }
 
 /* ---- RESPONSIVE ---- */
 @media (max-width: 1080px) {
@@ -557,6 +573,20 @@ body.page-home .clc-news [data-clc-newsletter] { flex: 1; max-width: 560px; min-
 }
 @media (prefers-reduced-motion: reduce) {
   body.page-home #clc-custom-homepage *, body.page-home .clc-hero-inner * { transition: none !important; }
+}
+
+/* ---- HERO LAYOUT (Nov 18): signature centred under the menu, headline + buttons at the
+   bottom-left, stats strip hidden. To bring the stats back, delete the .clc-creds line. ---- */
+body.page-home .clc-creds { display: none !important; }
+html body.page-home .cover .clc-sig { text-align: center; margin: 0 0 28px; }
+html body.page-home .cover .clc-hero-inner { padding-bottom: clamp(48px, 7vh, 80px) !important; }
+@media (min-width: 761px) {
+  html body.page-home .cover { justify-content: stretch !important; }
+  html body.page-home .cover .clc-hero-inner { flex: 1 1 auto; display: flex; flex-direction: column; min-height: clamp(720px, 100vh, 980px); }
+  html body.page-home .cover .clc-sig { margin: 0; }
+  html body.page-home .cover .clc-sig-name { font-size: clamp(54px, 5.4vw, 93px) !important; }
+  html body.page-home .cover .clc-sig-title { font-size: clamp(11px, .9vw, 14px) !important; }
+  html body.page-home .cover .clc-hero-inner h1 { margin-top: auto !important; max-width: 22ch !important; font-size: clamp(36px, 4.4vw, 60px) !important; }
 }
 </style>
 
@@ -703,14 +733,17 @@ body.page-home .clc-news [data-clc-newsletter] { flex: 1; max-width: 560px; min-
     </div>
   </section>
 
-  <!-- NEWSLETTER STRIP -->
+  <!-- NEWSLETTER -->
   <section class="clc-news" id="clc-newsletter">
     <div class="clc-wrap">
-      <div>
-        <h2>Calgary commercial market updates</h2>
-        <p>New listings, lease rates and market news, a few times a year.</p>
+      <div class="clc-news-card">
+        <div>
+          <span class="clc-eyebrow">Stay in the loop</span>
+          <h2>Calgary commercial market updates</h2>
+          <p>New listings, lease rates and market news, a few times a year.</p>
+        </div>
+        <div data-clc-newsletter></div>
       </div>
-      <div data-clc-newsletter></div>
     </div>
   </section>
 
@@ -727,6 +760,7 @@ body.page-home .clc-news [data-clc-newsletter] { flex: 1; max-width: 560px; min-
      To preview placeholders, open the homepage with #clc-preview at the end of the address. */
 
   // Stats strip under the hero (2\u20134 items). Only real numbers. TODO(Kyle): fill in or delete the placeholders.
+  // Nov 18: the strip is hidden by CSS (HERO LAYOUT block). Delete that .clc-creds line to show it again.
   const STATS = [
     ['30+', 'years in Calgary commercial real estate'],
     ['[## deals closed]', 'transactions completed'],                 // TODO
