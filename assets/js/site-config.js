@@ -9,7 +9,7 @@
    showing a placeholder is hidden on the live site, never shown.
    ========================================================= */
 window.CLC_SITE = {
-  version: '1012',
+  version: '1013',
 
   // Main BoldTrail site. Always the www address.
   mainSite: 'https://www.cherilongcommercial.com',
@@ -54,12 +54,12 @@ window.CLC_SITE = {
     youtube:   ''                          // add when her channel exists ('' hides the icon)
   },
 
-  // LEAD CAPTURE: where the inquiry + newsletter forms send data.
-  // PLACEHOLDER: no endpoint yet. While this is '', forms open the visitor's email app
-  // with everything filled in, addressed to the assistant email above, so no lead is lost.
-  // Set to the Google Apps Script Web app URL (ends in /exec) to switch over. It adds the lead to
-  // Cheri's rlpSPHERE contacts with hashtags (see apps-script/SETUP.md).
-  leadEndpoint: ''
+  // LEAD CAPTURE: where the inquiry, newsletter and checklist forms send data.
+  // The Google Apps Script web app "CLC Website Leads" (apps-script/Code.gs). It creates the
+  // contact in Cheri's BoldTrail, adds hashtags from the answers (they start her Smart
+  // Campaigns) and emails Victoria a backup copy. See apps-script/SETUP.md.
+  // Set to '' to fall back to opening the visitor's email app addressed to the assistant.
+  leadEndpoint: 'https://script.google.com/macros/s/AKfycbzarLrwie3DPobnmxEu-uV52RfCUQtnM9Ky85GnBy_DbktUB0Nv-DMr8tW9mktX8KhR/exec'
 };
 
 /* ---- helpers (no need to edit below) ---- */

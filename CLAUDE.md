@@ -26,9 +26,14 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > `boldtrail/custom-body-code.html` hold the homepage. `assets/js/clc.js`, `assets/css/clc.css` and `preview/` are an
 > earlier draft and are NOT loaded anywhere. Sections below that mention clc.js describe that draft.
 > Main domain: cherilongcommercial.com. Subdomain: info.cherilongcommercial.com.
-> **Lead capture:** forms POST (text/plain JSON) to `leadEndpoint` = a Google Apps Script web app (`apps-script/Code.gs`,
-> setup in `apps-script/SETUP.md`) that logs to the "Cheri Website Signups" Sheet and adds the contact to Cheri's
-> rlpSPHERE (assigned to user 233574) with hashtags `web-lead`, `web-inquiry`, `web-newsletter`. Token lives only in Script Properties.
+> **Lead capture (v1013, live Nov 18 2026):** forms POST (text/plain JSON) to `leadEndpoint` = the Google Apps Script
+> web app "CLC Website Leads" (`apps-script/Code.gs`, setup + campaign map in `apps-script/SETUP.md`). It creates or
+> finds the contact in Cheri's rlpSPHERE (dedupes by email), adds hashtags (`clcwebsite`, `clcinquiry`, one intent tag
+> `clcbuy`/`clcsell`/`clcleasespace`/`clcleaseout`/`clcbusiness`/`clcother`, property-type tags, `clcnewsletter`,
+> `clcguideseller`/`clcguidebuyer`, `clcoptin` for CASL consent), adds a note (PUT `/contact/{id}/action/note`, text in
+> `details`) and emails cladmin@ a backup. Trigger hashtags start Smart Campaigns ("Hashtag is", Designed For ALL).
+> Token lives only in Script Properties (`BOLDTRAIL_TOKEN`). Checklist form `[data-clc-guide]` is built but hidden
+> (`SHOW_GUIDES = false`) until the PDFs exist.
 > **Subdomain pages (v1005):** `/services/`, `/about/`, `/contact/` (site header + footer, styles in
 > `assets/css/pages.css`; header.js fills `<footer id="clc-site-footer">`) and `/links/` (stand-alone Instagram
 > link-in-bio page, own inline styles). New pages: copy `/_template/` to `/<page-name>/`. The old `pages/` folder
@@ -94,7 +99,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 1. Edit the file(s) and commit to `main`. GitHub Pages ignores `?v=`, so the commit is what updates the file.
 2. If `clc.css` or `clc.js` changed, bump the version: `VERSION` in the file header, then every `?v=` in
    `boldtrail/custom-header-code.html`, `boldtrail/custom-body-code.html` and every `pages/*/index.html`.
-   Keep all of them on the same number. Current: **1012**.
+   Keep all of them on the same number. Current: **1013**.
 3. Tell Kyle which BoldTrail field(s) to re-paste. Always give the complete file, never a partial diff.
 4. Check the live BoldTrail homepage, one BoldTrail inner page (e.g. a search page) and one subdomain page.
 
@@ -143,7 +148,8 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 - [ ] Hero photo, Cheri's direct line (if any)
 - [x] Listings: BoldTrail feed works. Calgary filter needs `pak=city:g30_c3nfkdtg` (display= alone does nothing);
       sorted newest first. Types: 4 Commercial, 5 Land, 3 Multi-Family, 12 Farm.
-- [ ] `leadEndpoint`: deploy `apps-script/Code.gs` (see `apps-script/SETUP.md`), paste the /exec URL into site-config.js
+- [x] `leadEndpoint`: Apps Script deployed and tested Nov 18 2026 (contact, hashtags, note, dedupe all confirmed)
+- [ ] Build the Smart Campaigns in Cheri's BoldTrail (list in `apps-script/SETUP.md`)
 - [ ] Write the two checklist PDFs: Seller & Landlord Readiness, Buyer & Tenant Due Diligence
 - [ ] Own Privacy Policy page (legal links currently point to royallepage.ca privacy policy + notices)
 - [ ] YouTube channel link when live

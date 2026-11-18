@@ -1,12 +1,17 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1013 - Lead capture goes live: forms POST to the Google Apps Script
+           in CLC_SITE.leadEndpoint (as text/plain, so the browser allows
+           it), which creates the BoldTrail contact and adds hashtags that
+           start Smart Campaigns. Forms now send the answer codes
+           (intent, ptype) for the hashtags, plus a hidden spam trap.
+           New checklist (lead magnet) form: [data-clc-guide]. The
+           #clc-guides section stays hidden until SHOW_GUIDES = true.
    v1012 - Reads everything from site-config.js (window.CLC_SITE).
            Shared footer on EVERY page (BoldTrail + subdomain).
-           Inquiry form + newsletter form components (lead capture
-           placeholder: opens an email to the assistant until
-           CLC_SITE.leadEndpoint is set). Service buttons preselect
-           the matching option. Property pages: hide residential-only
-           fields. Menu: "About Cheri".
+           Inquiry form + newsletter form components. Service buttons
+           preselect the matching option. Property pages: hide
+           residential-only fields. Menu: "About Cheri".
    v1011 - Map search pages: lock page scrolling (html.clc-map-lock).
    v1010 - "Call Cheri" + socials at the right; phone "\u2630 Menu".
    v1008 - Map search pages sit below our header (--clc-top).
@@ -14,9 +19,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1012');
+console.log('CLC HEADER JS LOADED v1013');
 (function () {
-  const VERSION = '1012';
+  const VERSION = '1013';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};
@@ -33,8 +38,15 @@ console.log('CLC HEADER JS LOADED v1012');
   const LOGO_URL = SUB + '/assets/images/rlp-commercial-brokerage-black-red.png';
   const LOGO_URL_LIGHT = SUB + '/assets/images/rlp-commercial-brokerage-white-red.png';
 
-  // false = hide "Resources & Guides" (checklists) until the checklist PDFs exist.
+  // false = hide "Resources & Guides" (checklists) until the checklist PDFs exist
+  // and the two delivery campaigns are built in BoldTrail.
   const SHOW_GUIDES = false;
+
+  // The inquiry form only (the checklist form shares its styling class)
+  const INQ = 'form.clc-inquiry:not(.clc-guide)';
+
+  // Form field by name (safer than form.email, which a field called "name" can shadow)
+  const fld = function (f, n) { return f.elements.namedItem(n); };
 
   const esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
 
@@ -132,9 +144,13 @@ console.log('CLC HEADER JS LOADED v1012');
     });
 
     buildFooter(onBoldTrail);
+    // Checklist section: hidden until SHOW_GUIDES (still visible in #clc-preview mode)
+    document.querySelectorAll('#clc-guides').forEach(function (sec) { sec.hidden = !(SHOW_GUIDES || S.preview); });
     document.querySelectorAll('[data-clc-inquiry]').forEach(renderInquiry);
     document.querySelectorAll('[data-clc-newsletter]').forEach(renderNewsletter);
+    document.querySelectorAll('[data-clc-guide]').forEach(renderGuide);
     bindIntentLinks();
+    bindGuideLinks();
     if (S.fill) S.fill();
     if (document.querySelector('.details-page')) cleanDetailsPage();
 
@@ -148,7 +164,7 @@ console.log('CLC HEADER JS LOADED v1012');
         const t = document.getElementById(location.hash.slice(1));
         if (t) t.scrollIntoView();
       }
-      if (!intentApplied && document.querySelector('form.clc-inquiry')) { intentApplied = true; applyIntentFromUrl(); }
+      if (!intentApplied && document.querySelector(INQ)) { intentApplied = true; applyIntentFromUrl(); }
     });
   }
 
@@ -262,23 +278,28 @@ console.log('CLC HEADER JS LOADED v1012');
   }
 
   /* \u2500\u2500\u2500 Lead capture \u2500\u2500\u2500
-     PLACEHOLDER until CLC_SITE.leadEndpoint is set: opens the visitor's email app with the
-     details filled in, addressed to the assistant, so nothing is lost. With an endpoint set,
-     the form POSTs JSON there instead (the Google Apps Script web app that creates the rlpSPHERE lead). */
+     With CLC_SITE.leadEndpoint set (the Google Apps Script web app), forms POST the
+     answers there. The script creates the contact in Cheri's BoldTrail and adds hashtags
+     that start her Smart Campaigns. Sent as text/plain: Apps Script cannot answer the
+     browser's pre-check that a JSON content type would trigger.
+     With no endpoint: opens the visitor's email app addressed to the assistant. */
+  const HONEYPOT = '<div style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>';
+
   function sendLead(data, msgEl, okText) {
     data.source = location.href;
     data.submitted = new Date().toISOString();
     if (S.leadEndpoint) {
       msgEl.textContent = 'Sending\u2026';
-      // Sent as text/plain (no Content-Type header) so the Google Apps Script endpoint gets no CORS preflight
-      return fetch(S.leadEndpoint, { method: 'POST', body: JSON.stringify(data) })
-        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-        .then(function (res) { if (!res || !res.ok) throw new Error('rejected'); msgEl.textContent = okText; return true; })
+      return fetch(S.leadEndpoint, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json().catch(function () { return { ok: true }; }); })
+        .then(function (res) { if (res && res.ok === false) throw new Error(res.error || 'rejected'); msgEl.textContent = okText; return true; })
         .catch(function () { msgEl.textContent = 'That didn\u2019t go through. Please call ' + PHONE + ' or email ' + ASSIST.email + '.'; return false; });
     }
-    const lines = Object.keys(data).filter(function (k) { return data[k] !== '' && data[k] != null && k !== 'type'; })
+    const lines = Object.keys(data).filter(function (k) { return data[k] !== '' && data[k] != null && ['type', 'website', 'intent', 'ptype', 'guide'].indexOf(k) === -1; })
       .map(function (k) { return k.replace(/_/g, ' ') + ': ' + data[k]; });
-    const subject = data.type === 'newsletter' ? 'Newsletter sign-up' : 'Website inquiry' + (data.looking_to ? ': ' + data.looking_to : '') + (data.name ? ' \u2013 ' + data.name : '');
+    const subject = data.type === 'newsletter' ? 'Newsletter sign-up'
+      : data.type === 'guide' ? 'Checklist request' + (data.guide_title ? ': ' + data.guide_title : '')
+      : 'Website inquiry' + (data.looking_to ? ': ' + data.looking_to : '') + (data.name ? ' \u2013 ' + data.name : '');
     location.href = 'mailto:' + ASSIST.email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
     msgEl.textContent = 'Your email app should open with your details filled in. Just press Send. If it doesn\u2019t, call ' + PHONE + '.';
     return Promise.resolve(true);
@@ -295,6 +316,7 @@ console.log('CLC HEADER JS LOADED v1012');
     const n = ++formCount, id = function (k) { return 'clc-q' + n + '-' + k; };
     slot.innerHTML = `
       <form class="clc-inquiry${compact ? ' is-compact' : ''}" novalidate>
+        ${HONEYPOT}
         <div class="clc-q-grid">
           <div class="clc-q-field"><label for="${id('name')}">Name <span aria-hidden="true">*</span></label><input id="${id('name')}" name="name" autocomplete="name" required></div>
           <div class="clc-q-field"><label for="${id('email')}">Email <span aria-hidden="true">*</span></label><input id="${id('email')}" name="email" type="email" autocomplete="email" required></div>
@@ -317,21 +339,23 @@ console.log('CLC HEADER JS LOADED v1012');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       const msg = form.querySelector('.clc-q-msg');
-      const name = form.name.value.trim(), email = form.email.value.trim();
-      if (!name || !email || !form.email.checkValidity()) {
+      const name = fld(form, 'name').value.trim(), email = fld(form, 'email').value.trim();
+      if (!name || !email || !fld(form, 'email').checkValidity()) {
         msg.textContent = 'Please add your name and a valid email address.';
-        (!name ? form.name : form.email).focus();
+        (!name ? fld(form, 'name') : fld(form, 'email')).focus();
         return;
       }
       const data = { type: 'inquiry' };
       new FormData(form).forEach(function (v, k) {
         if (k === 'looking_to' || k === 'property_type') {
           const sel = form.querySelector('[name="' + k + '"]');
+          // Readable text for the note + the answer code for the hashtags
+          data[k === 'looking_to' ? 'intent' : 'ptype'] = sel ? sel.value : '';
           v = sel && sel.value ? sel.options[sel.selectedIndex].text : '';
         }
         data[k] = typeof v === 'string' ? v.trim() : v;
       });
-      data.marketing_consent = form.marketing_consent.checked ? 'yes' : 'no';
+      data.marketing_consent = fld(form, 'marketing_consent').checked ? 'yes' : 'no';
       sendLead(data, msg, 'Thanks, ' + name + '. Cheri\u2019s team will be in touch shortly.').then(function (ok) { if (ok && S.leadEndpoint) form.reset(); });
     });
   }
@@ -341,6 +365,7 @@ console.log('CLC HEADER JS LOADED v1012');
     const n = ++formCount;
     slot.innerHTML = `
       <form class="clc-news-form" novalidate>
+        ${HONEYPOT}
         <label class="clc-sr" for="clc-n${n}-email">Email address</label>
         <input id="clc-n${n}-email" name="email" type="email" placeholder="Your email address" autocomplete="email" required>
         <button type="submit">Subscribe</button>
@@ -352,17 +377,94 @@ console.log('CLC HEADER JS LOADED v1012');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       const msg = form.querySelector('.clc-news-msg');
-      if (!form.email.value || !form.email.checkValidity()) { msg.textContent = 'Please enter a valid email address.'; form.email.focus(); return; }
-      if (!form.consent.checked) { msg.textContent = 'Please tick the box to confirm you\u2019d like to receive emails.'; form.consent.focus(); return; }
-      sendLead({ type: 'newsletter', email: form.email.value.trim(), marketing_consent: 'yes' }, msg, 'You\u2019re subscribed. Thank you!')
+      if (!fld(form, 'email').value || !fld(form, 'email').checkValidity()) { msg.textContent = 'Please enter a valid email address.'; fld(form, 'email').focus(); return; }
+      if (!fld(form, 'consent').checked) { msg.textContent = 'Please tick the box to confirm you\u2019d like to receive emails.'; fld(form, 'consent').focus(); return; }
+      sendLead({ type: 'newsletter', email: fld(form, 'email').value.trim(), marketing_consent: 'yes', website: fld(form, 'website').value }, msg, 'You\u2019re subscribed. Thank you!')
         .then(function (ok) { if (ok && S.leadEndpoint) form.reset(); });
+    });
+  }
+
+  /* \u2500\u2500\u2500 Checklist (lead magnet) form \u2500\u2500\u2500
+     <div data-clc-guide></div>              the 3-field form (first name, email, looking to)
+     <a href="#" data-guide="seller">        buttons that pick a checklist and jump to the form
+     The checklist follows the "looking to" answer unless a button picked one. BoldTrail emails
+     the PDF: the clcguideseller / clcguidebuyer hashtags start the two delivery campaigns. */
+  const GUIDES = {
+    seller: 'Commercial Seller & Landlord Readiness Checklist',
+    buyer: 'Commercial Buyer & Tenant Due Diligence Guide'
+  };
+  const GUIDE_INTENTS = [['buy', 'Buy'], ['lease-space', 'Lease space for my business'], ['sell', 'Sell'], ['lease-out', 'Lease out space I own']];
+  const GUIDE_FOR_INTENT = { 'buy': 'buyer', 'lease-space': 'buyer', 'sell': 'seller', 'lease-out': 'seller' };
+
+  function renderGuide(slot) {
+    if (slot.dataset.built === 'true') return;
+    const n = ++formCount, id = function (k) { return 'clc-g' + n + '-' + k; };
+    const preset = GUIDES[slot.getAttribute('data-clc-guide')] ? slot.getAttribute('data-clc-guide') : '';
+    slot.innerHTML = `
+      <form class="clc-inquiry clc-guide" novalidate>
+        ${HONEYPOT}
+        <input type="hidden" name="guide" value="${preset}">
+        <div class="clc-q-grid">
+          <div class="clc-q-field"><label for="${id('first')}">First name <span aria-hidden="true">*</span></label><input id="${id('first')}" name="first_name" autocomplete="given-name" required></div>
+          <div class="clc-q-field"><label for="${id('email')}">Email <span aria-hidden="true">*</span></label><input id="${id('email')}" name="email" type="email" autocomplete="email" required></div>
+          <div class="clc-q-field clc-q-wide"><label for="${id('intent')}">I am looking to <span aria-hidden="true">*</span></label><select id="${id('intent')}" name="looking_to" required>${opts(GUIDE_INTENTS)}</select></div>
+        </div>
+        <label class="clc-q-check"><input type="checkbox" name="marketing_consent" value="yes"> Also send me Cheri\u2019s Calgary commercial market updates by email. I can unsubscribe at any time.</label>
+        <div class="clc-q-actions">
+          <button class="clc-q-submit" type="submit">Email me the checklist</button>
+          <p class="clc-q-msg" role="status" aria-live="polite"></p>
+        </div>
+        <p class="clc-q-note">We\u2019ll email your free checklist right away.</p>
+      </form>`;
+    slot.dataset.built = 'true';
+    const form = slot.querySelector('form');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const msg = form.querySelector('.clc-q-msg');
+      const first = fld(form, 'first_name').value.trim(), email = fld(form, 'email').value.trim(), intent = fld(form, 'looking_to').value;
+      if (!first || !email || !fld(form, 'email').checkValidity()) {
+        msg.textContent = 'Please add your first name and a valid email address.';
+        (!first ? fld(form, 'first_name') : fld(form, 'email')).focus();
+        return;
+      }
+      if (!intent) { msg.textContent = 'Please choose what you\u2019re looking to do.'; fld(form, 'looking_to').focus(); return; }
+      const guide = fld(form, 'guide').value || GUIDE_FOR_INTENT[intent];
+      const sel = fld(form, 'looking_to');
+      sendLead({
+        type: 'guide', first_name: first, email: email,
+        intent: intent, looking_to: sel.options[sel.selectedIndex].text,
+        guide: guide, guide_title: GUIDES[guide],
+        marketing_consent: fld(form, 'marketing_consent').checked ? 'yes' : 'no',
+        website: fld(form, 'website').value
+      }, msg, 'Thanks, ' + first + '. Check your inbox: the ' + GUIDES[guide] + ' is on its way.')
+        .then(function (ok) { if (ok && S.leadEndpoint) { form.reset(); fld(form, 'guide').value = preset; } });
+    });
+  }
+
+  // Buttons with data-guide="seller|buyer": pick that checklist, preselect a matching answer, jump to the form
+  let guideBound = false;
+  function bindGuideLinks() {
+    if (guideBound) return;
+    guideBound = true;
+    document.addEventListener('click', function (e) {
+      const a = e.target.closest && e.target.closest('[data-guide]');
+      const form = document.querySelector('form.clc-guide');
+      if (!a || !form || !GUIDES[a.dataset.guide]) return;
+      e.preventDefault();
+      fld(form, 'guide').value = a.dataset.guide;
+      const ok = GUIDE_FOR_INTENT[fld(form, 'looking_to').value] === a.dataset.guide;
+      if (!ok) fld(form, 'looking_to').value = a.dataset.guide === 'seller' ? 'sell' : 'buy';
+      const btn = form.querySelector('.clc-q-submit');
+      if (btn) btn.textContent = 'Email me the ' + (a.dataset.guide === 'seller' ? 'seller & landlord checklist' : 'buyer & tenant guide');
+      (form.closest('[id]') || form).scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(function () { fld(form, 'first_name').focus({ preventScroll: true }); }, 500);
     });
   }
 
   /* Service buttons: data-intent="sell" (+ optional data-ptype). On a page with the form they
      preselect + scroll; elsewhere they go to the Contact page as ?intent=sell#inquiry. */
   function setIntent(intent, ptype) {
-    document.querySelectorAll('form.clc-inquiry').forEach(function (f) {
+    document.querySelectorAll(INQ).forEach(function (f) {
       if (intent && f.querySelector('[data-q="intent"] option[value="' + intent + '"]')) f.querySelector('[data-q="intent"]').value = intent;
       if (ptype && f.querySelector('[data-q="ptype"] option[value="' + ptype + '"]')) f.querySelector('[data-q="ptype"]').value = ptype;
     });
@@ -372,7 +474,7 @@ console.log('CLC HEADER JS LOADED v1012');
     document.querySelectorAll('a[data-intent]').forEach(function (a) {
       if (a.dataset.intentSet) return;
       a.dataset.intentSet = '1';
-      if (!document.querySelector('form.clc-inquiry')) {
+      if (!document.querySelector(INQ)) {
         a.href = PAGES.contact + '?intent=' + encodeURIComponent(a.dataset.intent) + (a.dataset.ptype ? '&type=' + encodeURIComponent(a.dataset.ptype) : '') + '#inquiry';
       }
     });
@@ -380,7 +482,7 @@ console.log('CLC HEADER JS LOADED v1012');
     intentBound = true;
     document.addEventListener('click', function (e) {
       const a = e.target.closest && e.target.closest('a[data-intent]');
-      const form = document.querySelector('form.clc-inquiry');
+      const form = document.querySelector(INQ);
       if (!a || !form) return;
       e.preventDefault();
       setIntent(a.dataset.intent, a.dataset.ptype);
