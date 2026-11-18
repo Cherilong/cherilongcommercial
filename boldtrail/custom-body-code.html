@@ -1,5 +1,5 @@
 <!-- ============================================================
-     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1015)
+     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1016)
      Paste into: Web & IDX &#8594; Website Settings &#8594; Custom Body Code
      - Section 1 is intentionally site-wide: it fixes BoldTrail's own search
        filters and modals (CREA "Accept" button reachable on phones).
@@ -10,6 +10,7 @@
        headline + buttons at the bottom-left, stats strip hidden.
      - v1014/v1015: two listings buttons, Recent transactions removed,
        newsletter on a white card (no red band).
+     - v1016: homepage inquiry form made more compact.
      ============================================================ -->
 
 <!-- ==========================================================
@@ -86,7 +87,7 @@ div[class*="advanced-search"][style*="max-height"],
      2b) SITE HEADER + FOOTER + FORMS (header.js, from GitHub Pages)
      site-config.js is loaded by the Custom Header Code.
      ========================================================== -->
-<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1015"></script>
+<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1016"></script>
 
 <!-- ==========================================================
      3) HOMEPAGE STYLES. Every rule is scoped to body.page-home
@@ -530,13 +531,40 @@ body.page-home .clc-person b { display: block; font: 700 18px var(--clc-display)
 body.page-home .clc-person span { display: block; color: #57534E; font-size: 16px; }
 body.page-home .clc-person a { color: var(--clc-red) !important; font-weight: 600; overflow-wrap: anywhere; display: inline-flex; align-items: center; min-height: 44px; }
 
-/* ---- INQUIRY (compact form; the form itself is built by header.js) ---- */
-body.page-home .clc-ask { background: var(--clc-light); }
-body.page-home .clc-ask-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 56px; align-items: start; }
-body.page-home .clc-ask-side p { margin-top: 16px !important; color: #57534E; max-width: 42ch; }
-body.page-home .clc-ask-side .clc-ask-call { display: inline-flex; align-items: center; min-height: 44px; margin-top: 16px; font: 700 22px var(--clc-display); color: var(--clc-black) !important; }
+/* ---- INQUIRY (compact form; the form itself is built by header.js) ----
+   v1016: tighter. Form card capped at 980px (right-aligned), smaller fields, sentence-case labels, and
+   Name / Email / Phone on one row, Looking to / Property type on the next. */
+body.page-home .clc-section.clc-ask { background: var(--clc-light); padding: clamp(48px, 6vw, 80px) 0; }
+body.page-home .clc-ask-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 4vw, 64px); align-items: start; }
+body.page-home .clc-ask-side h2 { font-size: clamp(28px, 2.8vw, 38px) !important; }
+body.page-home .clc-ask-side p { margin-top: 14px !important; color: #57534E; max-width: 42ch; font-size: 17px; }
+body.page-home .clc-ask-side .clc-ask-call { display: inline-flex; align-items: center; min-height: 44px; margin-top: 12px; font: 700 20px var(--clc-display); color: var(--clc-black) !important; }
 body.page-home .clc-ask-side .clc-ask-call:hover { color: var(--clc-red) !important; }
-body.page-home .clc-ask-form { background: var(--clc-white); padding: clamp(24px, 3vw, 40px); border-top: 4px solid var(--clc-red); }
+body.page-home .clc-ask-form { background: var(--clc-white); padding: clamp(22px, 2.4vw, 32px); border-top: 4px solid var(--clc-red); width: 100%; max-width: 980px; justify-self: end; }
+body.page-home .clc-ask-form .clc-inquiry { font-size: 16px; }
+body.page-home .clc-ask-form .clc-q-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px 14px; }
+body.page-home .clc-ask-form .clc-q-field { grid-column: span 2; gap: 4px; }
+body.page-home .clc-ask-form .clc-q-field:nth-child(4), body.page-home .clc-ask-form .clc-q-field:nth-child(5) { grid-column: span 3; }
+body.page-home .clc-ask-form .clc-q-field.clc-q-wide { grid-column: 1 / -1; }
+body.page-home .clc-ask-form .clc-inquiry label {
+  font: 600 14px var(--clc-display) !important; text-transform: none !important; letter-spacing: normal !important;
+}
+body.page-home .clc-ask-form .clc-inquiry input:not([type=checkbox]),
+body.page-home .clc-ask-form .clc-inquiry select { min-height: 44px; padding: 6px 12px !important; font-size: 16px !important; border-width: 1px !important; }
+body.page-home .clc-ask-form .clc-inquiry textarea { min-height: 84px; padding: 8px 12px !important; font-size: 16px !important; border-width: 1px !important; }
+body.page-home .clc-ask-form .clc-q-check { margin-top: 14px; font-size: 14px !important; }
+body.page-home .clc-ask-form .clc-q-check input { width: 20px; height: 20px; }
+body.page-home .clc-ask-form .clc-q-actions { margin-top: 16px; }
+body.page-home .clc-ask-form .clc-q-submit { min-height: 48px; padding: 0 24px; font-size: 15px; }
+body.page-home .clc-ask-form .clc-q-note { margin-top: 10px; font-size: 14px; }
+@media (max-width: 1080px) { body.page-home .clc-ask-form { max-width: none; justify-self: stretch; } }
+@media (max-width: 1280px) {
+  body.page-home .clc-ask-form .clc-q-field { grid-column: span 3; }
+  body.page-home .clc-ask-form .clc-q-field:nth-child(3) { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  body.page-home .clc-ask-form .clc-q-field, body.page-home .clc-ask-form .clc-q-field:nth-child(n) { grid-column: 1 / -1; }
+}
 
 /* ---- NEWSLETTER (form built by header.js): white band, card like the service cards ---- */
 body.page-home .clc-news { background: var(--clc-white); color: var(--clc-black); padding: clamp(56px, 7vw, 88px) 0; }

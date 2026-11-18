@@ -1,5 +1,6 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1016 - Version bump only (homepage inquiry form made compact).
    v1015 - Version bump only (homepage newsletter redesign; header.css
            consent labels in sentence case).
    v1014 - Version bump only (homepage: Cheri's-listings map button,
@@ -23,9 +24,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1015');
+console.log('CLC HEADER JS LOADED v1016');
 (function () {
-  const VERSION = '1015';
+  const VERSION = '1016';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};
