@@ -1,5 +1,7 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1020 - Subdomain pages always use the solid black header (no see-through
+           header over their hero), so the logo + signature shows from the top.
    v1019 - "Cheri Long / Associate Broker" signature beside the logo whenever the
            header is solid black (scrolled, or pages without a hero photo).
    v1018 - Version bump only (homepage service cards link to the Services page).
@@ -30,9 +32,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1019');
+console.log('CLC HEADER JS LOADED v1020');
 (function () {
-  const VERSION = '1019';
+  const VERSION = '1020';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};
@@ -201,7 +203,9 @@ console.log('CLC HEADER JS LOADED v1019');
   /* \u2500\u2500\u2500 See-through header over a hero photo \u2500\u2500\u2500 */
   let scrollBound = false;
   function setOverlay() {
-    const hasHero = !!document.querySelector('body.page-home #clc-custom-homepage, .clc-page-hero');
+    // v1020: only the homepage gets the see-through header; subdomain pages (Services, About,
+    // Contact) always use the solid black header with the signature.
+    const hasHero = !!document.querySelector('body.page-home #clc-custom-homepage');
     document.body.classList.toggle('clc-overlay', hasHero);
     if (!hasHero || scrollBound) return;
     scrollBound = true;
