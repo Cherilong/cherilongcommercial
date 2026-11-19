@@ -1,5 +1,6 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1034 - Menu: "Resources & Guides" removed (checklists stay on the Services page).
    v1033 - Checklists LIVE (SHOW_GUIDES = true). Menu "Resources & Guides" goes to
            the Services page #clc-guides (data-guides).
    v1032 - Checklist buttons ([data-guide]) get .is-picked when chosen.
@@ -47,9 +48,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1033');
+console.log('CLC HEADER JS LOADED v1034');
 (function () {
-  const VERSION = '1033';
+  const VERSION = '1034';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};
@@ -122,7 +123,6 @@ console.log('CLC HEADER JS LOADED v1033');
         <li><a data-listings href="#">Listings</a></li>
         <li><a data-page="services" href="#">Services</a></li>
         <li><a data-page="about" href="#">About Cheri</a></li>
-        ${SHOW_GUIDES ? '<li><a data-guides href="#">Resources &amp; Guides</a></li>' : ''}
         <li><a data-page="contact" href="#">Contact</a></li>
       </ul>
       <div class="clc-nav-extra">
