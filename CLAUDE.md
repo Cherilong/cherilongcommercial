@@ -50,6 +50,9 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > with Instagram's native profile embed of @artemisshelter2024 (embed.js) + Follow button.
 > **v1026:** that embed replaced by a Behold.so widget (`<behold-widget feed-id="XySSJgzwW6YxMca1rHPR">`, Kyle's Behold
 > account; free plan = 6 posts, daily refresh, 1,200 views/mo then paused until next month).
+> **v1031 (Nov 19 2026):** Giving back retitled "Supporting the Royal LePage® Shelter Foundation" with the RLPSF Proud
+> Supporter logo (`assets/images/rlp-shelter-foundation-proud-supporter.png`, `.ab-give-logo`). @artemisshelter2024 is
+> Artemis the Raccoon (Cheri's fundraising for the Foundation), NOT a shelter called Artemis.
 > **Links page (Nov 18 2026):** `/links/` restyled as a link-in-bio card: name bar, "Welcome" in Great Vibes, Calgary photo +
 > Cheri photo, black "Check out my resources" bar, outline buttons (Cheri's listings, all listings, services, about, inquiry)
 > and a solid black Call button.
@@ -126,7 +129,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 1. Edit the file(s) and commit to `main`. GitHub Pages ignores `?v=`, so the commit is what updates the file.
 2. If `clc.css` or `clc.js` changed, bump the version: `VERSION` in the file header, then every `?v=` in
    `boldtrail/custom-header-code.html`, `boldtrail/custom-body-code.html` and every `pages/*/index.html`.
-   Keep all of them on the same number. Current: **1030**.
+   Keep all of them on the same number. Current: **1031**.
 3. Tell Kyle which BoldTrail field(s) to re-paste. Always give the complete file, never a partial diff.
 4. Check the live BoldTrail homepage, one BoldTrail inner page (e.g. a search page) and one subdomain page.
 

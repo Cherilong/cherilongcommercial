@@ -1,5 +1,6 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1031 - Version bump only (About: Shelter Foundation logo + wording).
    v1030 - Version bump only (Contact: emails aligned).
    v1029 - Version bump only (Contact: Instagram badge on the social card).
    v1028 - Version bump only (Contact page profile cards).
@@ -42,9 +43,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1030');
+console.log('CLC HEADER JS LOADED v1031');
 (function () {
-  const VERSION = '1030';
+  const VERSION = '1031';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};

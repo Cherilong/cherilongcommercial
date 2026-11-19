@@ -206,6 +206,7 @@ body { background: var(--clc-light); }
 /* About: "Giving back" section with the Instagram profile embed */
 .ab-give { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; }
 .ab-give-feed { min-width: 0; }
+.ab-give-logo { display: block; width: 100%; max-width: 280px; height: auto; margin: 0 0 24px; }
 .ab-give-feed behold-widget { display: block; width: 100%; }
 @media (max-width: 900px) { .ab-give { grid-template-columns: 1fr; gap: 32px; } }
 
