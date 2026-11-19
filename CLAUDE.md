@@ -60,6 +60,7 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > **v1033 (Nov 19 2026):** checklists LIVE (`SHOW_GUIDES = true`, Kyle's call; he builds the clcguideseller/clcguidebuyer
 > campaigns in BoldTrail). Menu "Resources & Guides" (`a[data-guides]`) went to services/#clc-guides.
 > **v1034 (Nov 19 2026):** "Resources & Guides" menu item REMOVED (Kyle: same as Services). Checklists stay on Services.
+> **Nov 19 2026:** Services page "Property types" section removed (Kyle's call).
 > **Links page (Nov 18 2026):** `/links/` restyled as a link-in-bio card: name bar, "Welcome" in Great Vibes, Calgary photo +
 > Cheri photo, black "Check out my resources" bar, outline buttons (Cheri's listings, all listings, services, about, inquiry)
 > and a solid black Call button.
