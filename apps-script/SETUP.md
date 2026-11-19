@@ -65,7 +65,7 @@ For each campaign: **Campaign Logic → Hashtag is →** the tag below. **Design
 
 Rules worth knowing:
 - **A contact has one main campaign.** If two match, BoldTrail keeps the one matching the most triggers. That's why the two checklist campaigns use **Always Run**: the PDF always sends, even if the person already sits in an inquiry campaign.
-- **Concierge:** leads with Concierge turned ON don't get campaigns automatically. Check that Concierge is off for these leads in Cheri's account.
+- **Behavioral Alerts** (what this setting is called in Cheri's account, per Kyle; older BoldTrail help docs call it "Concierge"): check it doesn't stop these website leads from getting their campaigns automatically.
 - A campaign that's toggled off is never assigned. Turn each one on after building it.
 - Put the checklist PDFs on `info.cherilongcommercial.com/assets/guides/` and link them in the emails.
 
@@ -83,3 +83,7 @@ Rules worth knowing:
 ## Turning on the checklists
 
 When the two PDFs are ready: set `SHOW_GUIDES = true` in `header.js`, add a section with `id="clc-guides"` containing `<div data-clc-guide></div>` (and optional buttons with `data-guide="seller"` / `data-guide="buyer"`), and build the two Always Run campaigns.
+
+## Status (Nov 19 2026)
+
+All 9 Smart Campaigns are built in Cheri's account and turned OFF, each with a placeholder email. Victoria writes the real emails, then each campaign is turned on.
