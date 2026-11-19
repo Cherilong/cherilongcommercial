@@ -73,6 +73,11 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > **v1037 (Nov 19 2026):** subdomain pages' footer gets `.clc-legal` (`legalBlock()` in header.js), copied from BoldTrail's
 > footer text: Pillar 9/MLS/CREA/DDF disclaimers, "independently owned and operated", rlp.ca/notices, (c) Bridgemarq, and
 > links to the main site's /terms.php, /privacy.php, /accessibility.php + royallepage.ca. Not added on BoldTrail pages.
+> **v1038 (Nov 19 2026):** homepage listing tabs (`#clc-ltabs`, built by `buildListingTabs()` in the Body Code from
+> `listingTabs` + `listingSearchBase` in site-config.js): All, For sale (`min=1000`), For lease (`max=200`: leases are priced
+> per sq ft), Commercial & industrial (type 4), Land (type 5). BoldTrail has NO keyword/subtype filter (tested: `keywords=`
+> is ignored), so Retail / Office / Business tabs are not possible. Counts can be checked via `/json.php` (listingsTotal)
+> after loading the search URL.
 > **Links page (Nov 18 2026):** `/links/` restyled as a link-in-bio card: name bar, "Welcome" in Great Vibes, Calgary photo +
 > Cheri photo, black "Check out my resources" bar, outline buttons (Cheri's listings, all listings, services, about, inquiry)
 > and a solid black Call button.
@@ -149,7 +154,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 1. Edit the file(s) and commit to `main`. GitHub Pages ignores `?v=`, so the commit is what updates the file.
 2. If `clc.css` or `clc.js` changed, bump the version: `VERSION` in the file header, then every `?v=` in
    `boldtrail/custom-header-code.html`, `boldtrail/custom-body-code.html` and every `pages/*/index.html`.
-   Keep all of them on the same number. Current: **1037**.
+   Keep all of them on the same number. Current: **1038**.
 3. Tell Kyle which BoldTrail field(s) to re-paste. Always give the complete file, never a partial diff.
 4. Check the live BoldTrail homepage, one BoldTrail inner page (e.g. a search page) and one subdomain page.
 

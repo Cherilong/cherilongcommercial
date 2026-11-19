@@ -1,5 +1,6 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1038 - Version bump only (homepage listing tabs; listingTabs in site-config.js).
    v1037 - Subdomain pages get the same legal block as BoldTrail's footer (MLS/CREA/DDF,
            independently owned and operated, rlp.ca/notices, Terms/Privacy/Accessibility links).
    v1036 - Free checklists are checkboxes (one or both; guide="seller,buyer"); select arrows
@@ -55,9 +56,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1037');
+console.log('CLC HEADER JS LOADED v1038');
 (function () {
-  const VERSION = '1037';
+  const VERSION = '1038';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};

@@ -9,7 +9,7 @@
    showing a placeholder is hidden on the live site, never shown.
    ========================================================= */
 window.CLC_SITE = {
-  version: '1037',
+  version: '1038',
 
   // Main BoldTrail site. Always the www address.
   mainSite: 'https://www.cherilongcommercial.com',
@@ -22,6 +22,19 @@ window.CLC_SITE = {
   // CHERI'S LISTINGS: BoldTrail's built-in "My Listings" search (her Agent MLS ID), shown on the map.
   // Used by the homepage "Cheri's listings on the map" button.
   myListingsUrl: 'https://www.cherilongcommercial.com/index.php?showagent=1&rtype=map#rslt',
+
+  // LISTING TABS on the homepage (Cheri's wish list). Each opens BoldTrail's Calgary map search, filtered.
+  // BoldTrail has no sale/lease switch, so: For lease = price $200 or less (leases are priced per sq ft per year),
+  // For sale = price $1,000 or more. Types: 4 Commercial, 5 Land, 3 Multi-Family, 12 Farm.
+  // BoldTrail has no Retail / Office / Industrial / Business filter, so those tabs can't be built.
+  listingTabs: [
+    ['All',                     '&types%5B%5D=4&types%5B%5D=5&types%5B%5D=3&types%5B%5D=12'],
+    ['For sale',                '&types%5B%5D=4&types%5B%5D=5&types%5B%5D=3&types%5B%5D=12&min=1000'],
+    ['For lease',               '&types%5B%5D=4&types%5B%5D=5&types%5B%5D=3&types%5B%5D=12&max=200'],
+    ['Commercial & industrial', '&types%5B%5D=4'],
+    ['Land',                    '&types%5B%5D=5']
+  ],
+  listingSearchBase: 'https://www.cherilongcommercial.com/index.php?advanced=1&rtype=map&display=Calgary&pak=city%3Ag30_c3nfkdtg&sortby=listings.listingdate+DESC',
 
   pages: {
     services: 'https://info.cherilongcommercial.com/services/',

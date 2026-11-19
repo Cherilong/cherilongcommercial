@@ -1,5 +1,5 @@
 <!-- ============================================================
-     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1037)
+     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1038)
      Paste into: Web & IDX &#8594; Website Settings &#8594; Custom Body Code
      - Section 1 is intentionally site-wide: it fixes BoldTrail's own search
        filters and modals (CREA "Accept" button reachable on phones).
@@ -11,6 +11,7 @@
      - v1014/v1015: two listings buttons, Recent transactions removed,
        newsletter on a white card (no red band).
      - v1016: homepage inquiry form made more compact.
+     - v1038: listing tabs under "Active properties" (All, For sale, For lease, Commercial & industrial, Land).
      - v1037: version bump (legal block on the info. subdomain pages).
      - v1036: form selects get an arrow; free checklists are checkboxes; Area example "Calgary".
      - v1035: homepage inquiry = the same full form as Contact/Services (compact styles removed).
@@ -108,7 +109,7 @@ div[class*="advanced-search"][style*="max-height"],
      2b) SITE HEADER + FOOTER + FORMS (header.js, from GitHub Pages)
      site-config.js is loaded by the Custom Header Code.
      ========================================================== -->
-<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1037"></script>
+<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1038"></script>
 
 <!-- ==========================================================
      3) HOMEPAGE STYLES. Every rule is scoped to body.page-home
@@ -539,6 +540,18 @@ body.page-home #clc-featured-carousel .owl-nav .owl-next:hover {
 
 #clc-carousel-loading p { margin: 0; }
 
+/* ---- LISTING TABS (v1038) ---- */
+body.page-home .clc-ltabs { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: -12px 0 32px; }
+body.page-home .clc-ltabs:empty { display: none; }
+body.page-home .clc-ltabs .clc-ltabs-label { font: 600 15px var(--clc-display); color: #57534E; margin-right: 4px; }
+body.page-home .clc-ltabs a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px;
+  background: var(--clc-white); border: 1px solid var(--clc-stone); color: var(--clc-black) !important;
+  font: 600 15px var(--clc-display); white-space: nowrap; transition: background .2s, color .2s, border-color .2s;
+}
+body.page-home .clc-ltabs a:hover, body.page-home .clc-ltabs a:focus-visible { background: var(--clc-black); border-color: var(--clc-black); color: var(--clc-white) !important; }
+@media (max-width: 760px) { body.page-home .clc-ltabs { margin-top: 0; } body.page-home .clc-ltabs .clc-ltabs-label { flex: 1 1 100%; } }
+
 /* ---- MEET CHERI ---- */
 body.page-home .clc-team { background: var(--clc-light); }
 body.page-home .clc-bio { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; }
@@ -706,6 +719,8 @@ html body.page-home .cover .clc-hero-inner { padding-bottom: clamp(48px, 7vh, 80
           <a class="clc-btn clc-btn-outline" data-all-listings href="#">Search all listings</a>
         </div>
       </div>
+      <!-- Listing tabs: built from listingTabs in site-config.js; each opens the filtered map search -->
+      <nav class="clc-ltabs" id="clc-ltabs" aria-label="Browse listings by type"></nav>
     </div>
     <div id="clc-featured-carousel" style="position: relative;">
       <div id="clc-carousel-loading"><p>Loading current listings&hellip;</p></div>
@@ -946,6 +961,14 @@ html body.page-home .cover .clc-hero-inner { padding-bottom: clamp(48px, 7vh, 80
     }).join('');
   }
 
+  function buildListingTabs() {
+    const nav = document.getElementById('clc-ltabs');
+    if (!nav || nav.childElementCount || !S.listingTabs || !S.listingSearchBase) return;
+    nav.innerHTML = '<span class="clc-ltabs-label">Browse on the map:</span>' + S.listingTabs.map(function (t) {
+      return '<a href="' + esc(S.listingSearchBase + t[1] + '#rslt') + '">' + esc(t[0]) + '</a>';
+    }).join('');
+  }
+
   function setListingLinks() {
     document.querySelectorAll('a[data-all-listings]').forEach(function (a) { a.setAttribute('href', ALL_LISTINGS_URL); });
     document.querySelectorAll('a[data-my-listings]').forEach(function (a) { a.setAttribute('href', MY_LISTINGS_URL); });
@@ -953,6 +976,7 @@ html body.page-home .cover .clc-hero-inner { padding-bottom: clamp(48px, 7vh, 80
 
   function runAll() {
     setListingLinks();
+    buildListingTabs();
     injectCustomContent();
     moveHeroIntoCover();
     injectFeaturedCarousel();
