@@ -68,6 +68,8 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > **v1036 (Nov 19 2026):** "Free checklists" are two checkboxes (`input[name=guide]`, one or both; sent as `guide="seller,buyer"`,
 > Code.gs splits on commas). Custom arrow on every `.clc-inquiry select` (header.css; BoldTrail strips the native one).
 > Area placeholder "e.g. Calgary".
+> **Favicon (Nov 19 2026):** https://dcy056mmxjr4x.cloudfront.net/ask/favicon.ico (16x16, from Kyle). Subdomain pages link it in
+> <head>; the Custom Header Code swaps BoldTrail's icon for it (script, data-clc="1").
 > **Links page (Nov 18 2026):** `/links/` restyled as a link-in-bio card: name bar, "Welcome" in Great Vibes, Calgary photo +
 > Cheri photo, black "Check out my resources" bar, outline buttons (Cheri's listings, all listings, services, about, inquiry)
 > and a solid black Call button.

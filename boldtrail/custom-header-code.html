@@ -23,6 +23,26 @@
 })();
 </script>
 
+<!-- Favicon (browser tab icon): replaces BoldTrail's own icon on every page -->
+<script>
+(function () {
+  var ICON = 'https://dcy056mmxjr4x.cloudfront.net/ask/favicon.ico';
+  function setIcon() {
+    var head = document.head || document.getElementsByTagName('head')[0];
+    if (!head) return;
+    var links = head.querySelectorAll('link[rel~="icon"]');
+    for (var i = 0; i < links.length; i++) { if (links[i].getAttribute('data-clc') !== '1') links[i].parentNode.removeChild(links[i]); }
+    if (!head.querySelector('link[data-clc="1"]')) {
+      ['icon', 'shortcut icon'].forEach(function (rel) {
+        var l = document.createElement('link'); l.rel = rel; l.href = ICON; l.setAttribute('data-clc', '1'); head.appendChild(l);
+      });
+    }
+  }
+  setIcon();
+  document.addEventListener('DOMContentLoaded', setIcon);
+})();
+</script>
+
 <!-- Shared site settings (single source for phone, address, listings link, lead endpoint) -->
 <script src="https://info.cherilongcommercial.com/assets/js/site-config.js?v=1036"></script>
 
