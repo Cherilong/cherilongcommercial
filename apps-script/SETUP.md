@@ -45,7 +45,7 @@ Lead Engine → Lead Dropbox → scroll to **My API Tokens** → tick **Contacts
 | Free checklist: Buyer & Tenant Due Diligence | `clcguidebuyer` | **Yes (Always Run)** |
 | Ticked the email-updates box (CASL consent) | `clcoptin` | No (use for mass emails) |
 
-Every inquiry gets exactly **one** intent hashtag, so exactly one inquiry campaign starts. Since v1035 there is one form everywhere: an inquiry that also picks a free checklist gets its intent tag **and** `clcguide` + the checklist tag, so the checklist campaign (Always Run) sends the PDF too.
+Every inquiry gets exactly **one** intent hashtag, so exactly one inquiry campaign starts. Since v1035 there is one form everywhere: an inquiry that also ticks a free checklist (one or both boxes) gets its intent tag **and** `clcguide` + the checklist tag, so the checklist campaign (Always Run) sends the PDF too.
 
 ## 4. Build the campaigns (Cheri's BoldTrail → Marketing → Smart Campaigns)
 

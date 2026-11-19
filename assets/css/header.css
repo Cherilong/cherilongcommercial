@@ -440,3 +440,17 @@ body.has-clc-header #footer .footer-top-right * { color: #BDB6AD !important; }
 
 /* v1027: footer brand text removed; the logo now sits at the top of its column */
 #clc-site-footer .clc-foot-logo { margin-top: 0; }
+
+/* v1036: dropdown arrow on every form select (BoldTrail's theme removes the browser's own arrow) */
+.clc-inquiry select {
+  -webkit-appearance: none !important; -moz-appearance: none !important; appearance: none !important;
+  padding-right: 44px !important; cursor: pointer;
+  background: var(--clc-white) url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 14px center / 18px 18px !important;
+}
+.clc-inquiry select::-ms-expand { display: none; }
+/* v1036: free checklists as checkboxes */
+.clc-inquiry .clc-q-guides { border: 0 !important; margin: 0 !important; padding: 0 !important; min-width: 0; }
+.clc-inquiry .clc-q-guides legend { float: none; width: auto; padding: 0; margin: 0 0 4px; border: 0;
+  font: 600 15px var(--clc-display) !important; color: var(--clc-black); text-transform: none !important; letter-spacing: normal !important; }
+.clc-inquiry .clc-q-guides .clc-q-check { margin-top: 10px; font: 400 17px/1.4 var(--clc-body) !important; color: var(--clc-black);
+  text-transform: none !important; letter-spacing: normal !important; cursor: pointer; align-items: center; min-height: 32px; }

@@ -1,5 +1,5 @@
 <!-- ============================================================
-     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1035)
+     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1036)
      Paste into: Web & IDX &#8594; Website Settings &#8594; Custom Body Code
      - Section 1 is intentionally site-wide: it fixes BoldTrail's own search
        filters and modals (CREA "Accept" button reachable on phones).
@@ -11,6 +11,7 @@
      - v1014/v1015: two listings buttons, Recent transactions removed,
        newsletter on a white card (no red band).
      - v1016: homepage inquiry form made more compact.
+     - v1036: form selects get an arrow; free checklists are checkboxes; Area example "Calgary".
      - v1035: homepage inquiry = the same full form as Contact/Services (compact styles removed).
      - v1034: version bump (menu: Resources & Guides removed).
      - v1033: version bump (checklists live on the Services page).
@@ -106,7 +107,7 @@ div[class*="advanced-search"][style*="max-height"],
      2b) SITE HEADER + FOOTER + FORMS (header.js, from GitHub Pages)
      site-config.js is loaded by the Custom Header Code.
      ========================================================== -->
-<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1035"></script>
+<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1036"></script>
 
 <!-- ==========================================================
      3) HOMEPAGE STYLES. Every rule is scoped to body.page-home
@@ -567,8 +568,9 @@ body.page-home .clc-ask-side .clc-ask-call { display: inline-flex; align-items: 
 body.page-home .clc-ask-side .clc-ask-call:hover { color: var(--clc-red) !important; }
 body.page-home .clc-ask-form { background: var(--clc-white); padding: clamp(24px, 3vw, 40px); border-top: 4px solid var(--clc-red); width: 100%; }
 /* BoldTrail upper-cases every <label>: keep the same sentence-case labels as the other pages */
-body.page-home .clc-ask-form .clc-inquiry label { text-transform: none !important; letter-spacing: normal !important; font: 600 15px var(--clc-display) !important; }
+body.page-home .clc-ask-form .clc-inquiry label:not(.clc-q-check) { text-transform: none !important; letter-spacing: normal !important; font: 600 15px var(--clc-display) !important; }
 body.page-home .clc-ask-form .clc-inquiry .clc-q-opt { font-weight: 400 !important; }
+body.page-home .clc-ask-form .clc-inquiry label.clc-q-check { text-transform: none !important; letter-spacing: normal !important; }
 
 /* ---- NEWSLETTER (form built by header.js): white band, card like the service cards ---- */
 body.page-home .clc-news { background: var(--clc-light); color: var(--clc-black); padding: clamp(56px, 7vw, 88px) 0; }

@@ -101,8 +101,11 @@ function buildLead(d) {
     // Exactly one intent hashtag per inquiry, so exactly one inquiry campaign starts
     tags.push(TAGS.intent[d.intent] || TAGS.intent.other);
     if (TAGS.ptype[d.ptype]) tags.push(TAGS.ptype[d.ptype]);
-    // v1035: the inquiry form has an optional "Free checklist" field (one form everywhere)
-    if (TAGS.guide[d.guide]) tags.push(TAGS.form.guide, TAGS.guide[d.guide]);
+    // v1036: the inquiry form has optional "Free checklists" checkboxes: guide = "seller", "buyer" or "seller,buyer"
+    String(d.guide || '').split(',').forEach(function (g) {
+      g = g.trim();
+      if (TAGS.guide[g]) tags.push(TAGS.form.guide, TAGS.guide[g]);
+    });
   }
   if (type === 'guide') {
     const g = TAGS.guide[d.guide] ? d.guide : GUIDE_FOR_INTENT[d.intent];

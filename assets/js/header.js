@@ -1,5 +1,7 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1036 - Free checklists are checkboxes (one or both; guide="seller,buyer"); select arrows
+           (header.css); Area example "e.g. Calgary". Needs Code.gs redeployed.
    v1035 - ONE form everywhere: the full inquiry form (no compact version) with an optional
            "Free checklist" field (guide=seller/buyer -> clcguide + clcguideseller/clcguidebuyer).
            Services checklist cards pick it in that form. Needs Code.gs redeployed.
@@ -51,9 +53,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1035');
+console.log('CLC HEADER JS LOADED v1036');
 (function () {
-  const VERSION = '1035';
+  const VERSION = '1036';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};
@@ -354,9 +356,9 @@ console.log('CLC HEADER JS LOADED v1035');
           <div class="clc-q-field"><label for="${id('phone')}">Phone</label><input id="${id('phone')}" name="phone" type="tel" autocomplete="tel"></div>
           <div class="clc-q-field"><label for="${id('intent')}">I\u2019m looking to</label><select id="${id('intent')}" name="looking_to" data-q="intent">${opts(INTENTS)}</select></div>
           <div class="clc-q-field"><label for="${id('ptype')}">Property type</label><select id="${id('ptype')}" name="property_type" data-q="ptype">${opts(TYPES)}</select></div>
-          ${compact ? '' : `<div class="clc-q-field"><label for="${id('area')}">Area</label><input id="${id('area')}" name="area" placeholder="e.g. NE Calgary, Strathmore"></div>
+          ${compact ? '' : `<div class="clc-q-field"><label for="${id('area')}">Area</label><input id="${id('area')}" name="area" placeholder="e.g. Calgary"></div>
           <div class="clc-q-field clc-q-wide"><label for="${id('details')}">Size, budget or timeline <span class="clc-q-opt">(optional)</span></label><input id="${id('details')}" name="size_budget_timeline" placeholder="e.g. 2,000\u20133,000 sq ft, by spring"></div>`}
-          <div class="clc-q-field clc-q-wide"><label for="${id('guide')}">Free checklist <span class="clc-q-opt">(optional)</span></label><select id="${id('guide')}" name="guide" data-q="guide"><option value="">No thanks</option><option value="seller">Commercial Seller \u0026 Landlord Readiness Checklist</option><option value="buyer">Commercial Buyer \u0026 Tenant Due Diligence Guide</option></select></div>
+          <fieldset class="clc-q-field clc-q-wide clc-q-guides"><legend>Free checklists <span class="clc-q-opt">(optional, tick any)</span></legend><label class="clc-q-check"><input type="checkbox" name="guide" value="seller"> Commercial Seller \u0026 Landlord Readiness Checklist</label><label class="clc-q-check"><input type="checkbox" name="guide" value="buyer"> Commercial Buyer \u0026 Tenant Due Diligence Guide</label></fieldset>
           <div class="clc-q-field clc-q-wide"><label for="${id('msg')}">Message</label><textarea id="${id('msg')}" name="message" rows="${compact ? 3 : 5}"></textarea></div>
         </div>
         <div class="clc-q-actions">
@@ -377,6 +379,7 @@ console.log('CLC HEADER JS LOADED v1035');
       }
       const data = { type: 'inquiry' };
       new FormData(form).forEach(function (v, k) {
+        if (k === 'guide') return;   // checkboxes, collected below
         if (k === 'looking_to' || k === 'property_type') {
           const sel = form.querySelector('[name="' + k + '"]');
           // Readable text for the note + the answer code for the hashtags
@@ -386,11 +389,14 @@ console.log('CLC HEADER JS LOADED v1035');
         data[k] = typeof v === 'string' ? v.trim() : v;
       });
       data.marketing_consent = 'no';   // v1017: no newsletter opt-in on the inquiry form
-      // v1035: optional checklist on the same form. The lead script adds clcguide + clcguideseller/clcguidebuyer.
-      if (!GUIDES[data.guide]) data.guide = '';
-      if (data.guide) data.guide_title = GUIDES[data.guide];
-      const okText = 'Thanks, ' + name + '. Cheri\u2019s team will be in touch shortly' + (data.guide ? ', and your free checklist is on its way to your inbox.' : '.');
-      sendLead(data, msg, okText).then(function (ok) { if (ok && S.leadEndpoint) { form.reset(); markGuide(''); } });
+      // v1036: optional checklists (checkboxes, one or both). guide = "seller", "buyer" or "seller,buyer".
+      // The lead script adds clcguide + clcguideseller and/or clcguidebuyer.
+      const guides = Array.prototype.slice.call(form.querySelectorAll('input[name="guide"]:checked'))
+        .map(function (c) { return c.value; }).filter(function (g) { return GUIDES[g]; });
+      data.guide = guides.join(',');
+      if (guides.length) data.guide_title = guides.map(function (g) { return GUIDES[g]; }).join(' + ');
+      const okText = 'Thanks, ' + name + '. Cheri\u2019s team will be in touch shortly' + (guides.length > 1 ? ', and your free checklists are on their way to your inbox.' : guides.length ? ', and your free checklist is on its way to your inbox.' : '.');
+      sendLead(data, msg, okText).then(function (ok) { if (ok && S.leadEndpoint) { form.reset(); markGuides(); } });
     });
   }
 
@@ -474,29 +480,31 @@ console.log('CLC HEADER JS LOADED v1035');
     });
   }
 
-  // v1035: the checklist cards (a[data-guide="seller|buyer"]) pick that checklist in the inquiry form's
-  // "Free checklist" field and jump to it. The card for the chosen checklist gets .is-picked.
-  function markGuide(g) {
-    document.querySelectorAll('[data-guide]').forEach(function (x) { x.classList.toggle('is-picked', !!g && x.dataset.guide === g); });
+  // v1036: the checklist cards (a[data-guide="seller|buyer"]) tick that checklist's box in the inquiry form
+  // and jump to it. Cards whose box is ticked get .is-picked.
+  function markGuides() {
+    const on = {};
+    document.querySelectorAll(INQ + ' input[name="guide"]:checked').forEach(function (c) { on[c.value] = true; });
+    document.querySelectorAll('a[data-guide]').forEach(function (x) { x.classList.toggle('is-picked', !!on[x.dataset.guide]); });
   }
   let guideBound = false;
   function bindGuideLinks() {
     if (guideBound) return;
     guideBound = true;
     document.addEventListener('click', function (e) {
-      const a = e.target.closest && e.target.closest('[data-guide]');
+      const a = e.target.closest && e.target.closest('a[data-guide]');
       if (!a || !GUIDES[a.dataset.guide]) return;
-      const sel = document.querySelector(INQ + ' select[name="guide"]');
-      if (!sel) return;
+      const box = document.querySelector(INQ + ' input[name="guide"][value="' + a.dataset.guide + '"]');
+      if (!box) return;
       e.preventDefault();
-      sel.value = a.dataset.guide;
-      markGuide(a.dataset.guide);
-      const form = sel.form;
+      box.checked = true;
+      markGuides();
+      const form = box.form;
       (form.closest('[id]') || form).scrollIntoView({ behavior: 'smooth', block: 'start' });
       setTimeout(function () { fld(form, 'name').focus({ preventScroll: true }); }, 500);
     });
     document.addEventListener('change', function (e) {
-      if (e.target && e.target.matches && e.target.matches('select[name="guide"]')) markGuide(e.target.value);
+      if (e.target && e.target.matches && e.target.matches('input[name="guide"]')) markGuides();
     });
   }
 
