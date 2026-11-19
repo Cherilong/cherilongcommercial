@@ -83,6 +83,10 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > **Share image (Nov 19 2026):** `assets/images/share-cheri-long.jpg` (1200x630: hero photo, logo, "Cheri Long" signature,
 > tagline). og:image + twitter tags on every subdomain page and in the Custom Header Code. BoldTrail prints its own og:image
 > first (its homepage background picture), so Kyle sets that background to the same file in BoldTrail.
+> **v1041 (Nov 19 2026):** checklists are BoldTrail EMAILS (no PDFs): Services cards show an envelope icon in `.sv-pdf` and the
+> intro says "Get a free checklist by email." Contact page social card: red "Follow" eyebrow removed. Homepage: no bottom
+> padding on services/listings sections, team top padding clamp(40px,4vw,56px), carousel margin 0, owl-item margin 0,
+> owl-stage-outer padding-bottom 24px: about 104px between the service cards / listing cards and the next block.
 > **Links page (Nov 18 2026):** `/links/` restyled as a link-in-bio card: name bar, "Welcome" in Great Vibes, Calgary photo +
 > Cheri photo, black "Check out my resources" bar, outline buttons (Cheri's listings, all listings, services, about, inquiry)
 > and a solid black Call button.
@@ -159,7 +163,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 1. Edit the file(s) and commit to `main`. GitHub Pages ignores `?v=`, so the commit is what updates the file.
 2. If `clc.css` or `clc.js` changed, bump the version: `VERSION` in the file header, then every `?v=` in
    `boldtrail/custom-header-code.html`, `boldtrail/custom-body-code.html` and every `pages/*/index.html`.
-   Keep all of them on the same number. Current: **1040**.
+   Keep all of them on the same number. Current: **1041**.
 3. Tell Kyle which BoldTrail field(s) to re-paste. Always give the complete file, never a partial diff.
 4. Check the live BoldTrail homepage, one BoldTrail inner page (e.g. a search page) and one subdomain page.
 
@@ -218,7 +222,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
       so `photo` in site-config.js goes stale. Plan: daily GitHub Action that reads www.cherilongcommercial.com, finds the
       `/profiles/<n>.jpg` image, and commits it to `photo` if it changed (does nothing if none found). Until then: copy the
       image address from her BoldTrail profile into `photo` by hand.
-- [ ] Write the two checklist PDFs: Seller & Landlord Readiness, Buyer & Tenant Due Diligence
+- [ ] Write the two checklist EMAILS in BoldTrail (no PDFs): Seller & Landlord Readiness, Buyer & Tenant Due Diligence
 - [ ] Own Privacy Policy page (legal links currently point to royallepage.ca privacy policy + notices)
 - [ ] YouTube channel link when live
 - [x] Domain: cherilongcommercial.com (always link the www version)

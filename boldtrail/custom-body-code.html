@@ -1,5 +1,5 @@
 <!-- ============================================================
-     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1040)
+     CHERI LONG COMMERCIAL HOMEPAGE - BOLDTRAIL CUSTOM BODY CODE  (v1041)
      Paste into: Web & IDX &#8594; Website Settings &#8594; Custom Body Code
      - Section 1 is intentionally site-wide: it fixes BoldTrail's own search
        filters and modals (CREA "Accept" button reachable on phones).
@@ -11,6 +11,7 @@
      - v1014/v1015: two listings buttons, Recent transactions removed,
        newsletter on a white card (no red band).
      - v1016: homepage inquiry form made more compact.
+     - v1041: tighter spacing under the service cards and the listing cards.
      - v1040: "Cheri's listings" pill is white like the others.
      - v1039: "Search all listings" + "Cheri's listings on the map" buttons removed; "Cheri's listings" leads the tab row.
      - v1038: listing tabs under "Active properties" (All, For sale, For lease, Commercial & industrial, Land).
@@ -111,7 +112,7 @@ div[class*="advanced-search"][style*="max-height"],
      2b) SITE HEADER + FOOTER + FORMS (header.js, from GitHub Pages)
      site-config.js is loaded by the Custom Header Code.
      ========================================================== -->
-<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1040"></script>
+<script defer src="https://info.cherilongcommercial.com/assets/js/header.js?v=1041"></script>
 
 <!-- ==========================================================
      3) HOMEPAGE STYLES. Every rule is scoped to body.page-home
@@ -263,7 +264,12 @@ body.page-home a.clc-svc:hover .clc-svc-btn, body.page-home a.clc-svc:focus-visi
 /* ---- LISTINGS: BoldTrail's carousel moved in and restyled ---- */
 body.page-home .clc-listings { background: var(--clc-light); overflow: hidden; }
 /* Meet Cheri (same background) follows straight after: no double-height gap between them */
-body.page-home .clc-section.clc-listings { padding-bottom: 16px; }
+body.page-home .clc-section.clc-listings { padding-bottom: 0; }
+/* v1041: no long empty pause under the service cards or under the listing cards (about 104px between blocks, like the rest) */
+body.page-home .clc-section.clc-services { padding-bottom: 0; }
+body.page-home .clc-section.clc-team { padding-top: clamp(40px, 4vw, 56px); }
+body.page-home #clc-featured-carousel .owl-item { margin-bottom: 0 !important; }
+body.page-home #clc-featured-carousel .owl-stage-outer { padding-bottom: 24px !important; }   /* room for the card shadow */
 body.page-home .clc-listings-empty { padding: 48px 24px; text-align: center; border: 1px dashed var(--clc-stone); color: #57534E; }
 body.page-home .clc-listings-empty a { color: var(--clc-red) !important; font-weight: 700; }
 /* No grey border box around the carousel */
@@ -279,7 +285,7 @@ body.page-home #clc-featured-carousel .clc-lease-tag {
 body.page-home #clc-featured-carousel .clc-lease-unit { font-size: .55em; font-weight: 400; color: #57534E; margin-left: 4px; letter-spacing: 0; }
 body.page-home #clc-featured-carousel {
   max-width: var(--clc-wrap);
-  margin: 0 auto 2rem !important;
+  margin: 0 auto 0 !important;
   padding: 0 56px !important;
   position: relative;
   background: transparent;
@@ -542,7 +548,7 @@ body.page-home #clc-featured-carousel .owl-nav .owl-next:hover {
 
 #clc-carousel-loading p { margin: 0; }
 
-/* ---- LISTING TABS (v1040) ---- */
+/* ---- LISTING TABS (v1041) ---- */
 body.page-home .clc-ltabs { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: -16px 0 32px; }
 body.page-home .clc-ltabs:empty { display: none; }
 body.page-home .clc-ltabs .clc-ltabs-label { font: 600 15px var(--clc-display); color: #57534E; margin-right: 4px; }

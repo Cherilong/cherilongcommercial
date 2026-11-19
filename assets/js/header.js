@@ -1,5 +1,7 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1041 - Version bump only (Services checklist cards: envelope icon; Contact: Follow label removed;
+           homepage spacing).
    v1040 - Version bump only (homepage: Cheri's listings pill white).
    v1039 - Version bump only (homepage: Cheri's listings in the tab row).
    v1038 - Version bump only (homepage listing tabs; listingTabs in site-config.js).
@@ -58,9 +60,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1040');
+console.log('CLC HEADER JS LOADED v1041');
 (function () {
-  const VERSION = '1040';
+  const VERSION = '1041';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};
