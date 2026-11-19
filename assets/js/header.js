@@ -1,5 +1,7 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1032 - Checklist buttons ([data-guide]) get .is-picked when chosen.
+           Services page: free checklists section (#clc-guides, hidden until SHOW_GUIDES).
    v1031 - Version bump only (About: Shelter Foundation logo + wording).
    v1030 - Version bump only (Contact: emails aligned).
    v1029 - Version bump only (Contact: Instagram badge on the social card).
@@ -43,9 +45,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1031');
+console.log('CLC HEADER JS LOADED v1032');
 (function () {
-  const VERSION = '1031';
+  const VERSION = '1032';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};
@@ -469,6 +471,7 @@ console.log('CLC HEADER JS LOADED v1031');
       if (!a || !form || !GUIDES[a.dataset.guide]) return;
       e.preventDefault();
       fld(form, 'guide').value = a.dataset.guide;
+      document.querySelectorAll('[data-guide]').forEach(function (x) { x.classList.toggle('is-picked', x === a); });
       const ok = GUIDE_FOR_INTENT[fld(form, 'looking_to').value] === a.dataset.guide;
       if (!ok) fld(form, 'looking_to').value = a.dataset.guide === 'seller' ? 'sell' : 'buy';
       const btn = form.querySelector('.clc-q-submit');
