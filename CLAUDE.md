@@ -217,7 +217,8 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 - [x] Listings: BoldTrail feed works. Calgary filter needs `pak=city:g30_c3nfkdtg` (display= alone does nothing);
       sorted newest first. Types: 4 Commercial, 5 Land, 3 Multi-Family, 12 Farm.
 - [x] `leadEndpoint`: Apps Script deployed and tested Nov 18 2026 (contact, hashtags, note, dedupe all confirmed)
-- [ ] Build the Smart Campaigns in Cheri's BoldTrail (list in `apps-script/SETUP.md`)
+- [x] Build the Smart Campaigns in Cheri's BoldTrail (built Nov 19 2026, all 9 OFF with placeholder emails; status in `apps-script/SETUP.md`)
+- [ ] Victoria writes the 9 campaign emails; test with a dummy contact; turn campaigns on
 - [ ] Auto-update Cheri's photo: BoldTrail gives every new profile upload a NEW file name (e.g. profiles/1794930163.jpg),
       so `photo` in site-config.js goes stale. Plan: daily GitHub Action that reads www.cherilongcommercial.com, finds the
       `/profiles/<n>.jpg` image, and commits it to `photo` if it changed (does nothing if none found). Until then: copy the

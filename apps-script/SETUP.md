@@ -86,4 +86,23 @@ When the two PDFs are ready: set `SHOW_GUIDES = true` in `header.js`, add a sect
 
 ## Status (Nov 19 2026)
 
-All 9 Smart Campaigns are built in Cheri's account and turned OFF, each with a placeholder email. Victoria writes the real emails, then each campaign is turned on.
+All 9 Smart Campaigns are built in Cheri's account, Designed For ALL, and turned OFF (Campaign Active toggle):
+
+| Campaign | Hashtag | Always Run | Steps |
+|---|---|---|---|
+| CLC - Buyer inquiry | clcbuy | No | Email + call task |
+| CLC - Seller inquiry | clcsell | No | Email + call task |
+| CLC - Tenant inquiry | clcleasespace | No | Email + call task |
+| CLC - Landlord inquiry | clcleaseout | No | Email + call task |
+| CLC - Business brokerage | clcbusiness | No | Email + call task |
+| CLC - General inquiry | clcother | No | Email + call task |
+| CLC - Newsletter welcome | clcnewsletter | No | Email |
+| CLC - Seller & Landlord checklist | clcguideseller | Yes | Email |
+| CLC - Buyer & Tenant checklist | clcguidebuyer | Yes | Email |
+
+- Every step is "Run Immediately" (BoldTrail has no 0-minute option). Emails are sent from Agent (Cheri). Call tasks go to Cheri.
+- Emails: Buyer, Seller, Tenant, Landlord and both checklists hold PLACEHOLDER text; Newsletter, General and Business hold
+  example emails. Victoria writes the final versions of all 9.
+- BoldTrail's spam filter rejects near-identical emails ("violating industry guidelines"): keep each email distinct.
+- Concierge is not active on Cheri's account (unpurchased Marketplace add-on). Behavioral Alerts (Marketing): alerts to
+  contacts off for every status, agent alerts on, "New Lead/Prospect responds -> Active" on. Unchanged.
