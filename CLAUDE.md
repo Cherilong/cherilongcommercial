@@ -57,6 +57,8 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > "independently owned and operated" line on the subdomain pages.
 > **v1032 (Nov 19 2026):** Services page has the free checklists section (`#clc-guides`, `.sv-guides`): two checklist cards
 > (`data-guide="seller"|"buyer"`) + the `[data-clc-guide]` form. Hidden until `SHOW_GUIDES = true`; preview with `?preview=1`.
+> **v1033 (Nov 19 2026):** checklists LIVE (`SHOW_GUIDES = true`, Kyle's call; he builds the clcguideseller/clcguidebuyer
+> campaigns in BoldTrail). Menu "Resources & Guides" (`a[data-guides]`) goes to services/#clc-guides.
 > **Links page (Nov 18 2026):** `/links/` restyled as a link-in-bio card: name bar, "Welcome" in Great Vibes, Calgary photo +
 > Cheri photo, black "Check out my resources" bar, outline buttons (Cheri's listings, all listings, services, about, inquiry)
 > and a solid black Call button.
@@ -67,7 +69,7 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > `clcguideseller`/`clcguidebuyer`, `clcoptin` for CASL consent), adds a note (PUT `/contact/{id}/action/note`, text in
 > `details`) and emails cladmin@ a backup. Trigger hashtags start Smart Campaigns ("Hashtag is", Designed For ALL).
 > Token lives only in Script Properties (`BOLDTRAIL_TOKEN`). Checklist form `[data-clc-guide]` is built but hidden
-> (`SHOW_GUIDES = false`) until the PDFs exist.
+> (`SHOW_GUIDES`; true since v1033).
 > **Subdomain pages (v1005):** `/services/`, `/about/`, `/contact/` (site header + footer, styles in
 > `assets/css/pages.css`; header.js fills `<footer id="clc-site-footer">`) and `/links/` (stand-alone Instagram
 > link-in-bio page, own inline styles). New pages: copy `/_template/` to `/<page-name>/`. The old `pages/` folder
@@ -133,7 +135,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 1. Edit the file(s) and commit to `main`. GitHub Pages ignores `?v=`, so the commit is what updates the file.
 2. If `clc.css` or `clc.js` changed, bump the version: `VERSION` in the file header, then every `?v=` in
    `boldtrail/custom-header-code.html`, `boldtrail/custom-body-code.html` and every `pages/*/index.html`.
-   Keep all of them on the same number. Current: **1032**.
+   Keep all of them on the same number. Current: **1033**.
 3. Tell Kyle which BoldTrail field(s) to re-paste. Always give the complete file, never a partial diff.
 4. Check the live BoldTrail homepage, one BoldTrail inner page (e.g. a search page) and one subdomain page.
 

@@ -1,5 +1,7 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1033 - Checklists LIVE (SHOW_GUIDES = true). Menu "Resources & Guides" goes to
+           the Services page #clc-guides (data-guides).
    v1032 - Checklist buttons ([data-guide]) get .is-picked when chosen.
            Services page: free checklists section (#clc-guides, hidden until SHOW_GUIDES).
    v1031 - Version bump only (About: Shelter Foundation logo + wording).
@@ -45,9 +47,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1032');
+console.log('CLC HEADER JS LOADED v1033');
 (function () {
-  const VERSION = '1032';
+  const VERSION = '1033';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};
@@ -66,7 +68,7 @@ console.log('CLC HEADER JS LOADED v1032');
 
   // false = hide "Resources & Guides" (checklists) until the checklist PDFs exist
   // and the two delivery campaigns are built in BoldTrail.
-  const SHOW_GUIDES = false;
+  const SHOW_GUIDES = true;
 
   // The inquiry form only (the checklist form shares its styling class)
   const INQ = 'form.clc-inquiry:not(.clc-guide)';
@@ -120,7 +122,7 @@ console.log('CLC HEADER JS LOADED v1032');
         <li><a data-listings href="#">Listings</a></li>
         <li><a data-page="services" href="#">Services</a></li>
         <li><a data-page="about" href="#">About Cheri</a></li>
-        ${SHOW_GUIDES ? '<li><a data-sec="clc-guides" href="#">Resources &amp; Guides</a></li>' : ''}
+        ${SHOW_GUIDES ? '<li><a data-guides href="#">Resources &amp; Guides</a></li>' : ''}
         <li><a data-page="contact" href="#">Contact</a></li>
       </ul>
       <div class="clc-nav-extra">
@@ -157,6 +159,10 @@ console.log('CLC HEADER JS LOADED v1032');
     document.querySelectorAll('#clc-header a[data-sec]').forEach(function (a) {
       const id = a.getAttribute('data-sec');
       a.setAttribute('href', document.getElementById(id) ? '#' + id : MAIN + '/#' + id);
+    });
+    // Checklists live on the Services page: jump within the page when the section is here
+    document.querySelectorAll('#clc-header a[data-guides]').forEach(function (a) {
+      a.setAttribute('href', document.getElementById('clc-guides') ? '#clc-guides' : PAGES.services + '#clc-guides');
     });
     document.querySelectorAll('#clc-header a[data-home]').forEach(function (a) { a.setAttribute('href', base + '/'); });
     document.querySelectorAll('a[data-listings], a[data-all-listings]').forEach(function (a) { a.setAttribute('href', LISTINGS_URL); });
