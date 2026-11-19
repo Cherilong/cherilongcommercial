@@ -70,6 +70,9 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > Area placeholder "e.g. Calgary".
 > **Favicon (Nov 19 2026):** https://dcy056mmxjr4x.cloudfront.net/ask/favicon.ico (16x16, from Kyle). Subdomain pages link it in
 > <head>; the Custom Header Code swaps BoldTrail's icon for it (script, data-clc="1").
+> **v1037 (Nov 19 2026):** subdomain pages' footer gets `.clc-legal` (`legalBlock()` in header.js), copied from BoldTrail's
+> footer text: Pillar 9/MLS/CREA/DDF disclaimers, "independently owned and operated", rlp.ca/notices, (c) Bridgemarq, and
+> links to the main site's /terms.php, /privacy.php, /accessibility.php + royallepage.ca. Not added on BoldTrail pages.
 > **Links page (Nov 18 2026):** `/links/` restyled as a link-in-bio card: name bar, "Welcome" in Great Vibes, Calgary photo +
 > Cheri photo, black "Check out my resources" bar, outline buttons (Cheri's listings, all listings, services, about, inquiry)
 > and a solid black Call button.
@@ -146,7 +149,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 1. Edit the file(s) and commit to `main`. GitHub Pages ignores `?v=`, so the commit is what updates the file.
 2. If `clc.css` or `clc.js` changed, bump the version: `VERSION` in the file header, then every `?v=` in
    `boldtrail/custom-header-code.html`, `boldtrail/custom-body-code.html` and every `pages/*/index.html`.
-   Keep all of them on the same number. Current: **1036**.
+   Keep all of them on the same number. Current: **1037**.
 3. Tell Kyle which BoldTrail field(s) to re-paste. Always give the complete file, never a partial diff.
 4. Check the live BoldTrail homepage, one BoldTrail inner page (e.g. a search page) and one subdomain page.
 

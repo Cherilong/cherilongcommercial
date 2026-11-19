@@ -1,5 +1,7 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1037 - Subdomain pages get the same legal block as BoldTrail's footer (MLS/CREA/DDF,
+           independently owned and operated, rlp.ca/notices, Terms/Privacy/Accessibility links).
    v1036 - Free checklists are checkboxes (one or both; guide="seller,buyer"); select arrows
            (header.css); Area example "e.g. Calgary". Needs Code.gs redeployed.
    v1035 - ONE form everywhere: the full inquiry form (no compact version) with an optional
@@ -53,9 +55,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1036');
+console.log('CLC HEADER JS LOADED v1037');
 (function () {
-  const VERSION = '1036';
+  const VERSION = '1037';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};
@@ -306,8 +308,30 @@ console.log('CLC HEADER JS LOADED v1036');
             ${S.officePhone ? `<p>Office <a class="clc-tel" href="tel:+1${String(S.officePhone).replace(/[^0-9]/g, '')}">${esc(S.officePhone)}</a></p>` : ''}
           </div>
         </div>
+        ${onBoldTrail ? '' : legalBlock()}
       </div>`;
     slot.dataset.built = 'true';
+  }
+
+  /* v1037: legal block for the info. subdomain pages, matching BoldTrail's own footer on the main site
+     (BoldTrail pages keep BoldTrail's footer, so this is NOT added there). Links go to the main site's
+     Terms / Privacy / Accessibility pages. */
+  function legalBlock() {
+    const y = new Date().getFullYear();
+    return `
+        <div class="clc-legal">
+          <p class="clc-legal-mls"><img src="https://d9la9jrhv6fdd.cloudfront.net/mlslogos/199.png" alt="MLS Multiple Listing Service" width="90" height="34" loading="lazy"> Data is supplied by Pillar 9\u2122 MLS\u00ae System. Pillar 9\u2122 is the owner of the copyright in its MLS\u00ae System. Data is deemed reliable but is not guaranteed accurate by Pillar 9\u2122. The trademarks MLS\u00ae, Multiple Listing Service\u00ae and the associated logos are owned by The Canadian Real Estate Association (CREA) and identify the quality of services provided by real estate professionals who are members of CREA. Used under license.</p>
+          <p>The property information on this website is derived from Royal LePage listings and the Canadian Real Estate Association's Data Distribution Facility (DDF\u00ae). DDF\u00ae references real estate listings held by brokerage firms other than Royal LePage and its franchisees. The above information is from sources believed reliable, however, no responsibility is assumed for the accuracy of this information. Contact information is provided to facilitate inquiries from consumers interested in real estate services. Please do not contact the website owner with unsolicited commercial offers.</p>
+          <p>The MLS\u00ae mark and associated logos identify professional services rendered by REALTOR\u00ae members of CREA to effect the purchase, sale and lease of real estate as part of a cooperative selling system.</p>
+          <p>The trademarks REALTOR\u00ae, REALTORS\u00ae and the REALTOR\u00ae logo are controlled by The Canadian Real Estate Association (CREA) and identify real estate professionals who are members of CREA. The trademarks MLS\u00ae, Multiple Listing Service\u00ae and the associated logos are owned by CREA and identify the quality of services provided by real estate professionals who are members of CREA.</p>
+          <p>All offices are independently owned and operated, except those marked as indicated. View important disclosures and notices about Royal LePage\u00ae trademarks at <a href="https://rlp.ca/notices" target="_blank" rel="noopener">rlp.ca/notices</a>. \u00a9 ${y} Bridgemarq Real Estate Services\u00ae. All rights reserved.</p>
+          <nav aria-label="Legal">
+            <a href="${MAIN}/terms.php">Terms of Use</a>
+            <a href="${MAIN}/privacy.php">Privacy Policy</a>
+            <a href="${MAIN}/accessibility.php">Accessibility</a>
+            <a href="https://www.royallepage.ca/" target="_blank" rel="noopener">royallepage.ca</a>
+          </nav>
+        </div>`;
   }
 
   /* \u2500\u2500\u2500 Lead capture \u2500\u2500\u2500

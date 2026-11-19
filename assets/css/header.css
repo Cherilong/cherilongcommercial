@@ -454,3 +454,12 @@ body.has-clc-header #footer .footer-top-right * { color: #BDB6AD !important; }
   font: 600 15px var(--clc-display) !important; color: var(--clc-black); text-transform: none !important; letter-spacing: normal !important; }
 .clc-inquiry .clc-q-guides .clc-q-check { margin-top: 10px; font: 400 17px/1.4 var(--clc-body) !important; color: var(--clc-black);
   text-transform: none !important; letter-spacing: normal !important; cursor: pointer; align-items: center; min-height: 32px; }
+
+/* v1037: legal block on the info. subdomain pages (matches BoldTrail's footer on the main site) */
+#clc-site-footer .clc-legal { margin-top: 56px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,.15); font: 400 14px/1.6 var(--clc-body); color: #BDB6AD; display: block; }
+#clc-site-footer .clc-legal p { max-width: none; margin: 0 0 16px; }
+#clc-site-footer .clc-legal-mls img { float: left; width: 90px; height: auto; margin: 2px 14px 6px 0; background: #fff; padding: 3px; border-radius: 2px; }
+#clc-site-footer .clc-legal-mls::after { content: ""; display: block; clear: both; }
+#clc-site-footer .clc-legal a { color: #BDB6AD !important; text-decoration: underline !important; }
+#clc-site-footer .clc-legal a:hover { color: var(--clc-white) !important; }
+#clc-site-footer .clc-legal nav { display: flex; gap: 8px 24px; flex-wrap: wrap; margin-top: 24px; }
