@@ -80,6 +80,9 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > after loading the search URL.
 > **v1039 (Nov 19 2026):** the two buttons beside "Active properties" are gone; "Cheri's listings" (white pill since v1040, `myListingsUrl`)
 > leads the tab row.
+> **Share image (Nov 19 2026):** `assets/images/share-cheri-long.jpg` (1200x630: hero photo, logo, "Cheri Long" signature,
+> tagline). og:image + twitter tags on every subdomain page and in the Custom Header Code. BoldTrail prints its own og:image
+> first (its homepage background picture), so Kyle sets that background to the same file in BoldTrail.
 > **Links page (Nov 18 2026):** `/links/` restyled as a link-in-bio card: name bar, "Welcome" in Great Vibes, Calgary photo +
 > Cheri photo, black "Check out my resources" bar, outline buttons (Cheri's listings, all listings, services, about, inquiry)
 > and a solid black Call button.
