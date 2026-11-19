@@ -1,5 +1,8 @@
 /* =========================================================
    Cheri Long Commercial - Header, footer, forms & page fixes
+   v1035 - ONE form everywhere: the full inquiry form (no compact version) with an optional
+           "Free checklist" field (guide=seller/buyer -> clcguide + clcguideseller/clcguidebuyer).
+           Services checklist cards pick it in that form. Needs Code.gs redeployed.
    v1034 - Menu: "Resources & Guides" removed (checklists stay on the Services page).
    v1033 - Checklists LIVE (SHOW_GUIDES = true). Menu "Resources & Guides" goes to
            the Services page #clc-guides (data-guides).
@@ -48,9 +51,9 @@
    v1001 - Builds the header on every page; html.clc-ready reveals the page.
    Bump ?v= in BOTH BoldTrail Custom Code fields and the subdomain pages when this changes.
    ========================================================= */
-console.log('CLC HEADER JS LOADED v1034');
+console.log('CLC HEADER JS LOADED v1035');
 (function () {
-  const VERSION = '1034';
+  const VERSION = '1035';
 
   /* \u2500\u2500\u2500 CONFIG: everything comes from assets/js/site-config.js \u2500\u2500\u2500 */
   const S = window.CLC_SITE || {};
@@ -340,7 +343,7 @@ console.log('CLC HEADER JS LOADED v1034');
   let formCount = 0;
   function renderInquiry(slot) {
     if (slot.dataset.built === 'true') return;
-    const compact = slot.getAttribute('data-clc-inquiry') === 'compact';
+    const compact = false;   // v1035: one full form everywhere (homepage, Contact, Services)
     const n = ++formCount, id = function (k) { return 'clc-q' + n + '-' + k; };
     slot.innerHTML = `
       <form class="clc-inquiry${compact ? ' is-compact' : ''}" novalidate>
@@ -353,6 +356,7 @@ console.log('CLC HEADER JS LOADED v1034');
           <div class="clc-q-field"><label for="${id('ptype')}">Property type</label><select id="${id('ptype')}" name="property_type" data-q="ptype">${opts(TYPES)}</select></div>
           ${compact ? '' : `<div class="clc-q-field"><label for="${id('area')}">Area</label><input id="${id('area')}" name="area" placeholder="e.g. NE Calgary, Strathmore"></div>
           <div class="clc-q-field clc-q-wide"><label for="${id('details')}">Size, budget or timeline <span class="clc-q-opt">(optional)</span></label><input id="${id('details')}" name="size_budget_timeline" placeholder="e.g. 2,000\u20133,000 sq ft, by spring"></div>`}
+          <div class="clc-q-field clc-q-wide"><label for="${id('guide')}">Free checklist <span class="clc-q-opt">(optional)</span></label><select id="${id('guide')}" name="guide" data-q="guide"><option value="">No thanks</option><option value="seller">Commercial Seller \u0026 Landlord Readiness Checklist</option><option value="buyer">Commercial Buyer \u0026 Tenant Due Diligence Guide</option></select></div>
           <div class="clc-q-field clc-q-wide"><label for="${id('msg')}">Message</label><textarea id="${id('msg')}" name="message" rows="${compact ? 3 : 5}"></textarea></div>
         </div>
         <div class="clc-q-actions">
@@ -382,7 +386,11 @@ console.log('CLC HEADER JS LOADED v1034');
         data[k] = typeof v === 'string' ? v.trim() : v;
       });
       data.marketing_consent = 'no';   // v1017: no newsletter opt-in on the inquiry form
-      sendLead(data, msg, 'Thanks, ' + name + '. Cheri\u2019s team will be in touch shortly.').then(function (ok) { if (ok && S.leadEndpoint) form.reset(); });
+      // v1035: optional checklist on the same form. The lead script adds clcguide + clcguideseller/clcguidebuyer.
+      if (!GUIDES[data.guide]) data.guide = '';
+      if (data.guide) data.guide_title = GUIDES[data.guide];
+      const okText = 'Thanks, ' + name + '. Cheri\u2019s team will be in touch shortly' + (data.guide ? ', and your free checklist is on its way to your inbox.' : '.');
+      sendLead(data, msg, okText).then(function (ok) { if (ok && S.leadEndpoint) { form.reset(); markGuide(''); } });
     });
   }
 
@@ -466,24 +474,29 @@ console.log('CLC HEADER JS LOADED v1034');
     });
   }
 
-  // Buttons with data-guide="seller|buyer": pick that checklist, preselect a matching answer, jump to the form
+  // v1035: the checklist cards (a[data-guide="seller|buyer"]) pick that checklist in the inquiry form's
+  // "Free checklist" field and jump to it. The card for the chosen checklist gets .is-picked.
+  function markGuide(g) {
+    document.querySelectorAll('[data-guide]').forEach(function (x) { x.classList.toggle('is-picked', !!g && x.dataset.guide === g); });
+  }
   let guideBound = false;
   function bindGuideLinks() {
     if (guideBound) return;
     guideBound = true;
     document.addEventListener('click', function (e) {
       const a = e.target.closest && e.target.closest('[data-guide]');
-      const form = document.querySelector('form.clc-guide');
-      if (!a || !form || !GUIDES[a.dataset.guide]) return;
+      if (!a || !GUIDES[a.dataset.guide]) return;
+      const sel = document.querySelector(INQ + ' select[name="guide"]');
+      if (!sel) return;
       e.preventDefault();
-      fld(form, 'guide').value = a.dataset.guide;
-      document.querySelectorAll('[data-guide]').forEach(function (x) { x.classList.toggle('is-picked', x === a); });
-      const ok = GUIDE_FOR_INTENT[fld(form, 'looking_to').value] === a.dataset.guide;
-      if (!ok) fld(form, 'looking_to').value = a.dataset.guide === 'seller' ? 'sell' : 'buy';
-      const btn = form.querySelector('.clc-q-submit');
-      if (btn) btn.textContent = 'Email me the ' + (a.dataset.guide === 'seller' ? 'seller & landlord checklist' : 'buyer & tenant guide');
+      sel.value = a.dataset.guide;
+      markGuide(a.dataset.guide);
+      const form = sel.form;
       (form.closest('[id]') || form).scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setTimeout(function () { fld(form, 'first_name').focus({ preventScroll: true }); }, 500);
+      setTimeout(function () { fld(form, 'name').focus({ preventScroll: true }); }, 500);
+    });
+    document.addEventListener('change', function (e) {
+      if (e.target && e.target.matches && e.target.matches('select[name="guide"]')) markGuide(e.target.value);
     });
   }
 
@@ -500,7 +513,7 @@ console.log('CLC HEADER JS LOADED v1034');
     document.querySelectorAll('a[data-intent]').forEach(function (a) {
       if (a.dataset.intentSet) return;
       a.dataset.intentSet = '1';
-      if (!document.querySelector(INQ)) {
+      if (!document.querySelector(INQ) || document.getElementById('clc-guides')) {
         a.href = PAGES.contact + '?intent=' + encodeURIComponent(a.dataset.intent) + (a.dataset.ptype ? '&type=' + encodeURIComponent(a.dataset.ptype) : '') + '#inquiry';
       }
     });
@@ -509,7 +522,7 @@ console.log('CLC HEADER JS LOADED v1034');
     document.addEventListener('click', function (e) {
       const a = e.target.closest && e.target.closest('a[data-intent]');
       const form = document.querySelector(INQ);
-      if (!a || !form) return;
+      if (!a || !form || document.getElementById('clc-guides')) return;
       e.preventDefault();
       setIntent(a.dataset.intent, a.dataset.ptype);
       const box = form.closest('[id]') || form;

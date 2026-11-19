@@ -61,6 +61,10 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > campaigns in BoldTrail). Menu "Resources & Guides" (`a[data-guides]`) went to services/#clc-guides.
 > **v1034 (Nov 19 2026):** "Resources & Guides" menu item REMOVED (Kyle: same as Services). Checklists stay on Services.
 > **Nov 19 2026:** Services page "Property types" section removed (Kyle's call).
+> **v1035 (Nov 19 2026):** ONE form everywhere (Kyle): homepage, Contact and Services all use the full `[data-clc-inquiry]`
+> form (compact variant + its homepage CSS removed) with an optional "Free checklist" select (`name=guide`). Code.gs tags an
+> inquiry with a guide as `clcguide` + `clcguideseller`/`clcguidebuyer` (redeploy needed). Services checklist cards fill that
+> select; service buttons on Services still go to the Contact page. `renderGuide` / `[data-clc-guide]` is no longer used.
 > **Links page (Nov 18 2026):** `/links/` restyled as a link-in-bio card: name bar, "Welcome" in Great Vibes, Calgary photo +
 > Cheri photo, black "Check out my resources" bar, outline buttons (Cheri's listings, all listings, services, about, inquiry)
 > and a solid black Call button.
@@ -137,7 +141,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 1. Edit the file(s) and commit to `main`. GitHub Pages ignores `?v=`, so the commit is what updates the file.
 2. If `clc.css` or `clc.js` changed, bump the version: `VERSION` in the file header, then every `?v=` in
    `boldtrail/custom-header-code.html`, `boldtrail/custom-body-code.html` and every `pages/*/index.html`.
-   Keep all of them on the same number. Current: **1034**.
+   Keep all of them on the same number. Current: **1035**.
 3. Tell Kyle which BoldTrail field(s) to re-paste. Always give the complete file, never a partial diff.
 4. Check the live BoldTrail homepage, one BoldTrail inner page (e.g. a search page) and one subdomain page.
 

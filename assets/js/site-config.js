@@ -9,7 +9,7 @@
    showing a placeholder is hidden on the live site, never shown.
    ========================================================= */
 window.CLC_SITE = {
-  version: '1034',
+  version: '1035',
 
   // Main BoldTrail site. Always the www address.
   mainSite: 'https://www.cherilongcommercial.com',
