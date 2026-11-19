@@ -78,7 +78,7 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > per sq ft), Commercial & industrial (type 4), Land (type 5). BoldTrail has NO keyword/subtype filter (tested: `keywords=`
 > is ignored), so Retail / Office / Business tabs are not possible. Counts can be checked via `/json.php` (listingsTotal)
 > after loading the search URL.
-> **v1039 (Nov 19 2026):** the two buttons beside "Active properties" are gone; "Cheri's listings" (black pill, `myListingsUrl`)
+> **v1039 (Nov 19 2026):** the two buttons beside "Active properties" are gone; "Cheri's listings" (white pill since v1040, `myListingsUrl`)
 > leads the tab row.
 > **Links page (Nov 18 2026):** `/links/` restyled as a link-in-bio card: name bar, "Welcome" in Great Vibes, Calgary photo +
 > Cheri photo, black "Check out my resources" bar, outline buttons (Cheri's listings, all listings, services, about, inquiry)
@@ -156,7 +156,7 @@ preview/index.html              preview of the BoldTrail homepage without BoldTr
 1. Edit the file(s) and commit to `main`. GitHub Pages ignores `?v=`, so the commit is what updates the file.
 2. If `clc.css` or `clc.js` changed, bump the version: `VERSION` in the file header, then every `?v=` in
    `boldtrail/custom-header-code.html`, `boldtrail/custom-body-code.html` and every `pages/*/index.html`.
-   Keep all of them on the same number. Current: **1039**.
+   Keep all of them on the same number. Current: **1040**.
 3. Tell Kyle which BoldTrail field(s) to re-paste. Always give the complete file, never a partial diff.
 4. Check the live BoldTrail homepage, one BoldTrail inner page (e.g. a search page) and one subdomain page.
 
