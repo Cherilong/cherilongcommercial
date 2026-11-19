@@ -53,6 +53,8 @@ Built and maintained by Kyle Duiker (Broker Delegate, Royal LePage Solutions).
 > **v1031 (Nov 19 2026):** Giving back retitled "Supporting the Royal LePage® Shelter Foundation" with the RLPSF Proud
 > Supporter logo (`assets/images/rlp-shelter-foundation-proud-supporter.png`, `.ab-give-logo`). @artemisshelter2024 is
 > Artemis the Raccoon (Cheri's fundraising for the Foundation), NOT a shelter called Artemis.
+> **Nov 19 2026:** About page "Backed by Royal LePage® Commercial" section removed (Kyle's call). It carried the only
+> "independently owned and operated" line on the subdomain pages.
 > **Links page (Nov 18 2026):** `/links/` restyled as a link-in-bio card: name bar, "Welcome" in Great Vibes, Calgary photo +
 > Cheri photo, black "Check out my resources" bar, outline buttons (Cheri's listings, all listings, services, about, inquiry)
 > and a solid black Call button.
